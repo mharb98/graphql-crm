@@ -14,6 +14,9 @@ import { GraphqlModule } from './graphql/graphql.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: false,
+      context: {
+        loaders: '',
+      },
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     GraphqlModule,

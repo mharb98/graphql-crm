@@ -50,9 +50,34 @@ export class CustomerResolver {
 
   @Mutation((returns) => Customer)
   async updateCustomer(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of customer record being updated',
+    })
+    id: number,
     @Args('updateCustomerDTO') updateCustomerDTO: UpdateCustomerDTO,
   ) {
+    console.log(id);
     console.log(updateCustomerDTO);
+
+    return {
+      id: 1,
+      firstName: 'Marwan',
+      lastName: 'Salah',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
+  @Mutation((returns) => Customer)
+  async deleteCustomer(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the customer that has to be deleted',
+    })
+    id: number,
+  ) {
+    console.log(id);
 
     return {
       id: 1,

@@ -24,6 +24,24 @@ input CreateCustomerDTO {
   lastName: String!
 }
 
+"""Input for creation of users"""
+input CreateUserDTO {
+  """Email of user"""
+  email: String!
+
+  """First name of user"""
+  firstName: String!
+
+  """Last name of user"""
+  lastName: String!
+
+  """Middle name of user"""
+  middleName: String!
+
+  """Phone number of user"""
+  phoneNumber: String!
+}
+
 type Customer {
   """Contact Info for customer"""
   contactInfo: [ContactInfo!]!
@@ -50,10 +68,47 @@ scalar DateTime
 
 type Mutation {
   createCustomer(createCustomerDTO: CreateCustomerDTO!): Customer!
-  updateCustomer(updateCustomerDTO: UpdateCustomerDTO!): Customer!
+
+  """Creates a user record"""
+  createUser(createUserDto: CreateUserDTO!): User!
+  deleteCustomer(
+    """ID of the customer that has to be deleted"""
+    id: Int!
+  ): Customer!
+
+  """Delete a user from CRM"""
+  deleteUser(
+    """ID of user being deleted"""
+    id: Int!
+  ): User!
+
+  """Disable a user from accessing the CRM"""
+  disableUser(
+    """ID of the user being disabled"""
+    id: Int!
+  ): User!
+
+  """Enable a user to access the CRM"""
+  enableUser(
+    """ID of the user being enabled"""
+    id: Int!
+  ): User!
+  updateCustomer(
+    """ID of customer record being updated"""
+    id: Int!
+    updateCustomerDTO: UpdateCustomerDTO!
+  ): Customer!
+
+  """Updates an existing user record"""
+  updateUser(
+    """ID of the user record being updated"""
+    id: Int!
+    updateUserDto: UpdateUserDTO!
+  ): User!
 }
 
 type Query {
+  """Query users model and returns a paginated users result"""
   QueryUsers: [User!]!
 
   """Returns a contact info specified by an ID"""
@@ -82,6 +137,24 @@ input UpdateCustomerDTO {
 
   """Last name of customer being created"""
   lastName: String
+}
+
+"""Input for updating an existing user record"""
+input UpdateUserDTO {
+  """Email"""
+  email: String
+
+  """First Name"""
+  firstName: String
+
+  """Last name of user being updated"""
+  lastName: String
+
+  """Middle Name"""
+  middleName: String
+
+  """Phone Number"""
+  phoneNumber: String
 }
 
 type User {
