@@ -12,6 +12,12 @@ type ContactInfo {
   value: String!
 }
 
+"""Input for creation of customers contact info"""
+input CreateContactInfoDTO {
+  """Value for contact info being added"""
+  value: String!
+}
+
 """Input for creation of customers"""
 input CreateCustomerDTO {
   """Contact information for customer"""
@@ -67,10 +73,23 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
+  """Add new contact info for a customer"""
+  createContactInfo(
+    createContactInfoDto: CreateContactInfoDTO!
+
+    """ID of customer with the contact info"""
+    customerId: Int!
+  ): ContactInfo!
   createCustomer(createCustomerDTO: CreateCustomerDTO!): Customer!
 
   """Creates a user record"""
   createUser(createUserDto: CreateUserDTO!): User!
+
+  """Deletes an existing contact info"""
+  deleteContactInfo(
+    """ID of contact info to be deleted"""
+    id: Int!
+  ): ContactInfo!
   deleteCustomer(
     """ID of the customer that has to be deleted"""
     id: Int!
@@ -93,6 +112,13 @@ type Mutation {
     """ID of the user being enabled"""
     id: Int!
   ): User!
+
+  """Update existing customer contact info"""
+  updateContactInfo(
+    """ID of contact info to be deleted"""
+    id: Int!
+    updateContactInfoDto: UpdateContactInfoDTO!
+  ): ContactInfo!
   updateCustomer(
     """ID of customer record being updated"""
     id: Int!
@@ -128,6 +154,12 @@ type Query {
     """ID of the user needed to be returned"""
     id: Int!
   ): User!
+}
+
+"""Input for updating customer contact info"""
+input UpdateContactInfoDTO {
+  """Value of contact info"""
+  value: String!
 }
 
 """Input for updating customers"""

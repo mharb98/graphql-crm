@@ -1,5 +1,14 @@
-import { Args, Int, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { ContactInfo } from './types/contact-info.model';
+import { CreateContactInfoDTO } from './types/create-contact-info.dto';
+import { UpdateContactInfoDTO } from './types/update-contact-info.dto';
 
 @Resolver((of) => ContactInfo)
 export class ContactInfoResolver {
@@ -14,6 +23,73 @@ export class ContactInfoResolver {
     })
     id: number,
   ) {
+    return {
+      id,
+      type: 'email',
+      value: 'example@exampledomain.com',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
+  @Mutation((returns) => ContactInfo, {
+    description: 'Add new contact info for a customer',
+  })
+  async createContactInfo(
+    @Args('customerId', {
+      type: () => Int,
+      description: 'ID of customer with the contact info',
+    })
+    customerId: number,
+    @Args('createContactInfoDto') createContactInfoDto: CreateContactInfoDTO,
+  ) {
+    console.log(customerId);
+    console.log(createContactInfoDto);
+
+    return {
+      id: 1,
+      type: 'email',
+      value: 'example@exampledomain.com',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
+  @Mutation((returns) => ContactInfo, {
+    description: 'Update existing customer contact info',
+  })
+  async updateContactInfo(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of contact info to be deleted',
+    })
+    id: number,
+    @Args('updateContactInfoDto') updateContactInfoDto: UpdateContactInfoDTO,
+  ) {
+    console.log(id);
+    console.log(updateContactInfoDto);
+
+    return {
+      id,
+      type: 'email',
+      value: 'example@exampledomain.com',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
+  @Mutation((returns) => ContactInfo, {
+    description: 'Deletes an existing contact info',
+  })
+  async deleteContactInfo(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of contact info to be deleted',
+    })
+    id: number,
+  ) {
+    console.log(id);
+
     return {
       id,
       type: 'email',
