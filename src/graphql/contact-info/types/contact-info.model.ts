@@ -10,9 +10,6 @@ export class ContactInfo {
   id: number;
 
   @Field()
-  type: string;
-
-  @Field()
   value: string;
 
   @Field()

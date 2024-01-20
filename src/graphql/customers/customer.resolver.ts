@@ -1,5 +1,14 @@
-import { Args, Int, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { Customer } from './types/customer.model';
+import { CreateCustomerDTO } from './types/create-customer.dto';
+import { UpdateCustomerDTO } from './types/update-customer.dto';
 
 @Resolver((of) => Customer)
 export class CustomerResolver {
@@ -18,6 +27,35 @@ export class CustomerResolver {
   ) {
     return {
       id: id,
+      firstName: 'Marwan',
+      lastName: 'Salah',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
+  @Mutation((returns) => Customer)
+  async createCustomer(
+    @Args('createCustomerDTO') createCustomerDTO: CreateCustomerDTO,
+  ) {
+    console.log(createCustomerDTO);
+    return {
+      id: 1,
+      firstName: 'Marwan',
+      lastName: 'Salah',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
+  @Mutation((returns) => Customer)
+  async updateCustomer(
+    @Args('updateCustomerDTO') updateCustomerDTO: UpdateCustomerDTO,
+  ) {
+    console.log(updateCustomerDTO);
+
+    return {
+      id: 1,
       firstName: 'Marwan',
       lastName: 'Salah',
       createdAt: new Date(),
@@ -45,14 +83,12 @@ export class CustomerResolver {
     return [
       {
         id: 1,
-        type: 'email',
         value: 'example@exampledomain.com',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: 1,
-        type: 'mobile',
         value: '+201013949494',
         createdAt: new Date(),
         updatedAt: new Date(),
