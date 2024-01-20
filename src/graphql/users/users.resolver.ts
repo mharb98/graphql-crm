@@ -28,4 +28,32 @@ export class UserResolver {
       updatedAt: new Date(),
     };
   }
+
+  @Query((type) => [User], { name: 'QueryUsers' })
+  async queryUsers(): Promise<User[]> {
+    return [
+      {
+        id: 1,
+        firstName: 'Marwan',
+        middleName: 'Salah',
+        lastName: 'Harb',
+        email: 'marwanharb65@outlook.com',
+        phoneNumber: '+201013747167',
+        banned: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 2,
+        firstName: 'Mohamed',
+        middleName: 'Ahmed',
+        lastName: 'Mahmoud',
+        email: 'mohamed.ahmed@outlook.com',
+        phoneNumber: '+201004611977',
+        banned: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+  }
 }
