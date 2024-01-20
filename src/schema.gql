@@ -1,0 +1,45 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  """Returns the user with the specified id in the query"""
+  user(
+    """ID of the user needed to be returned"""
+    id: Int!
+  ): User!
+}
+
+type User {
+  """Status of user (Enabled / Disabled)"""
+  banned: Boolean!
+
+  """Creation date of the user"""
+  createdAt: DateTime!
+
+  """Email of the user"""
+  email: String!
+
+  """First name of the user"""
+  firstName: String!
+
+  """auto increment ID for the user model"""
+  id: Int!
+
+  """Last name of the user"""
+  lastName: String!
+
+  """Middle name of the user"""
+  middleName: String!
+
+  """Phone number of the user"""
+  phoneNumber: String!
+
+  """Last mutation date of the user"""
+  updatedAt: DateTime!
+}
