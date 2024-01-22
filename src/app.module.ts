@@ -1,25 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { GraphqlModule } from './graphql/graphql.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataAccessModule } from './data-access/data-access.module';
+import { dataSourceOptions } from '../ormconfig';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true,
-      playground: false,
-      context: {
-        loaders: '',
-      },
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
-    }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     GraphqlModule,
+    DataAccessModule,
   ],
   controllers: [],
   providers: [],
