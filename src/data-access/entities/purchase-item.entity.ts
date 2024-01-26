@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, Unique } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { ItemEntity } from './item.entity';
 import { PurchaseEntity } from './purchase.entity';
 
+@Unique('unique_constraint_purchase_id_item_id', ['itemId', 'purchaseId'])
 @Entity({ name: 'purchase_items' })
 export class PurchaseItemEntity extends BaseEntity {
   @Column({
@@ -22,14 +23,16 @@ export class PurchaseItemEntity extends BaseEntity {
   @Column({ name: 'item_id' })
   itemId: number;
 
-  @Column({ name: 'customer_id' })
-  customerId: number;
+  @Column({ name: 'purchase_id' })
+  purchaseId: number;
 
-  @OneToMany(() => ItemEntity, (item) => item.purchases, { nullable: false })
+  @ManyToOne(() => ItemEntity, (item) => item.purchases, { nullable: false })
   @JoinColumn({ name: 'item_id' })
   item: ItemEntity;
 
-  @OneToMany(() => PurchaseEntity, (purchase) => purchase.items)
-  @JoinColumn({ name: 'customer_id' })
+  @ManyToOne(() => PurchaseEntity, (purchase) => purchase.items, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'purchase_id' })
   purchase: PurchaseEntity;
 }
