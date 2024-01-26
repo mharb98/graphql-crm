@@ -3,6 +3,7 @@ import { BaseEntity } from './base.entity';
 import { UserEntity } from './user.entity';
 import { ContactInfoEntity } from './contact-info.entity';
 import { PurchaseEntity } from './purchase.entity';
+import { CommentEntity } from './comments.entity';
 
 @Entity({ name: 'customers' })
 export class CustomerEntity extends BaseEntity {
@@ -34,4 +35,7 @@ export class CustomerEntity extends BaseEntity {
 
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.customer)
   purchases: PurchaseEntity[];
+
+  @OneToMany(() => CommentEntity, (comment) => comment.customer)
+  comments: CommentEntity[];
 }

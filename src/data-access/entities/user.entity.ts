@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { CustomerEntity } from './customer.entity';
+import { CommentEntity } from './comments.entity';
 
 /**
  * npx typeorm entity:create src/data-access/entities/user.entity
@@ -51,4 +52,7 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => CustomerEntity, (customer) => customer.salesAgent)
   customers: CustomerEntity[];
+
+  @OneToMany(() => CommentEntity, (comment) => comment.user)
+  comments: CommentEntity[];
 }
