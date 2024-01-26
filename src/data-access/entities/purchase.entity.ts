@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { CustomerEntity } from './customer.entity';
-import { PurchaseItemEntity } from './purchase-item.entity';
+import { PurchaseProductEntity } from './purchase-product.entity';
 import { InstallmentEntity } from './installment.entity';
 
 @Entity({ name: 'purchases' })
@@ -40,8 +40,11 @@ export class PurchaseEntity extends BaseEntity {
   @JoinColumn({ name: 'customer_id' })
   customer: CustomerEntity;
 
-  @OneToMany(() => PurchaseItemEntity, (purchaseItem) => purchaseItem.purchase)
-  items: PurchaseItemEntity[];
+  @OneToMany(
+    () => PurchaseProductEntity,
+    (purchaseItem) => purchaseItem.purchase,
+  )
+  products: PurchaseProductEntity[];
 
   @OneToMany(() => InstallmentEntity, (installment) => installment.purchase)
   installments: InstallmentEntity[];

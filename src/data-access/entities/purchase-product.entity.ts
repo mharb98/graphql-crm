@@ -1,11 +1,11 @@
 import { Column, Entity, JoinColumn, ManyToOne, Unique } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { ItemEntity } from './item.entity';
 import { PurchaseEntity } from './purchase.entity';
+import { ProductEntity } from './product.entity';
 
-@Unique('unique_constraint_purchase_id_item_id', ['itemId', 'purchaseId'])
-@Entity({ name: 'purchase_items' })
-export class PurchaseItemEntity extends BaseEntity {
+@Unique('unique_constraint_purchase_id_product_id', ['productId', 'purchaseId'])
+@Entity({ name: 'purchase_products' })
+export class PurchaseProductEntity extends BaseEntity {
   @Column({
     type: 'bigint',
     name: 'amount',
@@ -20,17 +20,19 @@ export class PurchaseItemEntity extends BaseEntity {
   })
   discount: number;
 
-  @Column({ name: 'item_id' })
-  itemId: number;
+  @Column({ name: 'product_id' })
+  productId: number;
 
   @Column({ name: 'purchase_id' })
   purchaseId: number;
 
-  @ManyToOne(() => ItemEntity, (item) => item.purchases, { nullable: false })
-  @JoinColumn({ name: 'item_id' })
-  item: ItemEntity;
+  @ManyToOne(() => ProductEntity, (product) => product.purchases, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'product_id' })
+  product: ProductEntity;
 
-  @ManyToOne(() => PurchaseEntity, (purchase) => purchase.items, {
+  @ManyToOne(() => PurchaseEntity, (purchase) => purchase.products, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'purchase_id' })

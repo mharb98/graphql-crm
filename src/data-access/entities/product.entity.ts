@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { PurchaseProductEntity } from './purchase-product.entity';
 
 @Entity({ name: 'products' })
 export class ProductEntity extends BaseEntity {
@@ -22,4 +23,10 @@ export class ProductEntity extends BaseEntity {
 
   @Column({ type: 'bigint', nullable: false, name: 'rating', default: 0 })
   rating: number;
+
+  @OneToMany(
+    () => PurchaseProductEntity,
+    (purchaseItem) => purchaseItem.product,
+  )
+  purchases: PurchaseProductEntity[];
 }

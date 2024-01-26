@@ -1,6 +1,5 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { PurchaseItemEntity } from './purchase-item.entity';
 
 @Entity({ name: 'items' })
 export class ItemEntity extends BaseEntity {
@@ -25,7 +24,4 @@ export class ItemEntity extends BaseEntity {
     nullable: false,
   })
   stock: number;
-
-  @OneToMany(() => PurchaseItemEntity, (purchaseItem) => purchaseItem.item)
-  purchases: PurchaseItemEntity[];
 }
