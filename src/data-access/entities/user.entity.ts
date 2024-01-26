@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { CustomerEntity } from './customer.entity';
 import { CommentEntity } from './comments.entity';
+import { StatusUpdateEntity } from './status-update.entity';
 
 /**
  * npx typeorm entity:create src/data-access/entities/user.entity
@@ -55,4 +56,7 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => CommentEntity, (comment) => comment.user)
   comments: CommentEntity[];
+
+  @OneToMany(() => StatusUpdateEntity, (statusUpdate) => statusUpdate.user)
+  statusUpdates: StatusUpdateEntity[];
 }
