@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const dataSourceOptions: DataSourceOptions = {
@@ -11,9 +12,9 @@ export const dataSourceOptions: DataSourceOptions = {
   logging: false,
   synchronize: false,
   name: 'default',
-  entities: ['src/**/**.entity{.ts,.js}'],
-  migrations: ['src/data-access/migrations/**/*{.ts,.js}'],
-  subscribers: ['src/data-access/subscribers/**/*{.ts,.js}'],
+  entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+  migrations: [join(__dirname, '**', '/migrations/*.{ts,js}')],
+  subscribers: [join(__dirname, '**', '*.entity.{ts,js}')],
 };
 const dataSource = new DataSource(dataSourceOptions);
 export default dataSource;
