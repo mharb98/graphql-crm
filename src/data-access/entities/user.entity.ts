@@ -3,13 +3,16 @@ import { BaseEntity } from './base.entity';
 import { CustomerEntity } from './customer.entity';
 import { CommentEntity } from './comments.entity';
 import { StatusUpdateEntity } from './status-update.entity';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 /**
  * npx typeorm entity:create src/data-access/entities/user.entity
  */
+@ObjectType()
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
   @Column({ name: 'first_name', length: 255, type: 'varchar', nullable: false })
+  @Field({ nullable: false, description: 'First name of the user' })
   firstName: string;
 
   @Column({
