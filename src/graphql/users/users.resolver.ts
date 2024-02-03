@@ -138,7 +138,7 @@ export class UserResolver {
     };
   }
 
-  @Mutation((type) => UserEntity, {
+  @Mutation(() => UserEntity, {
     description: 'Enable a user to access the CRM',
   })
   async enableUser(

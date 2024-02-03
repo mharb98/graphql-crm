@@ -120,4 +120,32 @@ export class CustomerResolver {
       },
     ];
   }
+
+  @ResolveField()
+  async purchases() {
+    return [
+      {
+        totalPrice: 100.5,
+        taxes: 23.4,
+        totalDiscount: 10.2,
+      },
+      {
+        totalPrice: 230.2,
+        taxes: 50.0,
+        totalDiscount: 19.2,
+      },
+    ];
+  }
+
+  @ResolveField()
+  async comments() {
+    return [
+      {
+        comment: 'Comment 1',
+      },
+      {
+        comment: 'Comment 2',
+      },
+    ];
+  }
 }

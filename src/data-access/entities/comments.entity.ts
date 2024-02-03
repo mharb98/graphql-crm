@@ -27,7 +27,7 @@ export class CommentEntity extends BaseEntity {
     nullable: false,
   })
   @JoinColumn({ name: 'user_id' })
-  @Field((type) => UserEntity, {
+  @Field(() => UserEntity, {
     description: 'The user that wrote the comment',
     nullable: false,
   })
@@ -38,7 +38,7 @@ export class CommentEntity extends BaseEntity {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'customer_id' })
-  @Field((type) => CustomerEntity, {
+  @Field(() => CustomerEntity, {
     description: 'The customer to which that comment was writte',
     nullable: false,
   })

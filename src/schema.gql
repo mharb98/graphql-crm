@@ -52,6 +52,9 @@ input CreateUserDTO {
 }
 
 type CustomerEntity {
+  """The comments written by users to track activity for the customer"""
+  comments: [CommentEntity!]!
+
   """The contact info entities for the customer"""
   contactInfo: [ContactInfoEntity!]!
 
@@ -60,6 +63,9 @@ type CustomerEntity {
 
   """Last name of the customer"""
   lastName: String!
+
+  """The set of purchases completed by a customer"""
+  purchases: [PurchaseEntity!]!
 
   """Sales Agent Associated with a customer"""
   salesAgent: UserEntity!
@@ -104,6 +110,20 @@ type Mutation {
     id: Int!
     updateUserDto: UpdateUserDTO!
   ): UserEntity!
+}
+
+type PurchaseEntity {
+  """The customer that completed the purchase"""
+  customer: CustomerEntity!
+
+  """The amount of taxes added to the purchase"""
+  taxes: Float!
+
+  """The amount of discount on the items"""
+  totalDiscount: Float!
+
+  """The total Price of items in the purchase"""
+  totalPrice: Float!
 }
 
 type Query {

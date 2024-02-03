@@ -32,20 +32,27 @@ export class CustomerEntity extends BaseEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.customers, { nullable: true })
   @JoinColumn({ name: 'sales_agent_id' })
-  @Field((type) => UserEntity, {
+  @Field(() => UserEntity, {
     description: 'Sales Agent Associated with a customer',
   })
   salesAgent?: UserEntity;
 
   @OneToMany(() => ContactInfoEntity, (contactInfo) => contactInfo.customer)
-  @Field((type) => [ContactInfoEntity!], {
+  @Field(() => [ContactInfoEntity], {
     description: 'The contact info entities for the customer',
   })
   contactInfo?: ContactInfoEntity[];
 
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.customer)
+  @Field(() => [PurchaseEntity], {
+    description: 'The set of purchases completed by a customer',
+  })
   purchases?: PurchaseEntity[];
 
   @OneToMany(() => CommentEntity, (comment) => comment.customer)
+  @Field(() => [CommentEntity], {
+    description:
+      'The comments written by users to track activity for the customer',
+  })
   comments?: CommentEntity[];
 }

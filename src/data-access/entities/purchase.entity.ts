@@ -3,13 +3,18 @@ import { BaseEntity } from './base.entity';
 import { CustomerEntity } from './customer.entity';
 import { PurchaseProductEntity } from './purchase-product.entity';
 import { InstallmentEntity } from './installment.entity';
+import { Field, Float, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity({ name: 'purchases' })
 export class PurchaseEntity extends BaseEntity {
   @Column({
     name: 'total_price',
     type: 'bigint',
     nullable: false,
+  })
+  @Field(() => Float, {
+    description: 'The total Price of items in the purchase',
   })
   totalPrice: number;
 
@@ -18,6 +23,9 @@ export class PurchaseEntity extends BaseEntity {
     type: 'bigint',
     nullable: false,
   })
+  @Field(() => Float, {
+    description: 'The amount of taxes added to the purchase',
+  })
   taxes: number;
 
   @Column({
@@ -25,6 +33,9 @@ export class PurchaseEntity extends BaseEntity {
     type: 'bigint',
     nullable: false,
     default: 0,
+  })
+  @Field(() => Float, {
+    description: 'The amount of discount on the items',
   })
   totalDiscount: number;
 
@@ -38,6 +49,9 @@ export class PurchaseEntity extends BaseEntity {
     nullable: false,
   })
   @JoinColumn({ name: 'customer_id' })
+  @Field(() => CustomerEntity, {
+    description: 'The customer that completed the purchase',
+  })
   customer: CustomerEntity;
 
   @OneToMany(
