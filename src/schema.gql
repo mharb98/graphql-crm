@@ -6,16 +6,34 @@ type CommentEntity {
   """The comment that is written for a customer by a sales agent"""
   comment: String!
 
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """The customer to which that comment was writte"""
   customer: CustomerEntity!
+
+  """ID of the entity being returned"""
+  id: Int!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 
   """The user that wrote the comment"""
   user: UserEntity!
 }
 
 type ContactInfoEntity {
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """The customer that owns the contact info"""
   customer: CustomerEntity!
+
+  """ID of the entity being returned"""
+  id: Int!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 
   """Contact info value to be used for calling"""
   value: String!
@@ -89,8 +107,14 @@ type CustomerEntity {
   """The contact info entities for the customer"""
   contactInfo: [ContactInfoEntity!]!
 
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """First name of the customer"""
   firstName: String!
+
+  """ID of the entity being returned"""
+  id: Int!
 
   """Last name of the customer"""
   lastName: String!
@@ -103,6 +127,9 @@ type CustomerEntity {
 
   """The status updates that are applied on the customer by a user"""
   statusUpdates: [StatusUpdateEntity!]!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 }
 
 """
@@ -114,11 +141,20 @@ type InstallmentEntity {
   """The amount that was paid in the installment"""
   amount: Float
 
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """The due date for the installment payment"""
   dueDate: DateTime
 
+  """ID of the entity being returned"""
+  id: Int!
+
   """The purchase for which the installment will be paid"""
   purchase: PurchaseEntity
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 }
 
 type Mutation {
@@ -227,8 +263,14 @@ type Mutation {
 }
 
 type ProductEntity {
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """The description of the product"""
   description: String!
+
+  """ID of the entity being returned"""
+  id: Int!
 
   """The name of the product"""
   name: String!
@@ -244,11 +286,20 @@ type ProductEntity {
 
   """The amount that is still available in the product"""
   stock: Int!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 }
 
 type PurchaseEntity {
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """The customer that completed the purchase"""
   customer: CustomerEntity!
+
+  """ID of the entity being returned"""
+  id: Int!
 
   """The installments paid for the purchase"""
   installments: [InstallmentEntity!]!
@@ -264,20 +315,32 @@ type PurchaseEntity {
 
   """The total Price of items in the purchase"""
   totalPrice: Float!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 }
 
 type PurchaseProductEntity {
   """The amount that was taken for the product in a specific purchase"""
   amount: Int!
 
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """The discount that was appleid on the product"""
   discount: Float!
+
+  """ID of the entity being returned"""
+  id: Int!
 
   """The product that is bought"""
   product: ProductEntity!
 
   """The purchase to which the product belongs"""
   purchase: PurchaseEntity!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 }
 
 type Query {
@@ -331,22 +394,40 @@ type Query {
 }
 
 type StatusEntity {
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
+  """ID of the entity being returned"""
+  id: Int!
+
   """The name of the status"""
   name: String!
 
   """The updates in which the status was used"""
   statusUpdates: [StatusUpdateEntity!]
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 }
 
 type StatusUpdateEntity {
   """The comment attached with a status update"""
   comment: String!
 
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """The customer to which the status update was made"""
   customer: CustomerEntity!
 
+  """ID of the entity being returned"""
+  id: Int!
+
   """The status that is applied in the update"""
   status: StatusEntity!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 
   """The user that applied the status update"""
   user: UserEntity!
@@ -409,6 +490,9 @@ type UserEntity {
   """The comments that are added to a specific customer by a user"""
   comments: [CommentEntity!]!
 
+  """Creation date of an entity"""
+  createdAt: DateTime!
+
   """A set of customers being managed by the user"""
   customers: [CustomerEntity!]!
 
@@ -417,6 +501,9 @@ type UserEntity {
 
   """First name of the user"""
   firstName: String!
+
+  """ID of the entity being returned"""
+  id: Int!
 
   """Last name of the user"""
   lastName: String!
@@ -429,4 +516,7 @@ type UserEntity {
 
   """The status updates that are applied on a customer by a user"""
   statusUpdates: [StatusUpdateEntity!]!
+
+  """Last update date of an entity"""
+  updatedAt: DateTime!
 }

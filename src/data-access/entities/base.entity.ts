@@ -1,13 +1,14 @@
-import { Field, Int } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+@ObjectType()
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn()
-  @Field((type) => Int, {
+  @Field(() => Int, {
     description: 'ID of the entity being returned',
     nullable: false,
   })
@@ -18,7 +19,7 @@ export abstract class BaseEntity {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  @Field({ description: 'Creation date of an entity' })
+  @Field(() => Date, { description: 'Creation date of an entity' })
   createdAt?: Date;
 
   @UpdateDateColumn({
@@ -27,6 +28,6 @@ export abstract class BaseEntity {
     default: () => 'CURRENT_TIMESTAMP',
     onUpdate: 'CURRENT_TIMESTAMP',
   })
-  @Field({ description: 'Last update date of an entity' })
+  @Field(() => Date, { description: 'Last update date of an entity' })
   updatedAt?: Date;
 }
