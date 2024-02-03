@@ -7,7 +7,6 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { dataSourceOptions } from './ormconfig';
-import { StatusUpdateResolver } from './status-update/status-update.resolver';
 
 @Module({
   imports: [
@@ -23,6 +22,6 @@ import { StatusUpdateResolver } from './status-update/status-update.resolver';
     DataAccessModule,
   ],
   controllers: [],
-  providers: [StatusUpdateResolver],
+  providers: [],
 })
 export class AppModule {}
