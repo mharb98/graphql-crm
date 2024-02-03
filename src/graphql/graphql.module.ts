@@ -8,6 +8,7 @@ import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ProductResolver } from './products/product.resolver';
 import { CommentsResolver } from './comments/comments.resolver';
+import { PurchaseResolver } from './purchase/purchase.resolver';
 
 @Module({
   imports: [],
@@ -21,6 +22,7 @@ import { CommentsResolver } from './comments/comments.resolver';
     UserResolver,
     CustomerResolver,
     CommentsResolver,
+    PurchaseResolver,
     // ProductResolver,
     // UserResolver,
     // CustomerResolver,

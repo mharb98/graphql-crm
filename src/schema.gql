@@ -39,6 +39,11 @@ input CreateCustomerDTO {
   lastName: String!
 }
 
+"""Input for the creation of a new purchase"""
+input CreatePurchaseDTO {
+  tempFied: Float!
+}
+
 """Input for creation of users"""
 input CreateUserDTO {
   """Email of user"""
@@ -87,6 +92,14 @@ type Mutation {
   ): CommentEntity!
   createCustomer(createCustomerDTO: CreateCustomerDTO!): CustomerEntity!
 
+  """Create a new purchase"""
+  createPurchase(
+    createPurchaseDto: CreatePurchaseDTO!
+
+    """ID of the customer for which the purchase is being added"""
+    customerId: Int!
+  ): PurchaseEntity!
+
   """Creates a user record"""
   createUser(createUserDTO: CreateUserDTO!): UserEntity!
 
@@ -99,6 +112,12 @@ type Mutation {
     """ID of the customer that has to be deleted"""
     id: Int!
   ): CustomerEntity!
+
+  """Delete a purchase"""
+  deletePurchase(
+    """ID of the purchase to be deleted"""
+    id: Int!
+  ): PurchaseEntity!
 
   """Delete a user from CRM"""
   deleteUser(
@@ -122,6 +141,13 @@ type Mutation {
     id: Int!
     updateCustomerDTO: UpdateCustomerDTO!
   ): CustomerEntity!
+
+  """Update an existing purchase"""
+  updatePurchase(
+    """Id of the purchase to be updated"""
+    id: Int!
+    updatePurchaseDto: UpdatePurchaseDTO!
+  ): PurchaseEntity!
 
   """Updates an existing user record"""
   updateUser(
@@ -161,6 +187,12 @@ type Query {
     id: Int!
   ): CustomerEntity!
 
+  """Returns a purchase for the specified id in the query"""
+  purchase(
+    """ID of the purchase to be returned"""
+    id: Int!
+  ): PurchaseEntity!
+
   """Returns the user with the specified id in the query"""
   user(
     """ID of the user needed to be returned"""
@@ -183,6 +215,17 @@ input UpdateCustomerDTO {
 
   """Last name of customer being created"""
   lastName: String
+}
+
+input UpdatePurchaseDTO {
+  """Total Taxes for the purchase"""
+  taxes: Float
+
+  """Total Discount applied on the purchase"""
+  totalDiscount: Float
+
+  """Total Price for the purchase"""
+  totalPrice: Float
 }
 
 """Input for updating an existing user record"""
