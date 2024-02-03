@@ -28,24 +28,24 @@ export class CustomerEntity extends BaseEntity {
   lastName: string;
 
   @Column({ name: 'sales_agent_id' })
-  salesAgentId: number;
+  salesAgentId?: number;
 
   @ManyToOne(() => UserEntity, (user) => user.customers, { nullable: true })
   @JoinColumn({ name: 'sales_agent_id' })
   @Field((type) => UserEntity, {
     description: 'Sales Agent Associated with a customer',
   })
-  salesAgent: UserEntity;
+  salesAgent?: UserEntity;
 
   @OneToMany(() => ContactInfoEntity, (contactInfo) => contactInfo.customer)
   @Field((type) => [ContactInfoEntity!], {
     description: 'The contact info entities for the customer',
   })
-  contactInfo: ContactInfoEntity[];
+  contactInfo?: ContactInfoEntity[];
 
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.customer)
-  purchases: PurchaseEntity[];
+  purchases?: PurchaseEntity[];
 
   @OneToMany(() => CommentEntity, (comment) => comment.customer)
-  comments: CommentEntity[];
+  comments?: CommentEntity[];
 }

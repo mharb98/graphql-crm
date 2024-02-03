@@ -8,15 +8,18 @@ export class UpdateUserDTO {
   })
   firstName?: string;
 
-  @Field({ description: 'Middle Name', nullable: true })
+  @Field(() => String, { description: 'Middle Name', nullable: true })
   middleName?: string;
 
-  @Field({ description: 'Last name of user being updated', nullable: true })
+  @Field(() => String, {
+    description: 'Last name of user being updated',
+    nullable: true,
+  })
   lastName?: string;
 
-  @Field({ description: 'Email', nullable: true })
+  @Field(() => String, { description: 'Email', nullable: true })
   email?: string;
 
-  @Field({ description: 'Phone Number', nullable: true })
+  @Field(() => String, { description: 'Phone Number', nullable: true })
   phoneNumber?: string;
 }

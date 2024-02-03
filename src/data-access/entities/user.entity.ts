@@ -21,7 +21,7 @@ export class UserEntity extends BaseEntity {
     type: 'varchar',
     nullable: true,
   })
-  @Field({ description: 'Middle name of the user' })
+  @Field({ description: 'Middle name of the user', nullable: true })
   middleName: string;
 
   @Column({
@@ -60,19 +60,19 @@ export class UserEntity extends BaseEntity {
   banned: boolean;
 
   @OneToMany(() => CustomerEntity, (customer) => customer.salesAgent)
-  @Field((type) => [CustomerEntity], {
+  @Field(() => [CustomerEntity], {
     description: 'A set of customers being managed by the user',
   })
   customers: CustomerEntity[];
 
   @OneToMany(() => CommentEntity, (comment) => comment.user)
-  @Field((type) => [CommentEntity], {
+  @Field(() => [CommentEntity], {
     description: 'The comments that are added to a specific customer by a user',
   })
   comments: CommentEntity[];
 
   @OneToMany(() => StatusUpdateEntity, (statusUpdate) => statusUpdate.user)
-  @Field((type) => [StatusUpdateEntity], {
+  @Field(() => [StatusUpdateEntity], {
     description: 'The status updates that are applied on a customer by a user',
   })
   statusUpdates: StatusUpdateEntity[];

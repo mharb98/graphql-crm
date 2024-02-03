@@ -33,6 +33,24 @@ input CreateCustomerDTO {
   lastName: String!
 }
 
+"""Input for creation of users"""
+input CreateUserDTO {
+  """Email of user"""
+  email: String!
+
+  """First name of the user"""
+  firstName: String!
+
+  """Last name of user"""
+  lastName: String!
+
+  """Middle name of the user"""
+  middleName: String
+
+  """Phone number of user"""
+  phoneNumber: String!
+}
+
 type CustomerEntity {
   """The contact info entities for the customer"""
   contactInfo: [ContactInfoEntity!]!
@@ -49,18 +67,49 @@ type CustomerEntity {
 
 type Mutation {
   createCustomer(createCustomerDTO: CreateCustomerDTO!): CustomerEntity!
+
+  """Creates a user record"""
+  createUser(createUserDTO: CreateUserDTO!): UserEntity!
   deleteCustomer(
     """ID of the customer that has to be deleted"""
     id: Int!
   ): CustomerEntity!
+
+  """Delete a user from CRM"""
+  deleteUser(
+    """ID of user being deleted"""
+    id: Int!
+  ): UserEntity!
+
+  """Disable a user from accessing the CRM"""
+  disableUser(
+    """ID of the user being disabled"""
+    id: Int!
+  ): UserEntity!
+
+  """Enable a user to access the CRM"""
+  enableUser(
+    """ID of the user being enabled"""
+    id: Int!
+  ): UserEntity!
   updateCustomer(
     """ID of customer record being updated"""
     id: Int!
     updateCustomerDTO: UpdateCustomerDTO!
   ): CustomerEntity!
+
+  """Updates an existing user record"""
+  updateUser(
+    """ID of the user record being updated"""
+    id: Int!
+    updateUserDto: UpdateUserDTO!
+  ): UserEntity!
 }
 
 type Query {
+  """Query users model and returns a paginated users result"""
+  QueryUsers: [UserEntity!]!
+
   """Returns a customer object of specified id"""
   customer(
     """ID of the needed customer to be returned"""
@@ -91,6 +140,24 @@ input UpdateCustomerDTO {
   lastName: String
 }
 
+"""Input for updating an existing user record"""
+input UpdateUserDTO {
+  """Email"""
+  email: String
+
+  """First Name"""
+  firstName: String
+
+  """Last name of user being updated"""
+  lastName: String
+
+  """Middle Name"""
+  middleName: String
+
+  """Phone Number"""
+  phoneNumber: String
+}
+
 type UserEntity {
   """User status Disabled/Enabled"""
   banned: Boolean!
@@ -111,7 +178,7 @@ type UserEntity {
   lastName: String!
 
   """Middle name of the user"""
-  middleName: String!
+  middleName: String
 
   """User phone number"""
   phoneNumber: String
