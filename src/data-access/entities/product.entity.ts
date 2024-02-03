@@ -43,6 +43,7 @@ export class ProductEntity extends BaseEntity {
   )
   @Field(() => [PurchaseProductEntity], {
     description: 'The purchases where the product was bought',
+    nullable: true,
   })
   purchases: PurchaseProductEntity[];
 }

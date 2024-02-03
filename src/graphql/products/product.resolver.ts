@@ -1,12 +1,19 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Product } from './types/product.model';
+import {
+  Args,
+  Int,
+  Mutation,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { CreateProductDTO } from './types/create-product.dto';
+import { ProductEntity } from '../../data-access/entities/product.entity';
 
-@Resolver(() => Product)
+@Resolver(() => ProductEntity)
 export class ProductResolver {
   constructor() {}
 
-  @Query(() => Product, {
+  @Query(() => ProductEntity, {
     name: 'product',
     description: 'Returns a product for the specified ID',
   })
@@ -31,7 +38,7 @@ export class ProductResolver {
     };
   }
 
-  @Query(() => [Product], {
+  @Query(() => [ProductEntity], {
     name: 'QueryProducts',
     description: 'Returns a list of paginated products',
   })
@@ -60,7 +67,7 @@ export class ProductResolver {
     ];
   }
 
-  @Mutation(() => Product, {
+  @Mutation(() => ProductEntity, {
     name: 'createProduct',
     description: 'Creates and returns a product',
   })
@@ -68,5 +75,30 @@ export class ProductResolver {
     @Args('createProductDTO') createProductDto: CreateProductDTO,
   ) {
     console.log(createProductDto);
+
+    return {
+      id: 1,
+      name: 'Flash Light',
+      description: 'Light your way in the darkness',
+      price: 100,
+      stock: 3,
+      rating: 4.5,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
+  @ResolveField()
+  async purchases() {
+    return [
+      {
+        amount: 2,
+        discount: 30.5,
+      },
+      {
+        amount: 4,
+        discount: 70.2,
+      },
+    ];
   }
 }
