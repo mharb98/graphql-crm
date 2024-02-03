@@ -4,7 +4,9 @@ import { UserEntity } from './user.entity';
 import { ContactInfoEntity } from './contact-info.entity';
 import { PurchaseEntity } from './purchase.entity';
 import { CommentEntity } from './comments.entity';
+import { Field, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity({ name: 'customers' })
 export class CustomerEntity extends BaseEntity {
   @Column({
@@ -13,6 +15,7 @@ export class CustomerEntity extends BaseEntity {
     length: 255,
     nullable: false,
   })
+  @Field({ description: 'First name of the customer', nullable: false })
   firstName: string;
 
   @Column({
@@ -21,6 +24,7 @@ export class CustomerEntity extends BaseEntity {
     length: 255,
     nullable: false,
   })
+  @Field({ description: 'Last name of the customer', nullable: false })
   lastName: string;
 
   @Column({ name: 'sales_agent_id' })
@@ -28,6 +32,9 @@ export class CustomerEntity extends BaseEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.customers, { nullable: true })
   @JoinColumn({ name: 'sales_agent_id' })
+  @Field((type) => [UserEntity], {
+    description: 'Sales Agent Associated with a customer',
+  })
   salesAgent: UserEntity;
 
   @OneToMany(() => ContactInfoEntity, (contactInfo) => contactInfo.customer)

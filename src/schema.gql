@@ -2,6 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CommentEntity {
+  """The comment that is written for a customer by a sales agent"""
+  comment: String!
+
+  """The customer to which that comment was writte"""
+  customer: CustomerEntity!
+
+  """The user that wrote the comment"""
+  user: UserEntity!
+}
+
+type CustomerEntity {
+  """First name of the customer"""
+  firstName: String!
+
+  """Last name of the customer"""
+  lastName: String!
+
+  """Sales Agent Associated with a customer"""
+  salesAgent: [UserEntity!]!
+}
+
 type Query {
   """Returns the user with the specified id in the query"""
   user(
@@ -10,7 +32,39 @@ type Query {
   ): UserEntity!
 }
 
+type StatusUpdateEntity {
+  """The comment attached with a status update"""
+  comment: String!
+
+  """The user that applied the status update"""
+  user: UserEntity!
+}
+
 type UserEntity {
+  """User status Disabled/Enabled"""
+  banned: Boolean!
+
+  """The comments that are added to a specific customer by a user"""
+  comments: [CommentEntity!]!
+
+  """A set of customers being managed by the user"""
+  customers: [CustomerEntity!]!
+
+  """User Email"""
+  email: String!
+
   """First name of the user"""
   firstName: String!
+
+  """Last name of the user"""
+  lastName: String!
+
+  """Middle name of the user"""
+  middleName: String!
+
+  """User phone number"""
+  phoneNumber: String
+
+  """The status updates that are applied on a customer by a user"""
+  statusUpdates: [StatusUpdateEntity!]!
 }

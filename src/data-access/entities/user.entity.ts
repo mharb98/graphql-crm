@@ -21,6 +21,7 @@ export class UserEntity extends BaseEntity {
     type: 'varchar',
     nullable: true,
   })
+  @Field({ description: 'Middle name of the user' })
   middleName: string;
 
   @Column({
@@ -29,6 +30,7 @@ export class UserEntity extends BaseEntity {
     type: 'varchar',
     nullable: false,
   })
+  @Field({ nullable: false, description: 'Last name of the user' })
   lastName: string;
 
   @Column({
@@ -37,6 +39,7 @@ export class UserEntity extends BaseEntity {
     type: 'varchar',
     nullable: false,
   })
+  @Field({ nullable: false, description: 'User Email' })
   email: string;
 
   @Column({
@@ -45,6 +48,7 @@ export class UserEntity extends BaseEntity {
     type: 'varchar',
     nullable: true,
   })
+  @Field({ nullable: true, description: 'User phone number' })
   phoneNumber: string;
 
   @Column({
@@ -52,14 +56,24 @@ export class UserEntity extends BaseEntity {
     type: 'boolean',
     default: false,
   })
+  @Field({ nullable: false, description: 'User status Disabled/Enabled' })
   banned: boolean;
 
   @OneToMany(() => CustomerEntity, (customer) => customer.salesAgent)
+  @Field((type) => [CustomerEntity], {
+    description: 'A set of customers being managed by the user',
+  })
   customers: CustomerEntity[];
 
   @OneToMany(() => CommentEntity, (comment) => comment.user)
+  @Field((type) => [CommentEntity], {
+    description: 'The comments that are added to a specific customer by a user',
+  })
   comments: CommentEntity[];
 
   @OneToMany(() => StatusUpdateEntity, (statusUpdate) => statusUpdate.user)
+  @Field((type) => [StatusUpdateEntity], {
+    description: 'The status updates that are applied on a customer by a user',
+  })
   statusUpdates: StatusUpdateEntity[];
 }
