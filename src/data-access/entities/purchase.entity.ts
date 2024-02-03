@@ -15,6 +15,7 @@ export class PurchaseEntity extends BaseEntity {
   })
   @Field(() => Float, {
     description: 'The total Price of items in the purchase',
+    nullable: false,
   })
   totalPrice: number;
 
@@ -25,6 +26,7 @@ export class PurchaseEntity extends BaseEntity {
   })
   @Field(() => Float, {
     description: 'The amount of taxes added to the purchase',
+    nullable: false,
   })
   taxes: number;
 
@@ -36,6 +38,7 @@ export class PurchaseEntity extends BaseEntity {
   })
   @Field(() => Float, {
     description: 'The amount of discount on the items',
+    nullable: false,
   })
   totalDiscount: number;
 
@@ -58,8 +61,14 @@ export class PurchaseEntity extends BaseEntity {
     () => PurchaseProductEntity,
     (purchaseItem) => purchaseItem.purchase,
   )
+  @Field(() => [PurchaseProductEntity], {
+    description: 'The products that were bought in the purchase',
+  })
   products: PurchaseProductEntity[];
 
   @OneToMany(() => InstallmentEntity, (installment) => installment.purchase)
+  @Field(() => InstallmentEntity, {
+    description: 'The installments paid for the purchase',
+  })
   installments: InstallmentEntity[];
 }

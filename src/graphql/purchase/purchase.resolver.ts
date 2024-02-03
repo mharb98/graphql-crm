@@ -99,4 +99,32 @@ export class PurchaseResolver {
       updatedAt: new Date(),
     };
   }
+
+  @ResolveField()
+  async products() {
+    return [
+      {
+        amount: 2,
+        discount: 30.5,
+      },
+      {
+        amount: 4,
+        discount: 70.2,
+      },
+    ];
+  }
+
+  @ResolveField()
+  async installments() {
+    return [
+      {
+        amount: 20.4,
+        dueDate: '11-03-2024',
+      },
+      {
+        amount: 10.1,
+        dueDate: '30-04-2024',
+      },
+    ];
+  }
 }

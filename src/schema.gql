@@ -82,6 +82,22 @@ type CustomerEntity {
   salesAgent: UserEntity!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type InstallmentEntity {
+  """The amount that was paid in the installment"""
+  amount: Float!
+
+  """The due date for the installment payment"""
+  dueDate: DateTime!
+
+  """The purchase for which the installment will be paid"""
+  purchase: PurchaseEntity!
+}
+
 type Mutation {
   """Create a new comment for a specific customer"""
   createComment(
@@ -157,9 +173,35 @@ type Mutation {
   ): UserEntity!
 }
 
+type ProductEntity {
+  """The description of the product"""
+  description: String!
+
+  """The name of the product"""
+  name: String!
+
+  """The price of the product"""
+  price: Float!
+
+  """The purchases where the product was bought"""
+  purchases: [PurchaseProductEntity!]!
+
+  """The total rating of the product"""
+  rating: Float!
+
+  """The amount that is still available in the product"""
+  stock: Int!
+}
+
 type PurchaseEntity {
   """The customer that completed the purchase"""
   customer: CustomerEntity!
+
+  """The installments paid for the purchase"""
+  installments: InstallmentEntity!
+
+  """The products that were bought in the purchase"""
+  products: [PurchaseProductEntity!]!
 
   """The amount of taxes added to the purchase"""
   taxes: Float!
@@ -169,6 +211,20 @@ type PurchaseEntity {
 
   """The total Price of items in the purchase"""
   totalPrice: Float!
+}
+
+type PurchaseProductEntity {
+  """The amount that was taken for the product in a specific purchase"""
+  amount: Int!
+
+  """The discount that was appleid on the product"""
+  discount: Float!
+
+  """The product that is bought"""
+  product: ProductEntity!
+
+  """The purchase to which the product belongs"""
+  purchase: PurchaseEntity!
 }
 
 type Query {

@@ -1,7 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { PurchaseEntity } from './purchase.entity';
+import { Field, Float, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity({ name: 'installments' })
 export class InstallmentEntity extends BaseEntity {
   @Column({
@@ -9,11 +11,18 @@ export class InstallmentEntity extends BaseEntity {
     type: 'bigint',
     nullable: false,
   })
+  @Field(() => Float, {
+    description: 'The amount that was paid in the installment',
+    nullable: false,
+  })
   amount: number;
 
   @Column({
     name: 'due_date',
     type: 'date',
+  })
+  @Field(() => Date, {
+    description: 'The due date for the installment payment',
   })
   dueDate: Date;
 
@@ -25,5 +34,8 @@ export class InstallmentEntity extends BaseEntity {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'purchase_id' })
+  @Field(() => PurchaseEntity, {
+    description: 'The purchase for which the installment will be paid',
+  })
   purchase: PurchaseEntity;
 }
