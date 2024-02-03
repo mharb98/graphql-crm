@@ -19,7 +19,7 @@ export abstract class BaseEntity {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  @Field(() => Date, { description: 'Creation date of an entity' })
+  @Field(() => String, { description: 'Creation date of an entity' })
   createdAt?: Date;
 
   @UpdateDateColumn({
@@ -28,6 +28,6 @@ export abstract class BaseEntity {
     default: () => 'CURRENT_TIMESTAMP',
     onUpdate: 'CURRENT_TIMESTAMP',
   })
-  @Field(() => Date, { description: 'Last update date of an entity' })
+  @Field(() => String, { description: 'Last update date of an entity' })
   updatedAt?: Date;
 }

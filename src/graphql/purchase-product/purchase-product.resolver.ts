@@ -1,8 +1,15 @@
 import { ResolveField, Resolver } from '@nestjs/graphql';
 import { PurchaseProductEntity } from '../../data-access/entities/purchase-product.entity';
+import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => PurchaseProductEntity)
-export class PurchaseProductResolver {
+export class PurchaseProductResolver extends BaseResolver(
+  PurchaseProductEntity,
+) {
+  constructor() {
+    super();
+  }
+
   @ResolveField()
   async product() {
     return {

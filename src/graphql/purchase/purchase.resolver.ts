@@ -9,9 +9,14 @@ import {
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 import { CreatePurchaseDTO } from './types/create-purchase.dto';
 import { UpdatePurchaseDTO } from './types/update-purchase.dto';
+import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => PurchaseEntity)
-export class PurchaseResolver {
+export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
+  constructor() {
+    super();
+  }
+
   @Query(() => PurchaseEntity, {
     name: 'purchase',
     description: 'Returns a purchase for the specified id in the query',

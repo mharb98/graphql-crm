@@ -7,7 +7,7 @@ type CommentEntity {
   comment: String!
 
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """The customer to which that comment was writte"""
   customer: CustomerEntity!
@@ -16,7 +16,7 @@ type CommentEntity {
   id: Int!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 
   """The user that wrote the comment"""
   user: UserEntity!
@@ -24,7 +24,7 @@ type CommentEntity {
 
 type ContactInfoEntity {
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """The customer that owns the contact info"""
   customer: CustomerEntity!
@@ -33,7 +33,7 @@ type ContactInfoEntity {
   id: Int!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 
   """Contact info value to be used for calling"""
   value: String!
@@ -108,7 +108,7 @@ type CustomerEntity {
   contactInfo: [ContactInfoEntity!]!
 
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """First name of the customer"""
   firstName: String!
@@ -129,7 +129,7 @@ type CustomerEntity {
   statusUpdates: [StatusUpdateEntity!]!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 }
 
 """
@@ -142,7 +142,7 @@ type InstallmentEntity {
   amount: Float
 
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """The due date for the installment payment"""
   dueDate: DateTime
@@ -154,7 +154,7 @@ type InstallmentEntity {
   purchase: PurchaseEntity
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 }
 
 type Mutation {
@@ -264,7 +264,7 @@ type Mutation {
 
 type ProductEntity {
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """The description of the product"""
   description: String!
@@ -288,12 +288,12 @@ type ProductEntity {
   stock: Int!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 }
 
 type PurchaseEntity {
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """The customer that completed the purchase"""
   customer: CustomerEntity!
@@ -317,7 +317,7 @@ type PurchaseEntity {
   totalPrice: Float!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 }
 
 type PurchaseProductEntity {
@@ -325,7 +325,7 @@ type PurchaseProductEntity {
   amount: Int!
 
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """The discount that was appleid on the product"""
   discount: Float!
@@ -340,7 +340,7 @@ type PurchaseProductEntity {
   purchase: PurchaseEntity!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 }
 
 type Query {
@@ -395,7 +395,7 @@ type Query {
 
 type StatusEntity {
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """ID of the entity being returned"""
   id: Int!
@@ -407,7 +407,7 @@ type StatusEntity {
   statusUpdates: [StatusUpdateEntity!]
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 }
 
 type StatusUpdateEntity {
@@ -415,7 +415,7 @@ type StatusUpdateEntity {
   comment: String!
 
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """The customer to which the status update was made"""
   customer: CustomerEntity!
@@ -427,7 +427,7 @@ type StatusUpdateEntity {
   status: StatusEntity!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 
   """The user that applied the status update"""
   user: UserEntity!
@@ -491,7 +491,7 @@ type UserEntity {
   comments: [CommentEntity!]!
 
   """Creation date of an entity"""
-  createdAt: DateTime!
+  createdAt: String!
 
   """A set of customers being managed by the user"""
   customers: [CustomerEntity!]!
@@ -518,5 +518,5 @@ type UserEntity {
   statusUpdates: [StatusUpdateEntity!]!
 
   """Last update date of an entity"""
-  updatedAt: DateTime!
+  updatedAt: String!
 }

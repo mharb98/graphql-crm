@@ -9,10 +9,13 @@ import {
 import { CreateUserDTO } from './types/create-user.dto';
 import { UpdateUserDTO } from './types/update-user.dto';
 import { UserEntity } from '../../data-access/entities/user.entity';
+import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => UserEntity)
-export class UserResolver {
-  constructor() {}
+export class UserResolver extends BaseResolver(UserEntity) {
+  constructor() {
+    super();
+  }
 
   @Query(() => UserEntity, {
     name: 'user',

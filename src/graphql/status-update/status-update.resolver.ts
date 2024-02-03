@@ -1,8 +1,13 @@
 import { ResolveField, Resolver } from '@nestjs/graphql';
 import { StatusUpdateEntity } from '../../data-access/entities/status-update.entity';
+import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => StatusUpdateEntity)
-export class StatusUpdateResolver {
+export class StatusUpdateResolver extends BaseResolver(StatusUpdateEntity) {
+  constructor() {
+    super();
+  }
+
   @ResolveField()
   async status() {
     return {

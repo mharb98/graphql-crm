@@ -8,10 +8,13 @@ import {
 } from '@nestjs/graphql';
 import { CommentEntity } from '../../data-access/entities/comments.entity';
 import { CreateCommentDTO } from './types/create-comment.dto';
+import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => CommentEntity)
-export class CommentsResolver {
-  constructor() {}
+export class CommentsResolver extends BaseResolver(CommentEntity) {
+  constructor() {
+    super();
+  }
 
   @Query(() => CommentEntity, {
     name: 'comment',
@@ -29,6 +32,8 @@ export class CommentsResolver {
     return {
       id: 1,
       comment: 'Comment 1',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
   }
 

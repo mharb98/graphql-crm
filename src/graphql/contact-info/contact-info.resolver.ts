@@ -9,9 +9,14 @@ import {
 import { CreateContactInfoDTO } from './types/create-contact-info.dto';
 import { UpdateContactInfoDTO } from './types/update-contact-info.dto';
 import { ContactInfoEntity } from '../../data-access/entities/contact-info.entity';
+import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => ContactInfoEntity)
-export class ContactInfoResolver {
+export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
+  constructor() {
+    super();
+  }
+
   @Query(() => ContactInfoEntity, {
     name: 'contactInfo',
     description: 'Returns a contact info specified by an ID',
