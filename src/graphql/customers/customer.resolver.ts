@@ -148,4 +148,22 @@ export class CustomerResolver {
       },
     ];
   }
+
+  @ResolveField()
+  async statusUpdates() {
+    return [
+      {
+        comment: 'Comment 1',
+        status: {
+          name: 'Status 1',
+        },
+      },
+      {
+        comment: 'Comment 2',
+        status: {
+          name: 'Status 2',
+        },
+      },
+    ];
+  }
 }

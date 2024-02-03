@@ -34,6 +34,9 @@ export class StatusUpdateEntity extends BaseEntity {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'status_id' })
+  @Field(() => StatusEntity, {
+    description: 'The status that is applied in the update',
+  })
   status: StatusEntity;
 
   @ManyToOne(() => UserEntity, (user) => user.statusUpdates, {
@@ -42,7 +45,6 @@ export class StatusUpdateEntity extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   @Field(() => UserEntity, {
     description: 'The user that applied the status update',
-    nullable: false,
   })
   user: UserEntity;
 

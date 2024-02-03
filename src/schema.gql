@@ -292,12 +292,23 @@ type Query {
   ): UserEntity!
 }
 
+type StatusEntity {
+  """The name of the status"""
+  name: String!
+
+  """The updates in which the status was used"""
+  statusUpdates: [StatusUpdateEntity!]!
+}
+
 type StatusUpdateEntity {
   """The comment attached with a status update"""
   comment: String!
 
   """The customer to which the status update was made"""
   customer: CustomerEntity!
+
+  """The status that is applied in the update"""
+  status: StatusEntity!
 
   """The user that applied the status update"""
   user: UserEntity!

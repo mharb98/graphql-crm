@@ -221,9 +221,15 @@ export class UserResolver {
     return [
       {
         comment: 'Status Update 1',
+        status: {
+          name: 'Status 1',
+        },
       },
       {
         comment: 'Status Update 2',
+        status: {
+          name: 'Status 2',
+        },
       },
     ];
   }

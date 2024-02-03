@@ -2,11 +2,11 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Product } from './types/product.model';
 import { CreateProductDTO } from './types/create-product.dto';
 
-@Resolver((of) => Product)
+@Resolver(() => Product)
 export class ProductResolver {
   constructor() {}
 
-  @Query((returns) => Product, {
+  @Query(() => Product, {
     name: 'product',
     description: 'Returns a product for the specified ID',
   })
@@ -31,7 +31,7 @@ export class ProductResolver {
     };
   }
 
-  @Query((returns) => [Product], {
+  @Query(() => [Product], {
     name: 'QueryProducts',
     description: 'Returns a list of paginated products',
   })
@@ -60,7 +60,7 @@ export class ProductResolver {
     ];
   }
 
-  @Mutation((returns) => Product, {
+  @Mutation(() => Product, {
     name: 'createProduct',
     description: 'Creates and returns a product',
   })
