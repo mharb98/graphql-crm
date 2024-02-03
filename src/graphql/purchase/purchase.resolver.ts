@@ -119,11 +119,11 @@ export class PurchaseResolver {
     return [
       {
         amount: 20.4,
-        dueDate: '11-03-2024',
+        dueDate: new Date(),
       },
       {
         amount: 10.1,
-        dueDate: '30-04-2024',
+        dueDate: new Date(),
       },
     ];
   }

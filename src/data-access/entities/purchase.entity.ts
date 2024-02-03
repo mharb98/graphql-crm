@@ -67,7 +67,7 @@ export class PurchaseEntity extends BaseEntity {
   products: PurchaseProductEntity[];
 
   @OneToMany(() => InstallmentEntity, (installment) => installment.purchase)
-  @Field(() => InstallmentEntity, {
+  @Field(() => [InstallmentEntity], {
     description: 'The installments paid for the purchase',
   })
   installments: InstallmentEntity[];

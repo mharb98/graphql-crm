@@ -112,13 +112,13 @@ scalar DateTime
 
 type InstallmentEntity {
   """The amount that was paid in the installment"""
-  amount: Float!
+  amount: Float
 
   """The due date for the installment payment"""
-  dueDate: DateTime!
+  dueDate: DateTime
 
   """The purchase for which the installment will be paid"""
-  purchase: PurchaseEntity!
+  purchase: PurchaseEntity
 }
 
 type Mutation {
@@ -251,7 +251,7 @@ type PurchaseEntity {
   customer: CustomerEntity!
 
   """The installments paid for the purchase"""
-  installments: InstallmentEntity!
+  installments: [InstallmentEntity!]!
 
   """The products that were bought in the purchase"""
   products: [PurchaseProductEntity!]!

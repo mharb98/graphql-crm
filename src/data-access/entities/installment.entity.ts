@@ -13,7 +13,7 @@ export class InstallmentEntity extends BaseEntity {
   })
   @Field(() => Float, {
     description: 'The amount that was paid in the installment',
-    nullable: false,
+    nullable: true,
   })
   amount: number;
 
@@ -23,6 +23,7 @@ export class InstallmentEntity extends BaseEntity {
   })
   @Field(() => Date, {
     description: 'The due date for the installment payment',
+    nullable: true,
   })
   dueDate: Date;
 
@@ -36,6 +37,7 @@ export class InstallmentEntity extends BaseEntity {
   @JoinColumn({ name: 'purchase_id' })
   @Field(() => PurchaseEntity, {
     description: 'The purchase for which the installment will be paid',
+    nullable: true,
   })
   purchase: PurchaseEntity;
 }
