@@ -4,11 +4,11 @@ import { CreateUserDTO } from './types/create-user.dto';
 import { UpdateUserDTO } from './types/update-user.dto';
 import { UserEntity } from '../../data-access/entities/user.entity';
 
-@Resolver((of) => UserEntity)
+@Resolver(() => UserEntity)
 export class UserResolver {
   constructor() {}
 
-  @Query((returns) => UserEntity, {
+  @Query(() => UserEntity, {
     name: 'user',
     description: 'Returns the user with the specified id in the query',
   })

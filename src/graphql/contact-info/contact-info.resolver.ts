@@ -10,9 +10,9 @@ import { ContactInfo } from './types/contact-info.model';
 import { CreateContactInfoDTO } from './types/create-contact-info.dto';
 import { UpdateContactInfoDTO } from './types/update-contact-info.dto';
 
-@Resolver((of) => ContactInfo)
+@Resolver(() => ContactInfo)
 export class ContactInfoResolver {
-  @Query((returns) => ContactInfo, {
+  @Query(() => ContactInfo, {
     name: 'contactInfo',
     description: 'Returns a contact info specified by an ID',
   })
@@ -32,7 +32,7 @@ export class ContactInfoResolver {
     };
   }
 
-  @Mutation((returns) => ContactInfo, {
+  @Mutation(() => ContactInfo, {
     description: 'Add new contact info for a customer',
   })
   async createContactInfo(
@@ -55,7 +55,7 @@ export class ContactInfoResolver {
     };
   }
 
-  @Mutation((returns) => ContactInfo, {
+  @Mutation(() => ContactInfo, {
     description: 'Update existing customer contact info',
   })
   async updateContactInfo(
@@ -78,7 +78,7 @@ export class ContactInfoResolver {
     };
   }
 
-  @Mutation((returns) => ContactInfo, {
+  @Mutation(() => ContactInfo, {
     description: 'Deletes an existing contact info',
   })
   async deleteContactInfo(

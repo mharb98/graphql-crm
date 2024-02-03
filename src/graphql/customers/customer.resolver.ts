@@ -6,15 +6,15 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { Customer } from './types/customer.model';
 import { CreateCustomerDTO } from './types/create-customer.dto';
 import { UpdateCustomerDTO } from './types/update-customer.dto';
+import { CustomerEntity } from '../../data-access/entities/customer.entity';
 
-@Resolver((of) => Customer)
+@Resolver(() => CustomerEntity)
 export class CustomerResolver {
   constructor() {}
 
-  @Query((returns) => Customer, {
+  @Query(() => CustomerEntity, {
     name: 'customer',
     description: 'Returns a customer object of specified id',
   })
@@ -34,7 +34,7 @@ export class CustomerResolver {
     };
   }
 
-  @Mutation((returns) => Customer)
+  @Mutation(() => CustomerEntity)
   async createCustomer(
     @Args('createCustomerDTO') createCustomerDTO: CreateCustomerDTO,
   ) {
@@ -48,7 +48,7 @@ export class CustomerResolver {
     };
   }
 
-  @Mutation((returns) => Customer)
+  @Mutation(() => CustomerEntity)
   async updateCustomer(
     @Args('id', {
       type: () => Int,
@@ -69,7 +69,7 @@ export class CustomerResolver {
     };
   }
 
-  @Mutation((returns) => Customer)
+  @Mutation(() => CustomerEntity)
   async deleteCustomer(
     @Args('id', {
       type: () => Int,

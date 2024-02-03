@@ -13,7 +13,30 @@ type CommentEntity {
   user: UserEntity!
 }
 
+type ContactInfoEntity {
+  """The customer that owns the contact info"""
+  customer: CustomerEntity!
+
+  """Contact info value to be used for calling"""
+  value: String!
+}
+
+"""Input for creation of customers"""
+input CreateCustomerDTO {
+  """Contact information for customer"""
+  contactInfo: [String!]!
+
+  """First name of customer being created"""
+  firstName: String!
+
+  """Last name of customer being created"""
+  lastName: String!
+}
+
 type CustomerEntity {
+  """The contact info entities for the customer"""
+  contactInfo: [ContactInfoEntity!]!
+
   """First name of the customer"""
   firstName: String!
 
@@ -21,10 +44,29 @@ type CustomerEntity {
   lastName: String!
 
   """Sales Agent Associated with a customer"""
-  salesAgent: [UserEntity!]!
+  salesAgent: UserEntity!
+}
+
+type Mutation {
+  createCustomer(createCustomerDTO: CreateCustomerDTO!): CustomerEntity!
+  deleteCustomer(
+    """ID of the customer that has to be deleted"""
+    id: Int!
+  ): CustomerEntity!
+  updateCustomer(
+    """ID of customer record being updated"""
+    id: Int!
+    updateCustomerDTO: UpdateCustomerDTO!
+  ): CustomerEntity!
 }
 
 type Query {
+  """Returns a customer object of specified id"""
+  customer(
+    """ID of the needed customer to be returned"""
+    id: Int!
+  ): CustomerEntity!
+
   """Returns the user with the specified id in the query"""
   user(
     """ID of the user needed to be returned"""
@@ -38,6 +80,15 @@ type StatusUpdateEntity {
 
   """The user that applied the status update"""
   user: UserEntity!
+}
+
+"""Input for updating customers"""
+input UpdateCustomerDTO {
+  """First name of customer being created"""
+  firstName: String
+
+  """Last name of customer being created"""
+  lastName: String
 }
 
 type UserEntity {

@@ -18,6 +18,7 @@ import { ProductResolver } from './products/product.resolver';
   ],
   providers: [
     UserResolver,
+    CustomerResolver,
     // ProductResolver,
     // UserResolver,
     // CustomerResolver,
