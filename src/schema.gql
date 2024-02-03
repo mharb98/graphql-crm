@@ -27,6 +27,12 @@ input CreateCommentDTO {
   comment: String!
 }
 
+"""Input for creation of customers contact info"""
+input CreateContactInfoDTO {
+  """Value for contact info being added"""
+  value: String!
+}
+
 """Input for creation of customers"""
 input CreateCustomerDTO {
   """Contact information for customer"""
@@ -106,6 +112,14 @@ type Mutation {
     """The ID of the customer to which the comment will be added"""
     id: Int!
   ): CommentEntity!
+
+  """Add new contact info for a customer"""
+  createContactInfo(
+    createContactInfoDto: CreateContactInfoDTO!
+
+    """ID of customer with the contact info"""
+    customerId: Int!
+  ): ContactInfoEntity!
   createCustomer(createCustomerDTO: CreateCustomerDTO!): CustomerEntity!
 
   """Create a new purchase"""
@@ -124,6 +138,12 @@ type Mutation {
     """The ID of the customer to which the comment will be added"""
     id: Int!
   ): CommentEntity!
+
+  """Deletes an existing contact info"""
+  deleteContactInfo(
+    """ID of contact info to be deleted"""
+    id: Int!
+  ): ContactInfoEntity!
   deleteCustomer(
     """ID of the customer that has to be deleted"""
     id: Int!
@@ -152,6 +172,13 @@ type Mutation {
     """ID of the user being enabled"""
     id: Int!
   ): UserEntity!
+
+  """Update existing customer contact info"""
+  updateContactInfo(
+    """ID of contact info to be deleted"""
+    id: Int!
+    updateContactInfoDto: UpdateContactInfoDTO!
+  ): ContactInfoEntity!
   updateCustomer(
     """ID of customer record being updated"""
     id: Int!
@@ -237,6 +264,12 @@ type Query {
     id: Int!
   ): CommentEntity!
 
+  """Returns a contact info specified by an ID"""
+  contactInfo(
+    """ID of the needed contact info to be returned"""
+    id: Int!
+  ): ContactInfoEntity!
+
   """Returns a customer object of specified id"""
   customer(
     """ID of the needed customer to be returned"""
@@ -262,6 +295,12 @@ type StatusUpdateEntity {
 
   """The user that applied the status update"""
   user: UserEntity!
+}
+
+"""Input for updating customer contact info"""
+input UpdateContactInfoDTO {
+  """Value of contact info"""
+  value: String!
 }
 
 """Input for updating customers"""

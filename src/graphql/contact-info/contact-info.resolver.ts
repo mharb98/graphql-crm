@@ -6,13 +6,13 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { ContactInfo } from './types/contact-info.model';
 import { CreateContactInfoDTO } from './types/create-contact-info.dto';
 import { UpdateContactInfoDTO } from './types/update-contact-info.dto';
+import { ContactInfoEntity } from '../../data-access/entities/contact-info.entity';
 
-@Resolver(() => ContactInfo)
+@Resolver(() => ContactInfoEntity)
 export class ContactInfoResolver {
-  @Query(() => ContactInfo, {
+  @Query(() => ContactInfoEntity, {
     name: 'contactInfo',
     description: 'Returns a contact info specified by an ID',
   })
@@ -32,7 +32,7 @@ export class ContactInfoResolver {
     };
   }
 
-  @Mutation(() => ContactInfo, {
+  @Mutation(() => ContactInfoEntity, {
     description: 'Add new contact info for a customer',
   })
   async createContactInfo(
@@ -55,7 +55,7 @@ export class ContactInfoResolver {
     };
   }
 
-  @Mutation(() => ContactInfo, {
+  @Mutation(() => ContactInfoEntity, {
     description: 'Update existing customer contact info',
   })
   async updateContactInfo(
@@ -78,7 +78,7 @@ export class ContactInfoResolver {
     };
   }
 
-  @Mutation(() => ContactInfo, {
+  @Mutation(() => ContactInfoEntity, {
     description: 'Deletes an existing contact info',
   })
   async deleteContactInfo(
