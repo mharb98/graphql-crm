@@ -8,7 +8,7 @@ import {
 } from '@nestjs/graphql';
 import { CreateUserDTO } from './types/create-user.dto';
 import { UpdateUserDTO } from './types/update-user.dto';
-import { UserEntity } from '../../data-access/entities/user.entity';
+import { UserEntity } from '../../../data-access/entities/user.entity';
 import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => UserEntity)

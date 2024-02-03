@@ -1,5 +1,5 @@
 import { ResolveField, Resolver } from '@nestjs/graphql';
-import { StatusUpdateEntity } from '../../data-access/entities/status-update.entity';
+import { StatusUpdateEntity } from '../../../data-access/entities/status-update.entity';
 import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => StatusUpdateEntity)

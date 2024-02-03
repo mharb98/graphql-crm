@@ -6,7 +6,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { CommentEntity } from '../../data-access/entities/comments.entity';
+import { CommentEntity } from '../../../data-access/entities/comments.entity';
 import { CreateCommentDTO } from './types/create-comment.dto';
 import { BaseResolver } from '../base.resolver';
 

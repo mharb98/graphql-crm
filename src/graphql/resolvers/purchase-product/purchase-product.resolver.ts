@@ -1,5 +1,5 @@
 import { ResolveField, Resolver } from '@nestjs/graphql';
-import { PurchaseProductEntity } from '../../data-access/entities/purchase-product.entity';
+import { PurchaseProductEntity } from '../../../data-access/entities/purchase-product.entity';
 import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => PurchaseProductEntity)

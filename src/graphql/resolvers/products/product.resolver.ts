@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { CreateProductDTO } from './types/create-product.dto';
-import { ProductEntity } from '../../data-access/entities/product.entity';
+import { ProductEntity } from '../../../data-access/entities/product.entity';
 import { BaseResolver } from '../base.resolver';
 
 @Resolver(() => ProductEntity)

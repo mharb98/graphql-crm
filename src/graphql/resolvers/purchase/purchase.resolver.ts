@@ -6,7 +6,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
+import { PurchaseEntity } from '../../../data-access/entities/purchase.entity';
 import { CreatePurchaseDTO } from './types/create-purchase.dto';
 import { UpdatePurchaseDTO } from './types/update-purchase.dto';
 import { BaseResolver } from '../base.resolver';

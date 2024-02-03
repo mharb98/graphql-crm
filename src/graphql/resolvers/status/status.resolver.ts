@@ -1,5 +1,5 @@
 import { Resolver, Query, Args, Int, Mutation } from '@nestjs/graphql';
-import { StatusEntity } from '../../data-access/entities/status.entity';
+import { StatusEntity } from '../../../data-access/entities/status.entity';
 import { CreateStatusDTO } from './types/create-status.dto';
 import { UpdateStatusDTO } from './types/update-status.dto';
 import { BaseResolver } from '../base.resolver';
