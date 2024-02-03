@@ -50,6 +50,12 @@ input CreatePurchaseDTO {
   tempFied: Float!
 }
 
+"""Input for the creation of a new status"""
+input CreateStatusDTO {
+  """Name of the status to be created"""
+  name: String!
+}
+
 """Input for creation of users"""
 input CreateUserDTO {
   """Email of user"""
@@ -133,6 +139,9 @@ type Mutation {
     customerId: Int!
   ): PurchaseEntity!
 
+  """Creates a new status"""
+  createStatus(createStatusDto: CreateStatusDTO!): StatusEntity!
+
   """Creates a user record"""
   createUser(createUserDTO: CreateUserDTO!): UserEntity!
 
@@ -194,6 +203,9 @@ type Mutation {
     id: Int!
     updatePurchaseDto: UpdatePurchaseDTO!
   ): PurchaseEntity!
+
+  """Updates a new status"""
+  updateStatus(updateStatusDto: UpdateStatusDTO!): StatusEntity!
 
   """Updates an existing user record"""
   updateUser(
@@ -285,6 +297,12 @@ type Query {
     id: Int!
   ): PurchaseEntity!
 
+  """Returns a status for the specified ID """
+  status(
+    """ID of the status that needs to be returnd"""
+    id: Int!
+  ): StatusEntity!
+
   """Returns the user with the specified id in the query"""
   user(
     """ID of the user needed to be returned"""
@@ -338,6 +356,12 @@ input UpdatePurchaseDTO {
 
   """Total Price for the purchase"""
   totalPrice: Float
+}
+
+"""Input for the update of an existing status"""
+input UpdateStatusDTO {
+  """Name of the status to be updated"""
+  name: String
 }
 
 """Input for updating an existing user record"""

@@ -4,6 +4,7 @@ import { CustomerResolver } from './customers/customer.resolver';
 import { ContactInfoResolver } from './contact-info/contact-info.resolver';
 import { CommentsResolver } from './comments/comments.resolver';
 import { PurchaseResolver } from './purchase/purchase.resolver';
+import { StatusResolver } from './status/status.resolver';
 
 @Module({
   imports: [],
@@ -14,6 +15,7 @@ import { PurchaseResolver } from './purchase/purchase.resolver';
     CommentsResolver,
     PurchaseResolver,
     ContactInfoResolver,
+    StatusResolver,
   ],
 })
 export class GraphqlModule {}
