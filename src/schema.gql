@@ -315,7 +315,7 @@ type StatusEntity {
   name: String!
 
   """The updates in which the status was used"""
-  statusUpdates: [StatusUpdateEntity!]!
+  statusUpdates: [StatusUpdateEntity!]
 }
 
 type StatusUpdateEntity {

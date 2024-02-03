@@ -3,7 +3,7 @@ import { StatusEntity } from '../../data-access/entities/status.entity';
 import { CreateStatusDTO } from './types/create-status.dto';
 import { UpdateStatusDTO } from './types/update-status.dto';
 
-@Resolver()
+@Resolver(() => StatusEntity)
 export class StatusResolver {
   constructor() {}
 
