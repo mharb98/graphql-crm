@@ -21,6 +21,12 @@ type ContactInfoEntity {
   value: String!
 }
 
+"""Input for the creation of a new comment"""
+input CreateCommentDTO {
+  """The comment that will be added"""
+  comment: String!
+}
+
 """Input for creation of customers"""
 input CreateCustomerDTO {
   """Contact information for customer"""
@@ -72,10 +78,23 @@ type CustomerEntity {
 }
 
 type Mutation {
+  """Create a new comment for a specific customer"""
+  createComment(
+    createCommentDto: CreateCommentDTO!
+
+    """The ID of the customer to which the comment will be added"""
+    id: Int!
+  ): CommentEntity!
   createCustomer(createCustomerDTO: CreateCustomerDTO!): CustomerEntity!
 
   """Creates a user record"""
   createUser(createUserDTO: CreateUserDTO!): UserEntity!
+
+  """Delete an existing comment by ID"""
+  deleteComment(
+    """The ID of the customer to which the comment will be added"""
+    id: Int!
+  ): CommentEntity!
   deleteCustomer(
     """ID of the customer that has to be deleted"""
     id: Int!
@@ -129,6 +148,12 @@ type PurchaseEntity {
 type Query {
   """Query users model and returns a paginated users result"""
   QueryUsers: [UserEntity!]!
+
+  """Find a specific comment by id"""
+  comment(
+    """The ID of the comment to be returned"""
+    id: Int!
+  ): CommentEntity!
 
   """Returns a customer object of specified id"""
   customer(

@@ -7,6 +7,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ProductResolver } from './products/product.resolver';
+import { CommentsResolver } from './comments/comments.resolver';
 
 @Module({
   imports: [],
@@ -19,6 +20,7 @@ import { ProductResolver } from './products/product.resolver';
   providers: [
     UserResolver,
     CustomerResolver,
+    CommentsResolver,
     // ProductResolver,
     // UserResolver,
     // CustomerResolver,
