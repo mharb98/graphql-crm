@@ -86,6 +86,9 @@ type CustomerEntity {
 
   """Sales Agent Associated with a customer"""
   salesAgent: UserEntity!
+
+  """The status updates that are applied on the customer by a user"""
+  statusUpdates: [StatusUpdateEntity!]!
 }
 
 """
@@ -292,6 +295,9 @@ type Query {
 type StatusUpdateEntity {
   """The comment attached with a status update"""
   comment: String!
+
+  """The customer to which the status update was made"""
+  customer: CustomerEntity!
 
   """The user that applied the status update"""
   user: UserEntity!

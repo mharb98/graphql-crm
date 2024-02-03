@@ -5,6 +5,7 @@ import { ContactInfoEntity } from './contact-info.entity';
 import { PurchaseEntity } from './purchase.entity';
 import { CommentEntity } from './comments.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { StatusUpdateEntity } from './status-update.entity';
 
 @ObjectType()
 @Entity({ name: 'customers' })
@@ -55,4 +56,11 @@ export class CustomerEntity extends BaseEntity {
       'The comments written by users to track activity for the customer',
   })
   comments?: CommentEntity[];
+
+  @OneToMany(() => StatusUpdateEntity, (statusUpdate) => statusUpdate.customer)
+  @Field(() => [StatusUpdateEntity], {
+    description:
+      'The status updates that are applied on the customer by a user',
+  })
+  statusUpdates: StatusUpdateEntity[];
 }

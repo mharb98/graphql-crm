@@ -3,6 +3,7 @@ import { BaseEntity } from './base.entity';
 import { StatusEntity } from './status.entity';
 import { UserEntity } from './user.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { CustomerEntity } from './customer.entity';
 
 @ObjectType()
 @Entity({ name: 'status_updates' })
@@ -25,6 +26,9 @@ export class StatusUpdateEntity extends BaseEntity {
   @Column({ name: 'user_id' })
   userId: number;
 
+  @Column({ name: 'customer_id' })
+  customerId: number;
+
   @ManyToOne(() => StatusEntity, (status) => status.statusUpdates, {
     nullable: false,
     onDelete: 'CASCADE',
@@ -36,9 +40,19 @@ export class StatusUpdateEntity extends BaseEntity {
     nullable: false,
   })
   @JoinColumn({ name: 'user_id' })
-  @Field((type) => UserEntity, {
+  @Field(() => UserEntity, {
     description: 'The user that applied the status update',
     nullable: false,
   })
   user: UserEntity;
+
+  @ManyToOne(() => CustomerEntity, (customer) => customer.statusUpdates, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'customer_id' })
+  @Field(() => CustomerEntity, {
+    description: 'The customer to which the status update was made',
+    nullable: false,
+  })
+  customer: CustomerEntity;
 }
