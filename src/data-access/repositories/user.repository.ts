@@ -1,24 +1,33 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UserEntity } from '../entities/user.entity';
-import { BaseRepository } from './base.repository';
-import { Repository, getRepository } from 'typeorm';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { CreateUserDTO } from '../../graphql/resolvers/users/types/create-user.dto';
+import { DataSource, Repository } from 'typeorm';
 
 @Injectable()
-export class UserRepository {
-  constructor(
-    @Inject(getRepositoryToken(UserEntity))
-    private readonly userRepository: Repository<UserEntity>,
-  ) {}
+export class UserRepository extends Repository<UserEntity> {
+  constructor(private dataSource: DataSource) {
+    super(UserEntity, dataSource.createEntityManager());
+  }
+  // async query(id: number): Promise<UserEntity[]> {
+  //   const users: UserEntity[] = await this.getRepository().find({
+  //     where: {
+  //       firstName: 'Maro',
+  //     },
+  //   });
 
-  async query(id: number): Promise<UserEntity[]> {
-    const users: UserEntity[] = await this.userRepository.find({
-      where: {
-        id: 1,
-      },
-      relations: {},
-    });
+  //   return users;
+  // }
 
-    return users;
+  // async update() {
+  //   await this.getRepository().update(
+  //     {},
+  //     {
+  //       firstName: 'Hambola',
+  //     },
+  //   );
+  // }
+
+  async createUser(createUserDto: CreateUserDTO) {
+    await this.insert(createUserDto);
   }
 }

@@ -10,10 +10,11 @@ import { CreateUserDTO } from './types/create-user.dto';
 import { UpdateUserDTO } from './types/update-user.dto';
 import { UserEntity } from '../../../data-access/entities/user.entity';
 import { BaseResolver } from '../base.resolver';
+import { UsersService } from '../../../services/users/users.service';
 
 @Resolver(() => UserEntity)
 export class UserResolver extends BaseResolver(UserEntity) {
-  constructor() {
+  constructor(private readonly userService: UsersService) {
     super();
   }
 
@@ -74,18 +75,9 @@ export class UserResolver extends BaseResolver(UserEntity) {
 
   @Mutation(() => UserEntity, { description: 'Creates a user record' })
   async createUser(@Args('createUserDTO') createUserDto: CreateUserDTO) {
-    console.log(createUserDto);
-
+    await this.userService.createUser(createUserDto);
     return {
       id: 1,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Harb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     };
   }
 

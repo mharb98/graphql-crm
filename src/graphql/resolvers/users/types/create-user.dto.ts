@@ -5,7 +5,6 @@ export class CreateUserDTO {
   @Field({ description: 'First name of the user', nullable: false })
   firstName: string;
 
-  // @Field({ description: 'Middle name of the user', nullable: true })
   @Field(() => String, {
     description: 'Middle name of the user',
     nullable: true,

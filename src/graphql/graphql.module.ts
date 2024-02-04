@@ -9,9 +9,10 @@ import { StatusUpdateResolver } from './resolvers/status-update/status-update.re
 import { PurchaseProductResolver } from './resolvers/purchase-product/purchase-product.resolver';
 import { ProductResolver } from './resolvers/products/product.resolver';
 import { InstallmentsResolver } from './resolvers/installments/installments.resolver';
+import { ServicesModule } from '../services/services.module';
 
 @Module({
-  imports: [],
+  imports: [ServicesModule],
   exports: [],
   providers: [
     UserResolver,

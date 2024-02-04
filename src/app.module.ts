@@ -7,6 +7,7 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { dataSourceOptions } from './ormconfig';
+import { ServicesModule } from './services/services.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { dataSourceOptions } from './ormconfig';
     TypeOrmModule.forRoot(dataSourceOptions),
     GraphqlModule,
     DataAccessModule,
+    ServicesModule,
   ],
   controllers: [],
   providers: [],
