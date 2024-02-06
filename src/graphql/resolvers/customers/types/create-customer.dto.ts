@@ -14,7 +14,7 @@ export class CreateCustomerDTO {
   })
   lastName: string;
 
-  @Field((type) => [String], {
+  @Field(() => [String], {
     description: 'Contact information for customer',
     nullable: false,
   })

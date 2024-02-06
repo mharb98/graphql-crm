@@ -28,7 +28,7 @@ export class CustomerEntity extends BaseEntity {
   @Field({ description: 'Last name of the customer', nullable: false })
   lastName: string;
 
-  @Column({ name: 'sales_agent_id' })
+  @Column({ name: 'sales_agent_id', nullable: true })
   salesAgentId?: number;
 
   @ManyToOne(() => UserEntity, (user) => user.customers, { nullable: true })

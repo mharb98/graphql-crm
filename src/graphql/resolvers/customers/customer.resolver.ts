@@ -10,10 +10,11 @@ import { CreateCustomerDTO } from './types/create-customer.dto';
 import { UpdateCustomerDTO } from './types/update-customer.dto';
 import { CustomerEntity } from '../../../data-access/entities/customer.entity';
 import { BaseResolver } from '../base.resolver';
+import { CustomersService } from '../../../services/customers/customers.service';
 
 @Resolver(() => CustomerEntity)
 export class CustomerResolver extends BaseResolver(CustomerEntity) {
-  constructor() {
+  constructor(private readonly customersService: CustomersService) {
     super();
   }
 
@@ -41,14 +42,7 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
   async createCustomer(
     @Args('createCustomerDTO') createCustomerDTO: CreateCustomerDTO,
   ) {
-    console.log(createCustomerDTO);
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      lastName: 'Salah',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.customersService.createCustomer(createCustomerDTO);
   }
 
   @Mutation(() => CustomerEntity)

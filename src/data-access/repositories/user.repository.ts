@@ -30,7 +30,7 @@ export class UserRepository {
   async updateUser(
     userId: number,
     updateUserDto: QueryDeepPartialEntity<UserEntity>,
-  ) {
+  ): Promise<void> {
     await this.dataSource.getRepository(UserEntity).update(
       {
         id: userId,
