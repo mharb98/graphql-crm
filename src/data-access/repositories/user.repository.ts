@@ -1,33 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from '../entities/user.entity';
-import { CreateUserDTO } from '../../graphql/resolvers/users/types/create-user.dto';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, InsertResult } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
-export class UserRepository extends Repository<UserEntity> {
-  constructor(private dataSource: DataSource) {
-    super(UserEntity, dataSource.createEntityManager());
+export class UserRepository {
+  constructor(private dataSource: DataSource) {}
+
+  async findOne(userId: number): Promise<UserEntity> {
+    const user = await this.dataSource
+      .getRepository(UserEntity)
+      .findOneBy({ id: userId });
+
+    if (!user) {
+      throw new NotFoundException("User Doesn't exist");
+    }
+
+    return user;
   }
-  // async query(id: number): Promise<UserEntity[]> {
-  //   const users: UserEntity[] = await this.getRepository().find({
-  //     where: {
-  //       firstName: 'Maro',
-  //     },
-  //   });
 
-  //   return users;
-  // }
+  async createUser(
+    createUserDto: QueryDeepPartialEntity<UserEntity>,
+  ): Promise<InsertResult> {
+    return await this.dataSource
+      .getRepository(UserEntity)
+      .insert(createUserDto);
+  }
 
-  // async update() {
-  //   await this.getRepository().update(
-  //     {},
-  //     {
-  //       firstName: 'Hambola',
-  //     },
-  //   );
-  // }
-
-  async createUser(createUserDto: CreateUserDTO) {
-    await this.insert(createUserDto);
+  async updateUser(
+    userId: number,
+    updateUserDto: QueryDeepPartialEntity<UserEntity>,
+  ) {
+    await this.dataSource.getRepository(UserEntity).update(
+      {
+        id: userId,
+      },
+      updateUserDto,
+    );
   }
 }

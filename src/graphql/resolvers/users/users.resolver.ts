@@ -29,17 +29,7 @@ export class UserResolver extends BaseResolver(UserEntity) {
     })
     id: number,
   ) {
-    return {
-      id: id,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Harb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.userService.findOne(id);
   }
 
   @Query(() => [UserEntity], {
@@ -75,10 +65,7 @@ export class UserResolver extends BaseResolver(UserEntity) {
 
   @Mutation(() => UserEntity, { description: 'Creates a user record' })
   async createUser(@Args('createUserDTO') createUserDto: CreateUserDTO) {
-    await this.userService.createUser(createUserDto);
-    return {
-      id: 1,
-    };
+    return await this.userService.createUser(createUserDto);
   }
 
   @Mutation(() => UserEntity, {
@@ -92,20 +79,7 @@ export class UserResolver extends BaseResolver(UserEntity) {
     id: number,
     @Args('updateUserDto') updateUserDto: UpdateUserDTO,
   ) {
-    console.log(id);
-    console.log(updateUserDto);
-
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Harb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.userService.updateUser(id, updateUserDto);
   }
 
   @Mutation(() => UserEntity, {
@@ -118,19 +92,7 @@ export class UserResolver extends BaseResolver(UserEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Harb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.userService.disableUser(id);
   }
 
   @Mutation(() => UserEntity, {
@@ -143,19 +105,7 @@ export class UserResolver extends BaseResolver(UserEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Harb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.userService.enableUser(id);
   }
 
   @Mutation(() => UserEntity, { description: 'Delete a user from CRM' })

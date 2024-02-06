@@ -38,6 +38,7 @@ export class UserEntity extends BaseEntity {
     length: 255,
     type: 'varchar',
     nullable: false,
+    unique: true,
   })
   @Field({ nullable: false, description: 'User Email' })
   email: string;
@@ -47,6 +48,7 @@ export class UserEntity extends BaseEntity {
     length: 255,
     type: 'varchar',
     nullable: true,
+    unique: true,
   })
   @Field({ nullable: true, description: 'User phone number' })
   phoneNumber: string;
