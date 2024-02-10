@@ -51,7 +51,6 @@ export class UsersService {
   }
 
   async getCustomersSalesAgents(customerIds: number[]): Promise<any> {
-    console.log('Inside get customers sales agents');
     const customers: CustomerEntity[] = await this.customerRepository.listAll(
       customerIds,
     );

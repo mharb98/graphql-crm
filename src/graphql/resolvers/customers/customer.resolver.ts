@@ -13,7 +13,6 @@ import { UpdateCustomerDTO } from './types/update-customer.dto';
 import { CustomerEntity } from '../../../data-access/entities/customer.entity';
 import { BaseResolver } from '../base.resolver';
 import { CustomersService } from '../../../services/customers/customers.service';
-import { IDataloaders } from '../../../dataloader/dataloader.interface';
 import { CustomerDataLoader } from '../../../dataloader/customer-data-loader/types/customer.data-loader';
 
 @Resolver(() => CustomerEntity)

@@ -15,13 +15,13 @@ export function BaseResolver<T extends Type<unknown>>(classRef: T): any {
   @Resolver(() => classRef, { isAbstract: true })
   abstract class BaseResolverHost {
     @ResolveField()
-    createdAt(@Parent() parent: any, @Info() info: any) {
-      return formatDate(new Date());
+    createdAt(@Parent() parent: any) {
+      return formatDate(parent.createdAt);
     }
 
     @ResolveField()
-    updatedAt(@Parent() parent: any, @Info() info: any) {
-      return formatDate(new Date());
+    updatedAt(@Parent() parent: any) {
+      return formatDate(parent.updatedAt);
     }
   }
   return BaseResolverHost;
