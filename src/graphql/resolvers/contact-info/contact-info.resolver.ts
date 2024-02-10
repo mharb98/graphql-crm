@@ -10,10 +10,11 @@ import { CreateContactInfoDTO } from './types/create-contact-info.dto';
 import { UpdateContactInfoDTO } from './types/update-contact-info.dto';
 import { ContactInfoEntity } from '../../../data-access/entities/contact-info.entity';
 import { BaseResolver } from '../base.resolver';
+import { ContactInfoService } from '../../../services/contact-info/contact-info.service';
 
 @Resolver(() => ContactInfoEntity)
 export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
-  constructor() {
+  constructor(private contactInfoService: ContactInfoService) {
     super();
   }
 
@@ -28,13 +29,7 @@ export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
     })
     id: number,
   ) {
-    return {
-      id,
-      type: 'email',
-      value: 'example@exampledomain.com',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.contactInfoService.findOne(id);
   }
 
   @Mutation(() => ContactInfoEntity, {
@@ -48,16 +43,10 @@ export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
     customerId: number,
     @Args('createContactInfoDto') createContactInfoDto: CreateContactInfoDTO,
   ) {
-    console.log(customerId);
-    console.log(createContactInfoDto);
-
-    return {
-      id: 1,
-      type: 'email',
-      value: 'example@exampledomain.com',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.contactInfoService.createContactInfo(
+      customerId,
+      createContactInfoDto.value,
+    );
   }
 
   @Mutation(() => ContactInfoEntity, {
@@ -71,16 +60,10 @@ export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
     id: number,
     @Args('updateContactInfoDto') updateContactInfoDto: UpdateContactInfoDTO,
   ) {
-    console.log(id);
-    console.log(updateContactInfoDto);
-
-    return {
+    return await this.contactInfoService.updateContactInfo(
       id,
-      type: 'email',
-      value: 'example@exampledomain.com',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+      updateContactInfoDto,
+    );
   }
 
   @Mutation(() => ContactInfoEntity, {

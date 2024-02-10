@@ -55,7 +55,7 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
       createCustomerDTO,
     );
 
-    await this.contactInfoService.createCustomerContactInfo(
+    await this.contactInfoService.createContactInfo(
       customer.id,
       createCustomerDTO.contactInfo,
     );
