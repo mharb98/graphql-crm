@@ -1,7 +1,9 @@
 import {
   Args,
+  Context,
   Int,
   Mutation,
+  Parent,
   Query,
   ResolveField,
   Resolver,
@@ -11,6 +13,7 @@ import { UpdateContactInfoDTO } from './types/update-contact-info.dto';
 import { ContactInfoEntity } from '../../../data-access/entities/contact-info.entity';
 import { BaseResolver } from '../base.resolver';
 import { ContactInfoService } from '../../../services/contact-info/contact-info.service';
+import { ContactInfoDataLoader } from '../../../dataloader/contact-info-data-loader/types/contact-info.data-loader';
 
 @Resolver(() => ContactInfoEntity)
 export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
@@ -88,13 +91,22 @@ export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
   }
 
   @ResolveField()
-  async customer() {
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      lastName: 'Salah',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  async customer(
+    @Parent() contactInfo: ContactInfoEntity,
+    @Context()
+    {
+      contactInfoDataLoaders,
+    }: { contactInfoDataLoaders: ContactInfoDataLoader },
+  ) {
+    const { id } = contactInfo;
+    const { customersDataLoader } = contactInfoDataLoaders;
+    return await customersDataLoader.load(id);
+    // return {
+    //   id: 1,
+    //   firstName: 'Marwan',
+    //   lastName: 'Salah',
+    //   createdAt: new Date(),
+    //   updatedAt: new Date(),
+    // };
   }
 }

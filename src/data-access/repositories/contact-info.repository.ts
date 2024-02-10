@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, In, InsertResult } from 'typeorm';
+import {
+  DataSource,
+  FindOptionsRelations,
+  FindOptionsWhere,
+  In,
+  InsertResult,
+} from 'typeorm';
 import { ContactInfoEntity } from '../entities/contact-info.entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { ListAllContactInfo } from './query-input-types/list-all-contact-info.type';
 
 @Injectable()
 export class ContactInfoRepository {
@@ -30,9 +37,13 @@ export class ContactInfoRepository {
       .findOneByOrFail({ id: customerId });
   }
 
-  async listAll(customerIds: number[]): Promise<ContactInfoEntity[]> {
-    return await this.dataSource
-      .getRepository(ContactInfoEntity)
-      .find({ where: { customerId: In(customerIds) } });
+  async listAll(
+    listAllInput: FindOptionsWhere<ContactInfoEntity>,
+    findOptionsRelations: FindOptionsRelations<ContactInfoEntity>,
+  ): Promise<ContactInfoEntity[]> {
+    return await this.dataSource.getRepository(ContactInfoEntity).find({
+      where: listAllInput,
+      relations: findOptionsRelations,
+    });
   }
 }
