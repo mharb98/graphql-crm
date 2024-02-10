@@ -48,16 +48,7 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
     id: number,
     @Args('updateCustomerDTO') updateCustomerDTO: UpdateCustomerDTO,
   ) {
-    console.log(id);
-    console.log(updateCustomerDTO);
-
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      lastName: 'Salah',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.customersService.updateCustomer(id, updateCustomerDTO);
   }
 
   @Mutation(() => CustomerEntity)
@@ -68,15 +59,7 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      lastName: 'Salah',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    await this.customersService.deleteCustomer(id);
   }
 
   @ResolveField()

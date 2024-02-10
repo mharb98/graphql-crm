@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { DataSource, InsertResult } from 'typeorm';
+import { DataSource, InsertResult, UpdateResult } from 'typeorm';
 import { CustomerEntity } from '../entities/customer.entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
@@ -20,10 +20,23 @@ export class CustomersRepository {
   }
 
   async create(
-    createCustomerDTO: QueryDeepPartialEntity<CustomerEntity>,
+    createCustomerInput: QueryDeepPartialEntity<CustomerEntity>,
   ): Promise<InsertResult> {
     return await this.dataSource
       .getRepository(CustomerEntity)
-      .insert(createCustomerDTO);
+      .insert(createCustomerInput);
+  }
+
+  async update(
+    id: number,
+    updateCustomerInput: QueryDeepPartialEntity<CustomerEntity>,
+  ): Promise<UpdateResult> {
+    return await this.dataSource
+      .getRepository(CustomerEntity)
+      .update({ id }, updateCustomerInput);
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.dataSource.getRepository(CustomerEntity).delete({ id });
   }
 }
