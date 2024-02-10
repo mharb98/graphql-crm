@@ -9,10 +9,11 @@ import {
 import { CommentEntity } from '../../../data-access/entities/comments.entity';
 import { CreateCommentDTO } from './types/create-comment.dto';
 import { BaseResolver } from '../base.resolver';
+import { CommentsService } from '../../../services/comments/comments.service';
 
 @Resolver(() => CommentEntity)
 export class CommentsResolver extends BaseResolver(CommentEntity) {
-  constructor() {
+  constructor(private readonly commentsService: CommentsService) {
     super();
   }
 
@@ -27,34 +28,24 @@ export class CommentsResolver extends BaseResolver(CommentEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      id: 1,
-      comment: 'Comment 1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.commentsService.findOne(id);
   }
 
   @Mutation(() => CommentEntity, {
     description: 'Create a new comment for a specific customer',
   })
   async createComment(
-    @Args('id', {
+    @Args('customerId', {
       type: () => Int,
       description: 'The ID of the customer to which the comment will be added',
     })
-    id: number,
+    customerId: number,
     @Args('createCommentDto') createCommentDto: CreateCommentDTO,
   ) {
-    console.log(id);
-    console.log(createCommentDto);
-
-    return {
-      id: 1,
-      comment: 'Comment 1',
-    };
+    return await this.commentsService.createComment(
+      customerId,
+      createCommentDto,
+    );
   }
 
   @Mutation(() => CommentEntity, {
