@@ -14,6 +14,7 @@ import { CustomerEntity } from '../../../data-access/entities/customer.entity';
 import { BaseResolver } from '../base.resolver';
 import { CustomersService } from '../../../services/customers/customers.service';
 import { IDataloaders } from '../../../dataloader/dataloader.interface';
+import { CustomerDataLoader } from '../../../dataloader/customer-data-loader/types/customer.data-loader';
 
 @Resolver(() => CustomerEntity)
 export class CustomerResolver extends BaseResolver(CustomerEntity) {
@@ -76,10 +77,12 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
   @ResolveField()
   async salesAgent(
     @Parent() customer: CustomerEntity,
-    @Context() { loaders }: { loaders: IDataloaders },
+    @Context()
+    { customerDataLoaders }: { customerDataLoaders: CustomerDataLoader },
   ) {
     const { id } = customer;
-    return loaders.usersLoader.load(id);
+    const { salesAgentsLoader } = customerDataLoaders;
+    return await salesAgentsLoader.load(id);
   }
 
   @ResolveField()
@@ -117,15 +120,15 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
   }
 
   @ResolveField()
-  async comments() {
-    return [
-      {
-        comment: 'Comment 1',
-      },
-      {
-        comment: 'Comment 2',
-      },
-    ];
+  async comments(
+    @Parent() customer: CustomerEntity,
+    @Context()
+    { customerDataLoaders }: { customerDataLoaders: CustomerDataLoader },
+  ) {
+    const { id } = customer;
+    const { commentsLoader } = customerDataLoaders;
+
+    return await commentsLoader.load(id);
   }
 
   @ResolveField()

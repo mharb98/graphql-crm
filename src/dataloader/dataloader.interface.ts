@@ -1,6 +1,5 @@
-import DataLoader from 'dataloader';
-import { UserEntity } from '../data-access/entities/user.entity';
+import { CustomerDataLoader } from './customer-data-loader/types/customer.data-loader';
 
 export interface IDataloaders {
-  usersLoader: DataLoader<number, UserEntity>;
+  customerDataLoaders: CustomerDataLoader;
 }

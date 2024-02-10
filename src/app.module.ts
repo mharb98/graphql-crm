@@ -9,6 +9,7 @@ import { dataSourceOptions } from './ormconfig';
 import { ServicesModule } from './services/services.module';
 import { DataloaderModule } from './dataloader/dataloader.module';
 import { DataloaderService } from './dataloader/dataloader.service';
+import { IDataloaders } from './dataloader/dataloader.interface';
 
 @Module({
   imports: [
@@ -21,9 +22,13 @@ import { DataloaderService } from './dataloader/dataloader.service';
           playground: false,
           sortSchema: true,
           plugins: [ApolloServerPluginLandingPageLocalDefault()],
-          context: () => ({
-            loaders: dataloaderService.getLoaders(),
-          }),
+          context: () => {
+            const loaders: IDataloaders = dataloaderService.getLoaders();
+
+            return {
+              ...loaders,
+            };
+          },
         };
       },
       inject: [DataloaderService],

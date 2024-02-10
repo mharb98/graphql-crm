@@ -66,7 +66,9 @@ export class UsersService {
     customers: CustomerEntity[],
   ): any => {
     return customerIds.map((id) => {
-      return customers.find((customer) => customer.id === id).salesAgent;
+      return (
+        customers.find((customer) => customer.id === id).salesAgent || null
+      );
     });
   };
 }
