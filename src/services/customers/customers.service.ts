@@ -7,6 +7,10 @@ import { InsertResult } from 'typeorm';
 export class CustomersService {
   constructor(private readonly customersRepository: CustomersRepository) {}
 
+  async findOne(customerId: number) {
+    return await this.customersRepository.findOne(customerId);
+  }
+
   async createCustomer(createCustomerDto: CreateCustomerDTO) {
     try {
       const result: InsertResult = await this.customersRepository.create({

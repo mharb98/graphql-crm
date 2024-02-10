@@ -29,13 +29,7 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
     })
     id: number,
   ) {
-    return {
-      id: id,
-      firstName: 'Marwan',
-      lastName: 'Salah',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.customersService.findOne(id);
   }
 
   @Mutation(() => CustomerEntity)
