@@ -6,12 +6,14 @@ import { CustomerDataLoader } from './types/customer.data-loader';
 import { CommentEntity } from '../../data-access/entities/comments.entity';
 import { ContactInfoEntity } from '../../data-access/entities/contact-info.entity';
 import { CommentsService } from '../../services/comments/comments.service';
+import { ContactInfoService } from '../../services/contact-info/contact-info.service';
 
 @Injectable()
 export class CustomerDataLoaderService {
   constructor(
     private readonly usersService: UsersService,
     private readonly commentsService: CommentsService,
+    private readonly contactInfoService: ContactInfoService,
   ) {}
 
   getLoaders(): CustomerDataLoader {
@@ -42,7 +44,8 @@ export class CustomerDataLoaderService {
 
   private createContactInfoLoader() {
     return new DataLoader<number, ContactInfoEntity>(
-      async (keys: readonly number[]) => [],
+      async (keys: readonly number[]) =>
+        await this.contactInfoService.getCustomersContactInfo(keys as number[]),
     );
   }
 }

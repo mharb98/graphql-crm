@@ -85,21 +85,14 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
   }
 
   @ResolveField()
-  async contactInfo() {
-    return [
-      {
-        id: 1,
-        value: 'example@exampledomain.com',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: 1,
-        value: '+201013949494',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
+  async contactInfo(
+    @Parent() customer: CustomerEntity,
+    @Context()
+    { customerDataLoaders }: { customerDataLoaders: CustomerDataLoader },
+  ) {
+    const { id } = customer;
+    const { contactInfoLoader } = customerDataLoaders;
+    return await contactInfoLoader.load(id);
   }
 
   @ResolveField()
