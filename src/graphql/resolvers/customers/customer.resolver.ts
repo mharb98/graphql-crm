@@ -1,7 +1,9 @@
 import {
   Args,
+  Context,
   Int,
   Mutation,
+  Parent,
   Query,
   ResolveField,
   Resolver,
@@ -11,6 +13,7 @@ import { UpdateCustomerDTO } from './types/update-customer.dto';
 import { CustomerEntity } from '../../../data-access/entities/customer.entity';
 import { BaseResolver } from '../base.resolver';
 import { CustomersService } from '../../../services/customers/customers.service';
+import { IDataloaders } from '../../../dataloader/dataloader.interface';
 
 @Resolver(() => CustomerEntity)
 export class CustomerResolver extends BaseResolver(CustomerEntity) {
@@ -63,18 +66,12 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
   }
 
   @ResolveField()
-  async salesAgent() {
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Ragheb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  async salesAgent(
+    @Parent() customer: CustomerEntity,
+    @Context() { loaders }: { loaders: IDataloaders },
+  ) {
+    const { id } = customer;
+    return loaders.usersLoader.load(id);
   }
 
   @ResolveField()

@@ -4,10 +4,15 @@ import { CreateUserDTO } from '../../graphql/resolvers/users/types/create-user.d
 import { UpdateUserDTO } from '../../graphql/resolvers/users/types/update-user.dto';
 import { InsertResult } from 'typeorm';
 import { UserEntity } from '../../data-access/entities/user.entity';
+import { CustomerEntity } from '../../data-access/entities/customer.entity';
+import { CustomersRepository } from '../../data-access/repositories/customer.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UserRepository) {}
+  constructor(
+    private readonly usersRepository: UserRepository,
+    private readonly customerRepository: CustomersRepository,
+  ) {}
 
   async createUser(createUserDto: CreateUserDTO) {
     try {
@@ -44,4 +49,30 @@ export class UsersService {
   async findOne(userId: number): Promise<UserEntity> {
     return await this.usersRepository.findOne(userId);
   }
+
+  async getCustomersSalesAgents(customerIds: number[]): Promise<any> {
+    const customers: CustomerEntity[] = await this.customerRepository.listAll(
+      customerIds,
+    );
+
+    const mappedResults = this.mapUsersToCustomerIds(customerIds, customers);
+
+    return mappedResults;
+  }
+
+  private mapUsersToCustomerIds = (
+    customerIds: number[],
+    customers: CustomerEntity[],
+  ): any => {
+    return customerIds.map((id) => {
+      return customers.find((customer) => customer.id === id).salesAgent;
+    });
+    // const hash: any = {};
+
+    // return customerIds.map((id) => {
+    //   return users.filter((user) => {
+    //     if(user.customers.)
+    //   })
+    // });
+  };
 }

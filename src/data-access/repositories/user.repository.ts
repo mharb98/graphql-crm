@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from '../entities/user.entity';
-import { DataSource, InsertResult } from 'typeorm';
+import { DataSource, In, InsertResult, UpdateResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { ListAllUsersInput } from './query-input-types/list-all-users-input.type';
 
 @Injectable()
 export class UserRepository {
@@ -30,12 +31,25 @@ export class UserRepository {
   async updateUser(
     userId: number,
     updateUserDto: QueryDeepPartialEntity<UserEntity>,
-  ): Promise<void> {
-    await this.dataSource.getRepository(UserEntity).update(
+  ): Promise<UpdateResult> {
+    return await this.dataSource.getRepository(UserEntity).update(
       {
         id: userId,
       },
       updateUserDto,
     );
+  }
+
+  async getCustomerSalesAgents(customerIds: number[]): Promise<UserEntity[]> {
+    return await this.dataSource.getRepository(UserEntity).find({
+      where: {
+        customers: {
+          id: In(customerIds),
+        },
+      },
+      relations: {
+        customers: true,
+      },
+    });
   }
 }
