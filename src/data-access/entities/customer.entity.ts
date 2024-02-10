@@ -35,6 +35,7 @@ export class CustomerEntity extends BaseEntity {
   @JoinColumn({ name: 'sales_agent_id' })
   @Field(() => UserEntity, {
     description: 'Sales Agent Associated with a customer',
+    nullable: true,
   })
   salesAgent?: UserEntity;
 

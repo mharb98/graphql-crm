@@ -14,10 +14,14 @@ import { CustomerEntity } from '../../../data-access/entities/customer.entity';
 import { BaseResolver } from '../base.resolver';
 import { CustomersService } from '../../../services/customers/customers.service';
 import { CustomerDataLoader } from '../../../dataloader/customer-data-loader/types/customer.data-loader';
+import { ContactInfoService } from '../../../services/contact-info/contact-info.service';
 
 @Resolver(() => CustomerEntity)
 export class CustomerResolver extends BaseResolver(CustomerEntity) {
-  constructor(private readonly customersService: CustomersService) {
+  constructor(
+    private readonly customersService: CustomersService,
+    private readonly contactInfoService: ContactInfoService,
+  ) {
     super();
   }
 
@@ -47,7 +51,16 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
   async createCustomer(
     @Args('createCustomerDTO') createCustomerDTO: CreateCustomerDTO,
   ) {
-    return await this.customersService.createCustomer(createCustomerDTO);
+    const customer = await this.customersService.createCustomer(
+      createCustomerDTO,
+    );
+
+    await this.contactInfoService.createCustomerContactInfo(
+      customer.id,
+      createCustomerDTO.contactInfo,
+    );
+
+    return customer;
   }
 
   @Mutation(() => CustomerEntity)
