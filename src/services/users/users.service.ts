@@ -51,6 +51,7 @@ export class UsersService {
   }
 
   async getCustomersSalesAgents(customerIds: number[]): Promise<any> {
+    console.log('Inside get customers sales agents');
     const customers: CustomerEntity[] = await this.customerRepository.listAll(
       customerIds,
     );
@@ -67,12 +68,5 @@ export class UsersService {
     return customerIds.map((id) => {
       return customers.find((customer) => customer.id === id).salesAgent;
     });
-    // const hash: any = {};
-
-    // return customerIds.map((id) => {
-    //   return users.filter((user) => {
-    //     if(user.customers.)
-    //   })
-    // });
   };
 }

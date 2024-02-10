@@ -344,6 +344,9 @@ type PurchaseProductEntity {
 }
 
 type Query {
+  """Query customers and returns a paginated customers result"""
+  QueryCustomers: [CustomerEntity!]!
+
   """Returns a list of paginated products"""
   QueryProducts: [ProductEntity!]!
 

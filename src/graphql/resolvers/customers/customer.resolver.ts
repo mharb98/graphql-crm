@@ -21,6 +21,14 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
     super();
   }
 
+  @Query(() => [CustomerEntity], {
+    name: 'QueryCustomers',
+    description: 'Query customers and returns a paginated customers result',
+  })
+  async queryCustomers() {
+    return await this.customersService.queryCustomers();
+  }
+
   @Query(() => CustomerEntity, {
     name: 'customer',
     description: 'Returns a customer object of specified id',

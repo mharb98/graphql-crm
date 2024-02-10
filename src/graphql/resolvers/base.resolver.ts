@@ -21,8 +21,6 @@ export function BaseResolver<T extends Type<unknown>>(classRef: T): any {
 
     @ResolveField()
     updatedAt(@Parent() parent: any, @Info() info: any) {
-      console.log(parent);
-      console.log(info);
       return formatDate(new Date());
     }
   }

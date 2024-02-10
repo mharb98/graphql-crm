@@ -40,6 +40,12 @@ export class UserRepository {
     );
   }
 
+  async query(ids: number[]): Promise<UserEntity[]> {
+    return await this.dataSource
+      .getRepository(UserEntity)
+      .find({ where: { id: In(ids) } });
+  }
+
   async getCustomerSalesAgents(customerIds: number[]): Promise<UserEntity[]> {
     return await this.dataSource.getRepository(UserEntity).find({
       where: {

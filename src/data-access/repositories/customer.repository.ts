@@ -40,6 +40,10 @@ export class CustomersRepository {
     await this.dataSource.getRepository(CustomerEntity).delete({ id });
   }
 
+  async query(): Promise<CustomerEntity[]> {
+    return await this.dataSource.getRepository(CustomerEntity).find();
+  }
+
   async listAll(ids: number[]): Promise<CustomerEntity[]> {
     return await this.dataSource
       .getRepository(CustomerEntity)

@@ -10,6 +10,7 @@ import { PurchaseProductResolver } from './resolvers/purchase-product/purchase-p
 import { ProductResolver } from './resolvers/products/product.resolver';
 import { InstallmentsResolver } from './resolvers/installments/installments.resolver';
 import { ServicesModule } from '../services/services.module';
+
 @Module({
   imports: [ServicesModule],
   exports: [],
