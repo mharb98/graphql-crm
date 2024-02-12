@@ -9,10 +9,12 @@ import {
 import { CreateProductDTO } from './types/create-product.dto';
 import { ProductEntity } from '../../../data-access/entities/product.entity';
 import { BaseResolver } from '../base.resolver';
+import { ProductService } from '../../../services/product/product.service';
+import { UpdateProductDTO } from './types/update-product.dto';
 
 @Resolver(() => ProductEntity)
 export class ProductResolver extends BaseResolver(ProductEntity) {
-  constructor() {
+  constructor(private readonly productService: ProductService) {
     super();
   }
 
@@ -27,18 +29,7 @@ export class ProductResolver extends BaseResolver(ProductEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      id: 1,
-      name: 'Flash Light',
-      description: 'Light your way in the darkness',
-      price: 100,
-      stock: 3,
-      rating: 4.5,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.productService.findOne(id);
   }
 
   @Query(() => [ProductEntity], {
@@ -77,18 +68,22 @@ export class ProductResolver extends BaseResolver(ProductEntity) {
   async createProduct(
     @Args('createProductDTO') createProductDto: CreateProductDTO,
   ) {
-    console.log(createProductDto);
+    return await this.productService.createProduct(createProductDto);
+  }
 
-    return {
-      id: 1,
-      name: 'Flash Light',
-      description: 'Light your way in the darkness',
-      price: 100,
-      stock: 3,
-      rating: 4.5,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  @Mutation(() => ProductEntity, {
+    name: 'updateProduct',
+    description: 'Updates and returns a product',
+  })
+  async updateProduct(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the product to be updated',
+    })
+    id: number,
+    @Args('updateProductDTO') updateProductDto: UpdateProductDTO,
+  ) {
+    return await this.productService.updateProduct(id, updateProductDto);
   }
 
   @ResolveField()

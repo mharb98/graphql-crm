@@ -15,15 +15,11 @@ export class UsersService {
   ) {}
 
   async createUser(createUserDto: CreateUserDTO) {
-    try {
-      const result: InsertResult = await this.usersRepository.createUser(
-        createUserDto,
-      );
+    const result: InsertResult = await this.usersRepository.createUser(
+      createUserDto,
+    );
 
-      return await this.usersRepository.findOne(result.identifiers[0].id);
-    } catch (error) {
-      throw new InternalServerErrorException('Failed to create user');
-    }
+    return await this.usersRepository.findOne(result.identifiers[0].id);
   }
 
   async updateUser(userId: number, updateUserDto: UpdateUserDTO) {

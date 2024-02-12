@@ -3,7 +3,7 @@ import { CustomersRepository } from './repositories/customer.repository';
 import { UserRepository } from './repositories/user.repository';
 import { CommentsRepository } from './repositories/comment.repository';
 import { ContactInfoRepository } from './repositories/contact-info.repository';
-import { ContactInfoEntity } from './entities/contact-info.entity';
+import { ProductRepository } from './repositories/product.repository';
 
 @Module({
   imports: [],
@@ -12,12 +12,14 @@ import { ContactInfoEntity } from './entities/contact-info.entity';
     UserRepository,
     CommentsRepository,
     ContactInfoRepository,
+    ProductRepository,
   ],
   exports: [
     CustomersRepository,
     UserRepository,
     CommentsRepository,
     ContactInfoRepository,
+    ProductRepository,
   ],
 })
 export class DataAccessModule {}
