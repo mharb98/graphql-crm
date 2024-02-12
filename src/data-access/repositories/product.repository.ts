@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, InsertResult } from 'typeorm';
+import { DataSource, FindManyOptions, In, InsertResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { ProductEntity } from '../entities/product.entity';
 
@@ -32,5 +32,11 @@ export class ProductRepository {
 
   async deleteProduct(id: number): Promise<void> {
     await this.dataSource.getRepository(ProductEntity).delete(id);
+  }
+
+  async listAll({ ids }: { ids: number[] }): Promise<ProductEntity[]> {
+    return await this.dataSource
+      .getRepository(ProductEntity)
+      .find({ where: { id: In(ids) } });
   }
 }

@@ -10,10 +10,11 @@ import { PurchaseEntity } from '../../../data-access/entities/purchase.entity';
 import { CreatePurchaseDTO } from './types/create-purchase.dto';
 import { UpdatePurchaseDTO } from './types/update-purchase.dto';
 import { BaseResolver } from '../base.resolver';
+import { PurchaseService } from '../../../services/purchase/purchase.service';
 
 @Resolver(() => PurchaseEntity)
 export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
-  constructor() {
+  constructor(private readonly purchaseService: PurchaseService) {
     super();
   }
 
@@ -41,19 +42,17 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
   async createPurchase(
     @Args('customerId', {
       type: () => Int,
-      description: 'ID of the customer for which the purchase is being added',
+      description: 'ID of the user record being updated',
     })
     customerId: number,
     @Args('createPurchaseDto') createPurchaseDto: CreatePurchaseDTO,
   ) {
     console.log(customerId);
     console.log(createPurchaseDto);
-
-    return {
-      totalPrice: 340,
-      taxes: 23.5,
-      totalDiscount: 19.5,
-    };
+    return await this.purchaseService.createPurchase(
+      customerId,
+      createPurchaseDto,
+    );
   }
 
   @Mutation(() => PurchaseEntity, {

@@ -16,9 +16,9 @@ export class StatusEntity extends BaseEntity {
   name: string;
 
   @OneToMany(() => StatusUpdateEntity, (statusUpdate) => statusUpdate.status)
-  @Field(() => [StatusUpdateEntity], {
-    description: 'The updates in which the status was used',
-    nullable: true,
-  })
+  // @Field(() => [StatusUpdateEntity], {
+  //   description: 'The updates in which the status was used',
+  //   nullable: true,
+  // })
   statusUpdates: StatusUpdateEntity[];
 }
