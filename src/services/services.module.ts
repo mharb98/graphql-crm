@@ -5,6 +5,7 @@ import { CustomersService } from './customers/customers.service';
 import { CommentsService } from './comments/comments.service';
 import { ContactInfoService } from './contact-info/contact-info.service';
 import { ProductService } from './product/product.service';
+import { StatusService } from './status/status.service';
 @Module({
   imports: [DataAccessModule],
   providers: [
@@ -13,6 +14,7 @@ import { ProductService } from './product/product.service';
     CommentsService,
     ContactInfoService,
     ProductService,
+    StatusService,
   ],
   exports: [
     UsersService,
@@ -20,6 +22,7 @@ import { ProductService } from './product/product.service';
     CommentsService,
     ContactInfoService,
     ProductService,
+    StatusService,
   ],
 })
 export class ServicesModule {}

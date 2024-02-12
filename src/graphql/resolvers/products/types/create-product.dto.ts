@@ -11,7 +11,7 @@ export class CreateProductDTO {
   })
   description: string;
 
-  @Field((type) => Float, {
+  @Field(() => Float, {
     description: 'Price of the product',
     nullable: false,
   })

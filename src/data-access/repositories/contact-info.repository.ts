@@ -3,12 +3,10 @@ import {
   DataSource,
   FindOptionsRelations,
   FindOptionsWhere,
-  In,
   InsertResult,
 } from 'typeorm';
 import { ContactInfoEntity } from '../entities/contact-info.entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { ListAllContactInfo } from './query-input-types/list-all-contact-info.type';
 
 @Injectable()
 export class ContactInfoRepository {

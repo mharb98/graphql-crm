@@ -3,10 +3,11 @@ import { StatusEntity } from '../../../data-access/entities/status.entity';
 import { CreateStatusDTO } from './types/create-status.dto';
 import { UpdateStatusDTO } from './types/update-status.dto';
 import { BaseResolver } from '../base.resolver';
+import { StatusService } from '../../../services/status/status.service';
 
 @Resolver(() => StatusEntity)
 export class StatusResolver extends BaseResolver(StatusEntity) {
-  constructor() {
+  constructor(private readonly statusService: StatusService) {
     super();
   }
 
@@ -21,32 +22,25 @@ export class StatusResolver extends BaseResolver(StatusEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      name: 'Status 1',
-    };
+    return await this.statusService.findOne(id);
   }
 
   @Mutation(() => StatusEntity, { description: 'Creates a new status' })
   async createStatus(
     @Args('createStatusDto') createStatusDto: CreateStatusDTO,
   ) {
-    console.log(createStatusDto);
-
-    return {
-      name: 'Status 1',
-    };
+    return await this.statusService.createStatus(createStatusDto);
   }
 
   @Mutation(() => StatusEntity, { description: 'Updates a new status' })
   async updateStatus(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the status to be returned',
+    })
+    id: number,
     @Args('updateStatusDto') updateStatusDto: UpdateStatusDTO,
   ) {
-    console.log(updateStatusDto);
-
-    return {
-      name: 'Status 1',
-    };
+    return await this.statusService.updateStatus(id, updateStatusDto);
   }
 }
