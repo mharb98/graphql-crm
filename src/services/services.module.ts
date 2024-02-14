@@ -7,6 +7,7 @@ import { ContactInfoService } from './contact-info/contact-info.service';
 import { ProductService } from './product/product.service';
 import { StatusService } from './status/status.service';
 import { PurchaseService } from './purchase/purchase.service';
+import { PurchaseProductsService } from './purchase-products/purchase-products.service';
 @Module({
   imports: [DataAccessModule],
   providers: [
@@ -17,6 +18,7 @@ import { PurchaseService } from './purchase/purchase.service';
     ProductService,
     StatusService,
     PurchaseService,
+    PurchaseProductsService,
   ],
   exports: [
     UsersService,

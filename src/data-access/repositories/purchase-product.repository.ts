@@ -12,7 +12,6 @@ export class PurchaseProductRepository {
       | QueryDeepPartialEntity<PurchaseProductEntity>
       | QueryDeepPartialEntity<PurchaseProductEntity>[],
   ): Promise<InsertResult> {
-    console.log(createPurchaseProductDto);
     return await this.dataSource
       .getRepository(PurchaseProductEntity)
       .insert(createPurchaseProductDto);

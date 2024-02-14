@@ -37,7 +37,7 @@ export class PurchaseService {
         (product) => product.id === purchaseProduct.productId,
       );
 
-      totalPrice += currentProduct.price;
+      totalPrice += currentProduct.price * purchaseProduct.amount;
       totalDiscount += purchaseProduct.discount;
     });
 

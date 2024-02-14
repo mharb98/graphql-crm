@@ -1,6 +1,7 @@
-import { ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
 import { PurchaseProductEntity } from '../../../data-access/entities/purchase-product.entity';
 import { BaseResolver } from '../base.resolver';
+import { UpdatePurchaseProductDTO } from './types/update-purchase-product.dto';
 
 @Resolver(() => PurchaseProductEntity)
 export class PurchaseProductResolver extends BaseResolver(
@@ -8,6 +9,21 @@ export class PurchaseProductResolver extends BaseResolver(
 ) {
   constructor() {
     super();
+  }
+
+  @Mutation(() => PurchaseProductEntity, {
+    description: 'Update a purchase product entity by id',
+  })
+  async updatePurchaseEntity(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the purchase product to be updated',
+    })
+    id: number,
+    @Args('UpdatePurchaseProductDTO')
+    updatePurchaseProductDto: UpdatePurchaseProductDTO,
+  ): Promise<PurchaseProductEntity> {
+    return null;
   }
 
   @ResolveField()
