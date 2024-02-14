@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { PurchaseProductEntity } from './purchase-product.entity';
 import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
+import { DecimalTransformer } from '../transformers/decimal.transformer';
 
 @ObjectType()
 @Entity({ name: 'products' })
@@ -19,21 +20,37 @@ export class ProductEntity extends BaseEntity {
   @Field({ description: 'The description of the product', nullable: false })
   description: string;
 
-  @Column({ type: 'bigint', nullable: false, name: 'price' })
+  @Column({
+    type: 'decimal',
+    nullable: false,
+    name: 'price',
+    transformer: new DecimalTransformer(),
+  })
   @Field(() => Float, {
     description: 'The price of the product',
     nullable: false,
   })
   price: number;
 
-  @Column({ type: 'bigint', nullable: false, name: 'stock', default: 0 })
+  @Column({
+    type: 'int',
+    nullable: false,
+    name: 'stock',
+    default: 0,
+  })
   @Field(() => Int, {
     description: 'The amount that is still available in the product',
     nullable: false,
   })
   stock: number;
 
-  @Column({ type: 'bigint', nullable: false, name: 'rating', default: 0 })
+  @Column({
+    type: 'decimal',
+    nullable: false,
+    name: 'rating',
+    default: 0,
+    transformer: new DecimalTransformer(),
+  })
   @Field(() => Float, { description: 'The total rating of the product' })
   rating: number;
 

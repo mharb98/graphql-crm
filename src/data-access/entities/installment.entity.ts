@@ -2,14 +2,16 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { PurchaseEntity } from './purchase.entity';
 import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { DecimalTransformer } from '../transformers/decimal.transformer';
 
 @ObjectType()
 @Entity({ name: 'installments' })
 export class InstallmentEntity extends BaseEntity {
   @Column({
     name: 'amount',
-    type: 'bigint',
+    type: 'decimal',
     nullable: false,
+    transformer: new DecimalTransformer(),
   })
   @Field(() => Float, {
     description: 'The amount that was paid in the installment',

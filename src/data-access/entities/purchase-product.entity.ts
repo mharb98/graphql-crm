@@ -9,7 +9,6 @@ import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 @Entity({ name: 'purchase_products' })
 export class PurchaseProductEntity extends BaseEntity {
   @Column({
-    type: 'bigint',
     name: 'amount',
     nullable: false,
   })
@@ -21,7 +20,6 @@ export class PurchaseProductEntity extends BaseEntity {
   amount: number;
 
   @Column({
-    type: 'bigint',
     name: 'discount',
     nullable: false,
   })

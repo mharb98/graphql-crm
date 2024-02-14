@@ -3,7 +3,6 @@ import { PurchaseRepository } from '../../data-access/repositories/purchase.repo
 import { PurchaseProductRepository } from '../../data-access/repositories/purchase-product.repository';
 import { CreatePurchaseDTO } from '../../graphql/resolvers/purchase/types/create-purchase.dto';
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
-import { In, Transaction } from 'typeorm';
 import { ProductRepository } from '../../data-access/repositories/product.repository';
 import { ProductEntity } from '../../data-access/entities/product.entity';
 
@@ -36,21 +35,19 @@ export class PurchaseService {
       currentProduct = products.find(
         (product) => product.id === purchaseProduct.productId,
       );
-      totalPrice += parseInt(currentProduct.price.toString());
+
+      totalPrice += currentProduct.price;
       totalDiscount += purchaseProduct.discount;
     });
 
     const taxes = (totalPrice - totalDiscount) * 0.24;
-    console.log(typeof totalPrice);
-    console.log(typeof totalDiscount);
-    console.log(typeof taxes);
-    console.log(customerId);
+
     try {
       const result = await this.purchaseRepository.createPurchase({
         customerId,
-        totalDiscount: parseInt(totalDiscount.toString()),
-        totalPrice: parseInt(totalPrice.toString()),
-        taxes: parseInt(taxes.toString()),
+        totalDiscount: totalDiscount,
+        totalPrice: totalPrice,
+        taxes: taxes,
         salesAgentId,
       });
 

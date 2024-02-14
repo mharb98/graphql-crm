@@ -4,14 +4,16 @@ import { CustomerEntity } from './customer.entity';
 import { PurchaseProductEntity } from './purchase-product.entity';
 import { InstallmentEntity } from './installment.entity';
 import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { DecimalTransformer } from '../transformers/decimal.transformer';
 
 @ObjectType()
 @Entity({ name: 'purchases' })
 export class PurchaseEntity extends BaseEntity {
   @Column({
     name: 'total_price',
-    type: 'bigint',
+    type: 'decimal',
     nullable: false,
+    transformer: new DecimalTransformer(),
   })
   @Field(() => Float, {
     description: 'The total Price of items in the purchase',
@@ -21,8 +23,9 @@ export class PurchaseEntity extends BaseEntity {
 
   @Column({
     name: 'taxes',
-    type: 'bigint',
+    type: 'decimal',
     nullable: false,
+    transformer: new DecimalTransformer(),
   })
   @Field(() => Float, {
     description: 'The amount of taxes added to the purchase',
@@ -32,9 +35,10 @@ export class PurchaseEntity extends BaseEntity {
 
   @Column({
     name: 'total_discount',
-    type: 'bigint',
+    type: 'decimal',
     nullable: false,
     default: 0,
+    transformer: new DecimalTransformer(),
   })
   @Field(() => Float, {
     description: 'The amount of discount on the items',
