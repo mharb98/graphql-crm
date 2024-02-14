@@ -5,6 +5,8 @@ import { CreatePurchaseDTO } from '../../graphql/resolvers/purchase/types/create
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 import { ProductRepository } from '../../data-access/repositories/product.repository';
 import { ProductEntity } from '../../data-access/entities/product.entity';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { PurchaseProductEntity } from '../../data-access/entities/purchase-product.entity';
 
 @Injectable()
 export class PurchaseService {
@@ -42,19 +44,32 @@ export class PurchaseService {
 
     const taxes = (totalPrice - totalDiscount) * 0.24;
 
+    const result = await this.purchaseRepository.createPurchase({
+      customerId,
+      totalDiscount: totalDiscount,
+      totalPrice: totalPrice,
+      taxes: taxes,
+      salesAgentId,
+    });
+
+    const purchaseId = result.identifiers[0].id;
+
     try {
-      const result = await this.purchaseRepository.createPurchase({
-        customerId,
-        totalDiscount: totalDiscount,
-        totalPrice: totalPrice,
-        taxes: taxes,
-        salesAgentId,
+      const productsToAdd = purchaseProducts.map((purchaseProduct) => {
+        return {
+          productId: purchaseProduct.productId,
+          amount: purchaseProduct.amount,
+          discount: purchaseProduct.discount,
+          purchaseId,
+        };
       });
 
-      return await this.purchaseRepository.findOne(result.identifiers[0].id);
+      await this.purchaseProductRepository.createPurchaseProduct(productsToAdd);
     } catch (error) {
       console.log(error);
-      throw new InternalServerErrorException('Hamada');
+      throw new InternalServerErrorException('Failed to add purchase products');
     }
+
+    return await this.purchaseRepository.findOne(purchaseId);
   }
 }
