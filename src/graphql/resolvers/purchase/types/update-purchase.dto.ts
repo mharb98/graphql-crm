@@ -9,12 +9,6 @@ export class UpdatePurchaseDTO {
   totalDiscount?: number;
 
   @Field(() => Float, {
-    description: 'Total Price for the purchase',
-    nullable: true,
-  })
-  totalPrice?: number;
-
-  @Field(() => Float, {
     description: 'Total Taxes for the purchase',
     nullable: true,
   })

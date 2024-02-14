@@ -29,13 +29,7 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      totalPrice: 340,
-      taxes: 23.5,
-      totalDiscount: 19.5,
-    };
+    return await this.purchaseService.findOne(id);
   }
 
   @Mutation(() => PurchaseEntity, { description: 'Create a new purchase' })
@@ -47,8 +41,6 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
     customerId: number,
     @Args('createPurchaseDto') createPurchaseDto: CreatePurchaseDTO,
   ) {
-    console.log(customerId);
-    console.log(createPurchaseDto);
     return await this.purchaseService.createPurchase(
       customerId,
       createPurchaseDto,
@@ -66,14 +58,7 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
     id: number,
     @Args('updatePurchaseDto') updatePurchaseDto: UpdatePurchaseDTO,
   ) {
-    console.log(id);
-    console.log(updatePurchaseDto);
-
-    return {
-      totalPrice: 340,
-      taxes: 23.5,
-      totalDiscount: 19.5,
-    };
+    return await this.purchaseService.updatePurchase(id, updatePurchaseDto);
   }
 
   @Mutation(() => PurchaseEntity, { description: 'Delete a purchase' })

@@ -5,8 +5,7 @@ import { CreatePurchaseDTO } from '../../graphql/resolvers/purchase/types/create
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 import { ProductRepository } from '../../data-access/repositories/product.repository';
 import { ProductEntity } from '../../data-access/entities/product.entity';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { PurchaseProductEntity } from '../../data-access/entities/purchase-product.entity';
+import { UpdatePurchaseDTO } from '../../graphql/resolvers/purchase/types/update-purchase.dto';
 
 @Injectable()
 export class PurchaseService {
@@ -71,5 +70,18 @@ export class PurchaseService {
     }
 
     return await this.purchaseRepository.findOne(purchaseId);
+  }
+
+  async findOne(id: number): Promise<PurchaseEntity> {
+    return await this.purchaseRepository.findOne(id);
+  }
+
+  async updatePurchase(
+    id: number,
+    updatePurchaseDto: UpdatePurchaseDTO,
+  ): Promise<PurchaseEntity> {
+    await this.purchaseRepository.updatePurchase(id, updatePurchaseDto);
+
+    return await this.purchaseRepository.findOne(id);
   }
 }
