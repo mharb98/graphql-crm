@@ -1,9 +1,18 @@
-import { Args, Int, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Context,
+  Int,
+  Mutation,
+  Parent,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { PurchaseProductEntity } from '../../../data-access/entities/purchase-product.entity';
 import { BaseResolver } from '../base.resolver';
 import { UpdatePurchaseProductDTO } from './types/update-purchase-product.dto';
 import { PurchaseProductsService } from '../../../services/purchase-products/purchase-products.service';
 import { CreatePurchaseProductDTO } from './types/create-purchase-product.dto';
+import { PurchaseProductDataLoader } from '../../../dataloader/purchase-product-data-loader/types/purchase-product.data-loader';
 
 @Resolver(() => PurchaseProductEntity)
 export class PurchaseProductResolver extends BaseResolver(
@@ -46,25 +55,29 @@ export class PurchaseProductResolver extends BaseResolver(
   }
 
   @ResolveField()
-  async product() {
-    return {
-      id: 1,
-      name: 'Flash Light',
-      description: 'Light your way in the darkness',
-      price: 100,
-      stock: 3,
-      rating: 4.5,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  async product(
+    @Parent() purchaseProduct: PurchaseProductEntity,
+    @Context()
+    {
+      purchaseProductDataLoaders,
+    }: { purchaseProductDataLoaders: PurchaseProductDataLoader },
+  ) {
+    const { id } = purchaseProduct;
+    const { productDataLoader } = purchaseProductDataLoaders;
+    return await productDataLoader.load(id);
   }
 
   @ResolveField()
-  async purchase() {
-    return {
-      totalPrice: 340,
-      taxes: 23.5,
-      totalDiscount: 19.5,
-    };
+  async purchase(
+    @Parent() purchaseProduct: PurchaseProductEntity,
+    @Context()
+    {
+      purchaseProductDataLoaders,
+    }: { purchaseProductDataLoaders: PurchaseProductDataLoader },
+  ) {
+    const { id } = purchaseProduct;
+    const { purchaseDataLoader } = purchaseProductDataLoaders;
+
+    return await purchaseDataLoader.load(id);
   }
 }

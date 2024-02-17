@@ -86,4 +86,22 @@ export class PurchaseService {
   async findOne(id: number): Promise<PurchaseEntity> {
     return await this.purchaseRepository.findOne(id);
   }
+
+  async getPurchaseByProduct(purchaseProductIds: number[]): Promise<any> {
+    const purchaseProducts = await this.purchaseProductRepository.listAll(
+      {
+        ids: purchaseProductIds,
+      },
+      { purchase: true },
+    );
+
+    return purchaseProductIds.map((purchaseProductId) => {
+      const purchase =
+        purchaseProducts.find(
+          (purchaseProduct) => purchaseProduct.id === purchaseProductId,
+        ).purchase || null;
+
+      return purchase;
+    });
+  }
 }
