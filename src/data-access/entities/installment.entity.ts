@@ -36,6 +36,10 @@ export class InstallmentEntity extends BaseEntity {
     type: 'boolean',
     default: false,
   })
+  @Field(() => Boolean, {
+    description: 'The payment status of the installment',
+    nullable: false,
+  })
   paid: boolean;
 
   @Column({ name: 'purchase_id' })

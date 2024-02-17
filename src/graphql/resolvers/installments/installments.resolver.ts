@@ -21,7 +21,7 @@ export class InstallmentsResolver extends BaseResolver(InstallmentEntity) {
   @Query(() => InstallmentEntity, {
     description: 'Returns an installment entity for the specified ID',
   })
-  async findOne(
+  async installment(
     @Args('id', {
       type: () => Int,
       description: 'ID of the installment to be retrieved',

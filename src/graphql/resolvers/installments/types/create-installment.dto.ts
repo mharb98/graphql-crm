@@ -16,5 +16,5 @@ export class CreateInstallmentDTO {
   amount: number;
 
   @Field({ description: 'Due date of the installment', nullable: false })
-  dueData: Date;
+  dueDate: Date;
 }
