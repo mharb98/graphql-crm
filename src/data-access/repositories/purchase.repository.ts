@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   DataSource,
   FindOptionsRelations,
@@ -31,10 +31,19 @@ export class PurchaseRepository {
       .update({ id }, updatePurchaseDto);
   }
 
-  async findOne(id: number): Promise<PurchaseEntity> {
-    return await this.dataSource
+  async findOne(
+    id: number,
+    relations?: FindOptionsRelations<PurchaseEntity>,
+  ): Promise<PurchaseEntity> {
+    const result = await this.dataSource
       .getRepository(PurchaseEntity)
-      .findOneByOrFail({ id });
+      .findOne({ where: { id }, relations });
+
+    if (!result) {
+      throw new NotFoundException('Purchase does not exist');
+    }
+
+    return result;
   }
 
   async deletePurchase(id: number): Promise<void> {

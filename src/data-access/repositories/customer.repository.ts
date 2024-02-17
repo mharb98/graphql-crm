@@ -1,7 +1,14 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { DataSource, In, InsertResult, UpdateResult } from 'typeorm';
+import {
+  DataSource,
+  FindOptionsRelations,
+  In,
+  InsertResult,
+  UpdateResult,
+} from 'typeorm';
 import { CustomerEntity } from '../entities/customer.entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { ListAllCustomers } from './query-input-types/list-all-customers.type';
 
 @Injectable()
 export class CustomersRepository {
@@ -44,7 +51,11 @@ export class CustomersRepository {
     return await this.dataSource.getRepository(CustomerEntity).find();
   }
 
-  async listAll(ids: number[]): Promise<CustomerEntity[]> {
+  async listAll(
+    query: ListAllCustomers,
+    relations: FindOptionsRelations<CustomerEntity>,
+  ): Promise<CustomerEntity[]> {
+    const { ids } = query;
     return await this.dataSource
       .getRepository(CustomerEntity)
       .find({ where: { id: In(ids) }, relations: { salesAgent: true } });

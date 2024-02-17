@@ -51,7 +51,10 @@ export class UsersService {
 
   async getCustomersSalesAgents(customerIds: number[]): Promise<any> {
     const customers: CustomerEntity[] = await this.customerRepository.listAll(
-      customerIds,
+      {
+        ids: customerIds,
+      },
+      {},
     );
 
     const mappedResults = this.mapUsersToCustomerIds(customerIds, customers);

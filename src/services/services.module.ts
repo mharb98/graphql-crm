@@ -8,6 +8,8 @@ import { ProductService } from './product/product.service';
 import { StatusService } from './status/status.service';
 import { PurchaseService } from './purchase/purchase.service';
 import { PurchaseProductsService } from './purchase-products/purchase-products.service';
+import { InstallmentsService } from './installments/installments.service';
+import { InstallmentDataLoaderService } from './installment-data-loader/installment-data-loader.service';
 @Module({
   imports: [DataAccessModule],
   providers: [
@@ -19,6 +21,8 @@ import { PurchaseProductsService } from './purchase-products/purchase-products.s
     StatusService,
     PurchaseService,
     PurchaseProductsService,
+    InstallmentsService,
+    InstallmentDataLoaderService,
   ],
   exports: [
     UsersService,
@@ -29,6 +33,7 @@ import { PurchaseProductsService } from './purchase-products/purchase-products.s
     StatusService,
     PurchaseService,
     PurchaseProductsService,
+    InstallmentsService,
   ],
 })
 export class ServicesModule {}
