@@ -5,10 +5,12 @@ import { CreatePurchaseDTO } from '../../graphql/resolvers/purchase/types/create
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 import { ProductRepository } from '../../data-access/repositories/product.repository';
 import { ProductEntity } from '../../data-access/entities/product.entity';
+import { CustomersRepository } from '../../data-access/repositories/customer.repository';
 
 @Injectable()
 export class PurchaseService {
   constructor(
+    private readonly customerRepository: CustomersRepository,
     private readonly purchaseRepository: PurchaseRepository,
     private readonly purchaseProductRepository: PurchaseProductRepository,
     private readonly productRepository: ProductRepository,
@@ -22,7 +24,6 @@ export class PurchaseService {
     let totalPrice = 0;
     let totalDiscount = 0;
     let currentProduct: ProductEntity;
-    const salesAgentId = 29;
 
     const productIds: number[] = purchaseProducts.map(
       (purchaseProduct) => purchaseProduct.productId,
@@ -31,6 +32,8 @@ export class PurchaseService {
     const products: ProductEntity[] = await this.productRepository.listAll({
       ids: productIds,
     });
+
+    const customer = await this.customerRepository.findOne(customerId);
 
     for (const purchaseProduct of purchaseProducts) {
       currentProduct = products.find(
@@ -54,7 +57,7 @@ export class PurchaseService {
       totalDiscount: totalDiscount,
       totalPrice: totalPrice,
       taxes: taxes,
-      salesAgentId,
+      salesAgentId: customer.salesAgentId,
     });
 
     const purchaseId = result.identifiers[0].id;
