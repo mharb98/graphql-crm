@@ -6,6 +6,7 @@ import { ContactInfoDataLoaderService } from './contact-info-data-loader/contact
 import { PurchaseDataLoaderService } from './purchase-data-loader/purchase-data-loader.service';
 import { ProductDataLoaderService } from './product-data-loader/product-data-loader.service';
 import { PurchaseProductDataLoaderService } from './purchase-product-data-loader/purchase-product-data-loader.service';
+import { InstallmentDataLoaderService } from '../services/installment-data-loader/installment-data-loader.service';
 
 @Module({
   imports: [ServicesModule],
@@ -16,6 +17,7 @@ import { PurchaseProductDataLoaderService } from './purchase-product-data-loader
     PurchaseDataLoaderService,
     ProductDataLoaderService,
     PurchaseProductDataLoaderService,
+    InstallmentDataLoaderService,
   ],
   exports: [
     DataloaderService,

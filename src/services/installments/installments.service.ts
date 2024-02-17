@@ -97,4 +97,18 @@ export class InstallmentsService {
 
     return await this.installmentsRepository.findOne(id);
   }
+
+  async getPurchaseInstallments(purchaseIds: number[]): Promise<any> {
+    const purchases = await this.purchaseRepository.listAll(
+      { ids: purchaseIds },
+      { installments: true },
+    );
+
+    return purchaseIds.map((purchaseId) => {
+      return (
+        purchases.find((purchase) => purchase.id === purchaseId).installments ||
+        []
+      );
+    });
+  }
 }

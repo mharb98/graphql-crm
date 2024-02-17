@@ -1,7 +1,9 @@
 import {
   Args,
+  Context,
   Int,
   Mutation,
+  Parent,
   Query,
   ResolveField,
   Resolver,
@@ -11,6 +13,7 @@ import { BaseResolver } from '../base.resolver';
 import { InstallmentsService } from '../../../services/installments/installments.service';
 import { CreateInstallmentDTO } from './types/create-installment.dto';
 import { UpdateInstallmentDTO } from './types/update-installment.dto';
+import { InstallmentDataLoaders } from '../../../services/installment-data-loader/types/installment.data-loader';
 
 @Resolver(() => InstallmentEntity)
 export class InstallmentsResolver extends BaseResolver(InstallmentEntity) {
@@ -86,11 +89,16 @@ export class InstallmentsResolver extends BaseResolver(InstallmentEntity) {
   }
 
   @ResolveField()
-  async purchase() {
-    return {
-      totalPrice: 340,
-      taxes: 23.5,
-      totalDiscount: 19.5,
-    };
+  async purchase(
+    @Parent() installment: InstallmentEntity,
+    @Context()
+    {
+      installmentDataLoaders,
+    }: { installmentDataLoaders: InstallmentDataLoaders },
+  ) {
+    const { id } = installment;
+    const { purchasesDataLoader } = installmentDataLoaders;
+
+    return await purchasesDataLoader.load(id);
   }
 }

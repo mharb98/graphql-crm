@@ -10,7 +10,6 @@ import {
 } from '@nestjs/graphql';
 import { PurchaseEntity } from '../../../data-access/entities/purchase.entity';
 import { CreatePurchaseDTO } from './types/create-purchase.dto';
-import { UpdatePurchaseDTO } from './types/update-purchase.dto';
 import { BaseResolver } from '../base.resolver';
 import { PurchaseService } from '../../../services/purchase/purchase.service';
 import { PurchaseDataLoader } from '../../../dataloader/purchase-data-loader/types/purchase.data-loader';
@@ -104,16 +103,14 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
   }
 
   @ResolveField()
-  async installments() {
-    return [
-      {
-        amount: 20.4,
-        dueDate: new Date(),
-      },
-      {
-        amount: 10.1,
-        dueDate: new Date(),
-      },
-    ];
+  async installments(
+    @Parent() purchase: PurchaseEntity,
+    @Context()
+    { purchaseDataLoaders }: { purchaseDataLoaders: PurchaseDataLoader },
+  ) {
+    const { id } = purchase;
+    const { installmentsDataLoader } = purchaseDataLoaders;
+
+    return await installmentsDataLoader.load(id);
   }
 }

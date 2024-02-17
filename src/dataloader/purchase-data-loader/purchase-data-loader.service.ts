@@ -9,14 +9,15 @@ import { PurchaseProductEntity } from '../../data-access/entities/purchase-produ
 import { InstallmentEntity } from '../../data-access/entities/installment.entity';
 import { CustomersService } from '../../services/customers/customers.service';
 import { UsersService } from '../../services/users/users.service';
+import { InstallmentsService } from '../../services/installments/installments.service';
 
 @Injectable()
 export class PurchaseDataLoaderService {
   constructor(
-    private readonly purchaseService: PurchaseService,
     private readonly purchaseProductService: PurchaseProductsService,
     private readonly usersService: UsersService,
     private readonly customersService: CustomersService,
+    private readonly installmentService: InstallmentsService,
   ) {}
 
   public getDataLoaders(): PurchaseDataLoader {
@@ -50,7 +51,8 @@ export class PurchaseDataLoaderService {
 
   private createInstallmentDataLoader() {
     return new DataLoader<number, InstallmentEntity[]>(
-      async (keys: readonly number[]) => [],
+      async (keys: readonly number[]) =>
+        await this.installmentService.getPurchaseInstallments(keys as number[]),
     );
   }
 }

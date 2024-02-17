@@ -6,6 +6,7 @@ import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 import { ProductRepository } from '../../data-access/repositories/product.repository';
 import { ProductEntity } from '../../data-access/entities/product.entity';
 import { CustomersRepository } from '../../data-access/repositories/customer.repository';
+import { InstallmentsRepository } from '../../data-access/repositories/installments.repository';
 
 @Injectable()
 export class PurchaseService {
@@ -14,6 +15,7 @@ export class PurchaseService {
     private readonly purchaseRepository: PurchaseRepository,
     private readonly purchaseProductRepository: PurchaseProductRepository,
     private readonly productRepository: ProductRepository,
+    private readonly installmentsRepository: InstallmentsRepository,
   ) {}
 
   async createPurchase(
@@ -105,6 +107,22 @@ export class PurchaseService {
         ).purchase || null;
 
       return purchase;
+    });
+  }
+
+  async getInstallmentPurchases(installmentIds: number[]): Promise<any> {
+    const installments = await this.installmentsRepository.listAll(
+      {
+        ids: installmentIds,
+      },
+      { purchase: true },
+    );
+
+    return installmentIds.map((id) => {
+      return (
+        installments.find((installment) => installment.id === id).purchase ||
+        null
+      );
     });
   }
 }

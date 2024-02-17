@@ -1,3 +1,4 @@
+import { InstallmentDataLoaders } from '../services/installment-data-loader/types/installment.data-loader';
 import { ContactInfoDataLoader } from './contact-info-data-loader/types/contact-info.data-loader';
 import { CustomerDataLoader } from './customer-data-loader/types/customer.data-loader';
 import { ProductDataLoader } from './product-data-loader/types/product.data-loader';
@@ -10,4 +11,5 @@ export interface IDataloaders {
   purchaseDataLoaders: PurchaseDataLoader;
   productDataLoaders: ProductDataLoader;
   purchaseProductDataLoaders: PurchaseProductDataLoader;
+  installmentDataLoaders: InstallmentDataLoaders;
 }
