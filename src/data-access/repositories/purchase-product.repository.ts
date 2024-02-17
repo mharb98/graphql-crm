@@ -41,12 +41,13 @@ export class PurchaseProductRepository {
     query: ListPurchaseProducts,
     relations: FindOptionsRelations<PurchaseProductEntity>,
   ): Promise<PurchaseProductEntity[]> {
-    const { ids, purchaseIds } = query;
+    const { ids, purchaseIds, productIds } = query;
 
     return await this.dataSource.getRepository(PurchaseProductEntity).find({
       where: {
         id: ids ? In(ids) : undefined,
         purchaseId: purchaseIds ? In(purchaseIds) : undefined,
+        productId: productIds ? In(productIds) : undefined,
       },
       relations,
     });

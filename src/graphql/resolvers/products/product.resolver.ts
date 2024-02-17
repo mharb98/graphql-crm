@@ -1,7 +1,9 @@
 import {
   Args,
+  Context,
   Int,
   Mutation,
+  Parent,
   Query,
   ResolveField,
   Resolver,
@@ -11,6 +13,7 @@ import { ProductEntity } from '../../../data-access/entities/product.entity';
 import { BaseResolver } from '../base.resolver';
 import { ProductService } from '../../../services/product/product.service';
 import { UpdateProductDTO } from './types/update-product.dto';
+import { ProductDataLoader } from '../../../dataloader/product-data-loader/types/product.data-loader';
 
 @Resolver(() => ProductEntity)
 export class ProductResolver extends BaseResolver(ProductEntity) {
@@ -87,16 +90,14 @@ export class ProductResolver extends BaseResolver(ProductEntity) {
   }
 
   @ResolveField()
-  async purchases() {
-    return [
-      {
-        amount: 2,
-        discount: 30.5,
-      },
-      {
-        amount: 4,
-        discount: 70.2,
-      },
-    ];
+  async purchases(
+    @Parent() product: ProductEntity,
+    @Context()
+    { productDataLoaders }: { productDataLoaders: ProductDataLoader },
+  ) {
+    const { id } = product;
+    const { purchaseProductLoader } = productDataLoaders;
+
+    return purchaseProductLoader.load(id);
   }
 }

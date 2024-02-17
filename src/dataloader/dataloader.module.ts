@@ -4,6 +4,7 @@ import { ServicesModule } from '../services/services.module';
 import { CustomerDataLoaderService } from './customer-data-loader/customer-data-loader.service';
 import { ContactInfoDataLoaderService } from './contact-info-data-loader/contact-info-data-loader.service';
 import { PurchaseDataLoaderService } from './purchase-data-loader/purchase-data-loader.service';
+import { ProductDataLoaderService } from './product-data-loader/product-data-loader.service';
 
 @Module({
   imports: [ServicesModule],
@@ -12,6 +13,7 @@ import { PurchaseDataLoaderService } from './purchase-data-loader/purchase-data-
     CustomerDataLoaderService,
     ContactInfoDataLoaderService,
     PurchaseDataLoaderService,
+    ProductDataLoaderService,
   ],
   exports: [
     DataloaderService,

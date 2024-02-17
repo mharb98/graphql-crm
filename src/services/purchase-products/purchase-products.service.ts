@@ -5,8 +5,6 @@ import { PurchaseProductEntity } from '../../data-access/entities/purchase-produ
 import { PurchaseRepository } from '../../data-access/repositories/purchase.repository';
 import { ProductRepository } from '../../data-access/repositories/product.repository';
 import { CreatePurchaseProductDTO } from '../../graphql/resolvers/purchase-product/types/create-purchase-product.dto';
-import { UpdatePurchaseDTO } from '../../graphql/resolvers/purchase/types/update-purchase.dto';
-import { UpdateProductDTO } from '../../graphql/resolvers/products/types/update-product.dto';
 
 @Injectable()
 export class PurchaseProductsService {
@@ -131,6 +129,23 @@ export class PurchaseProductsService {
         (product) => product.purchaseId === purchaseId,
       );
       return products;
+    });
+  }
+
+  async getProductPurchases(productIds: number[]): Promise<any> {
+    const purchaseProducts = await this.purchaseProductRepository.listAll(
+      {
+        productIds,
+      },
+      {},
+    );
+
+    return productIds.map((productId) => {
+      const purchases = purchaseProducts.filter(
+        (purchase) => purchase.productId === productId,
+      );
+
+      return purchases;
     });
   }
 }
