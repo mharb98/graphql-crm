@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, InsertResult } from 'typeorm';
+import {
+  DataSource,
+  FindOptionsRelations,
+  FindOptionsWhere,
+  In,
+  InsertResult,
+} from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { PurchaseEntity } from '../entities/purchase.entity';
+import { ListAllPurchases } from './query-input-types/list-all-purchases.type';
 
 @Injectable()
 export class PurchaseRepository {
@@ -32,5 +39,17 @@ export class PurchaseRepository {
 
   async deletePurchase(id: number): Promise<void> {
     await this.dataSource.getRepository(PurchaseEntity).delete(id);
+  }
+
+  async listAll(
+    query: ListAllPurchases,
+    relations?: FindOptionsRelations<PurchaseEntity>,
+  ) {
+    return await this.dataSource.getRepository(PurchaseEntity).find({
+      where: {
+        id: query.ids ? In(query.ids) : undefined,
+      },
+      relations,
+    });
   }
 }

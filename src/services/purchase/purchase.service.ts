@@ -1,15 +1,10 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PurchaseRepository } from '../../data-access/repositories/purchase.repository';
 import { PurchaseProductRepository } from '../../data-access/repositories/purchase-product.repository';
 import { CreatePurchaseDTO } from '../../graphql/resolvers/purchase/types/create-purchase.dto';
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 import { ProductRepository } from '../../data-access/repositories/product.repository';
 import { ProductEntity } from '../../data-access/entities/product.entity';
-import { UpdatePurchaseDTO } from '../../graphql/resolvers/purchase/types/update-purchase.dto';
 
 @Injectable()
 export class PurchaseService {
@@ -89,15 +84,6 @@ export class PurchaseService {
   }
 
   async findOne(id: number): Promise<PurchaseEntity> {
-    return await this.purchaseRepository.findOne(id);
-  }
-
-  async updatePurchase(
-    id: number,
-    updatePurchaseDto: UpdatePurchaseDTO,
-  ): Promise<PurchaseEntity> {
-    await this.purchaseRepository.updatePurchase(id, updatePurchaseDto);
-
     return await this.purchaseRepository.findOne(id);
   }
 }

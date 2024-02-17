@@ -4,6 +4,7 @@ import { CustomerEntity } from './customer.entity';
 import { CommentEntity } from './comments.entity';
 import { StatusUpdateEntity } from './status-update.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { PurchaseEntity } from './purchase.entity';
 
 /**
  * npx typeorm entity:create src/data-access/entities/user.entity
@@ -78,4 +79,10 @@ export class UserEntity extends BaseEntity {
     description: 'The status updates that are applied on a customer by a user',
   })
   statusUpdates: StatusUpdateEntity[];
+
+  @OneToMany(() => PurchaseEntity, (purchase) => purchase.salesAgent)
+  @Field(() => [PurchaseEntity], {
+    description: 'The set of purchases completed by a user',
+  })
+  purchases?: PurchaseEntity[];
 }

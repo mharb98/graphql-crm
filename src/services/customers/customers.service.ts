@@ -3,16 +3,18 @@ import { CustomersRepository } from '../../data-access/repositories/customer.rep
 import { CreateCustomerDTO } from '../../graphql/resolvers/customers/types/create-customer.dto';
 import { In, InsertResult } from 'typeorm';
 import { UpdateCustomerDTO } from '../../graphql/resolvers/customers/types/update-customer.dto';
-import { UserEntity } from '../../data-access/entities/user.entity';
 import { CustomerEntity } from '../../data-access/entities/customer.entity';
 import { ContactInfoEntity } from '../../data-access/entities/contact-info.entity';
 import { ContactInfoRepository } from '../../data-access/repositories/contact-info.repository';
+import { PurchaseRepository } from '../../data-access/repositories/purchase.repository';
+import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 
 @Injectable()
 export class CustomersService {
   constructor(
     private readonly customersRepository: CustomersRepository,
     private readonly contactInfoRepository: ContactInfoRepository,
+    private readonly purchaseRepository: PurchaseRepository,
   ) {}
 
   async queryCustomers(): Promise<CustomerEntity[]> {
@@ -68,6 +70,24 @@ export class CustomersService {
 
     return contactInfoIds.map((id) => {
       return contactInfo.find((info) => info.id === id).customer || null;
+    });
+  }
+
+  async getPurchaseCustomers(purchaseIds: number[]): Promise<any> {
+    const purchases: PurchaseEntity[] = await this.purchaseRepository.listAll(
+      {
+        ids: purchaseIds,
+      },
+      {
+        customer: true,
+      },
+    );
+
+    return purchaseIds.map((purchaseId) => {
+      return (
+        purchases.find((purchase) => purchase.id === purchaseId).customer ||
+        null
+      );
     });
   }
 }

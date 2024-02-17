@@ -6,12 +6,15 @@ import { InsertResult } from 'typeorm';
 import { UserEntity } from '../../data-access/entities/user.entity';
 import { CustomerEntity } from '../../data-access/entities/customer.entity';
 import { CustomersRepository } from '../../data-access/repositories/customer.repository';
+import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
+import { PurchaseRepository } from '../../data-access/repositories/purchase.repository';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly usersRepository: UserRepository,
     private readonly customerRepository: CustomersRepository,
+    private readonly purchaseRepository: PurchaseRepository,
   ) {}
 
   async createUser(createUserDto: CreateUserDTO) {
@@ -54,6 +57,18 @@ export class UsersService {
     const mappedResults = this.mapUsersToCustomerIds(customerIds, customers);
 
     return mappedResults;
+  }
+
+  async getPurchaseSalesAgents(purchaseIds: number[]): Promise<any> {
+    const purchases: PurchaseEntity[] = await this.purchaseRepository.listAll(
+      { ids: purchaseIds },
+      { salesAgent: true },
+    );
+
+    return purchaseIds.map(
+      (id) =>
+        purchases.find((purchase) => purchase.id === id).salesAgent || null,
+    );
   }
 
   private mapUsersToCustomerIds = (

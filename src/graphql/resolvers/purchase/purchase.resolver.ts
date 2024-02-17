@@ -1,7 +1,9 @@
 import {
   Args,
+  Context,
   Int,
   Mutation,
+  Parent,
   Query,
   ResolveField,
   Resolver,
@@ -11,6 +13,7 @@ import { CreatePurchaseDTO } from './types/create-purchase.dto';
 import { UpdatePurchaseDTO } from './types/update-purchase.dto';
 import { BaseResolver } from '../base.resolver';
 import { PurchaseService } from '../../../services/purchase/purchase.service';
+import { PurchaseDataLoader } from '../../../dataloader/purchase-data-loader/types/purchase.data-loader';
 
 @Resolver(() => PurchaseEntity)
 export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
@@ -47,20 +50,6 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
     );
   }
 
-  @Mutation(() => PurchaseEntity, {
-    description: 'Update an existing purchase',
-  })
-  async updatePurchase(
-    @Args('id', {
-      type: () => Int,
-      description: 'Id of the purchase to be updated',
-    })
-    id: number,
-    @Args('updatePurchaseDto') updatePurchaseDto: UpdatePurchaseDTO,
-  ) {
-    return await this.purchaseService.updatePurchase(id, updatePurchaseDto);
-  }
-
   @Mutation(() => PurchaseEntity, { description: 'Delete a purchase' })
   async deletePurchase(
     @Args('id', {
@@ -79,14 +68,27 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
   }
 
   @ResolveField()
-  async customer() {
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      lastName: 'Salah',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  async customer(
+    @Parent() purchase: PurchaseEntity,
+    @Context()
+    { purchaseDataLoaders }: { purchaseDataLoaders: PurchaseDataLoader },
+  ) {
+    const { id } = purchase;
+    const { customersDataLoader } = purchaseDataLoaders;
+
+    return await customersDataLoader.load(id);
+  }
+
+  @ResolveField()
+  async salesAgent(
+    @Parent() purchase: PurchaseEntity,
+    @Context()
+    { purchaseDataLoaders }: { purchaseDataLoaders: PurchaseDataLoader },
+  ) {
+    const { id } = purchase;
+    const { salesAgentDataLoader } = purchaseDataLoaders;
+
+    return await salesAgentDataLoader.load(id);
   }
 
   @ResolveField()

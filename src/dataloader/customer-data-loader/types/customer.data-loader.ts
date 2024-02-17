@@ -5,6 +5,6 @@ import { CommentEntity } from '../../../data-access/entities/comments.entity';
 
 export interface CustomerDataLoader {
   salesAgentsLoader: DataLoader<number, UserEntity>;
-  contactInfoLoader: DataLoader<number, ContactInfoEntity>;
-  commentsLoader: DataLoader<number, CommentEntity>;
+  contactInfoLoader: DataLoader<number, ContactInfoEntity[]>;
+  commentsLoader: DataLoader<number, CommentEntity[]>;
 }

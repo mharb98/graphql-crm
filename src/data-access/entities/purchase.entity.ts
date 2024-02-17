@@ -5,6 +5,7 @@ import { PurchaseProductEntity } from './purchase-product.entity';
 import { InstallmentEntity } from './installment.entity';
 import { Field, Float, ObjectType } from '@nestjs/graphql';
 import { DecimalTransformer } from '../transformers/decimal.transformer';
+import { UserEntity } from './user.entity';
 
 @ObjectType()
 @Entity({ name: 'purchases' })
@@ -60,6 +61,15 @@ export class PurchaseEntity extends BaseEntity {
     description: 'The customer that completed the purchase',
   })
   customer: CustomerEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.purchases, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'sales_agent_id' })
+  @Field(() => UserEntity, {
+    description: 'The user that completed the purchase',
+  })
+  salesAgent: UserEntity;
 
   @OneToMany(
     () => PurchaseProductEntity,

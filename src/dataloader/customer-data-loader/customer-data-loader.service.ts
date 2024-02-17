@@ -36,14 +36,14 @@ export class CustomerDataLoaderService {
   }
 
   private createCommentsLoader() {
-    return new DataLoader<number, CommentEntity>(
+    return new DataLoader<number, CommentEntity[]>(
       async (keys: readonly number[]) =>
         await this.commentsService.getCustomersComments(keys as number[]),
     );
   }
 
   private createContactInfoLoader() {
-    return new DataLoader<number, ContactInfoEntity>(
+    return new DataLoader<number, ContactInfoEntity[]>(
       async (keys: readonly number[]) =>
         await this.contactInfoService.getCustomersContactInfo(keys as number[]),
     );
