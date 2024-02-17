@@ -92,17 +92,15 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
   }
 
   @ResolveField()
-  async products() {
-    return [
-      {
-        amount: 2,
-        discount: 30.5,
-      },
-      {
-        amount: 4,
-        discount: 70.2,
-      },
-    ];
+  async products(
+    @Parent() purchase: PurchaseEntity,
+    @Context()
+    { purchaseDataLoaders }: { purchaseDataLoaders: PurchaseDataLoader },
+  ) {
+    const { id } = purchase;
+    const { purchaseProductsDataLoader } = purchaseDataLoaders;
+
+    return await purchaseProductsDataLoader.load(id);
   }
 
   @ResolveField()

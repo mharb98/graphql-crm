@@ -43,7 +43,8 @@ export class PurchaseDataLoaderService {
 
   private createPurchaseProductDataLoader() {
     return new DataLoader<number, PurchaseProductEntity[]>(
-      async (keys: readonly number[]) => [],
+      async (keys: readonly number[]) =>
+        this.purchaseProductService.getPurchaseProducts(keys as number[]),
     );
   }
 

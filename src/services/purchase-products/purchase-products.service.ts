@@ -117,4 +117,20 @@ export class PurchaseProductsService {
   async findOne(id: number): Promise<PurchaseProductEntity> {
     return await this.purchaseProductRepository.findOne(id);
   }
+
+  async getPurchaseProducts(purchaseIds: number[]): Promise<any> {
+    const purchaseProducts = await this.purchaseProductRepository.listAll(
+      {
+        purchaseIds,
+      },
+      {},
+    );
+
+    return purchaseIds.map((purchaseId) => {
+      const products = purchaseProducts.filter(
+        (product) => product.purchaseId === purchaseId,
+      );
+      return products;
+    });
+  }
 }
