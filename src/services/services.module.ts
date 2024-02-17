@@ -28,6 +28,7 @@ import { PurchaseProductsService } from './purchase-products/purchase-products.s
     ProductService,
     StatusService,
     PurchaseService,
+    PurchaseProductsService,
   ],
 })
 export class ServicesModule {}

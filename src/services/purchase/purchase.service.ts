@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PurchaseRepository } from '../../data-access/repositories/purchase.repository';
 import { PurchaseProductRepository } from '../../data-access/repositories/purchase-product.repository';
 import { CreatePurchaseDTO } from '../../graphql/resolvers/purchase/types/create-purchase.dto';
@@ -28,18 +32,25 @@ export class PurchaseService {
     const productIds: number[] = purchaseProducts.map(
       (purchaseProduct) => purchaseProduct.productId,
     );
+
     const products: ProductEntity[] = await this.productRepository.listAll({
       ids: productIds,
     });
 
-    purchaseProducts.forEach((purchaseProduct) => {
+    for (const purchaseProduct of purchaseProducts) {
       currentProduct = products.find(
         (product) => product.id === purchaseProduct.productId,
       );
 
+      if (currentProduct.stock < purchaseProduct.amount) {
+        throw new BadRequestException(
+          `The selected amount of this product ${currentProduct.name} exceeds what is available in stock`,
+        );
+      }
+
       totalPrice += currentProduct.price * purchaseProduct.amount;
       totalDiscount += purchaseProduct.discount;
-    });
+    }
 
     const taxes = (totalPrice - totalDiscount) * 0.24;
 
@@ -53,20 +64,25 @@ export class PurchaseService {
 
     const purchaseId = result.identifiers[0].id;
 
-    try {
-      const productsToAdd = purchaseProducts.map((purchaseProduct) => {
-        return {
-          productId: purchaseProduct.productId,
-          amount: purchaseProduct.amount,
-          discount: purchaseProduct.discount,
-          purchaseId,
-        };
-      });
+    const productsToAdd = purchaseProducts.map((purchaseProduct) => {
+      return {
+        productId: purchaseProduct.productId,
+        amount: purchaseProduct.amount,
+        discount: purchaseProduct.discount,
+        purchaseId,
+      };
+    });
 
-      await this.purchaseProductRepository.createPurchaseProduct(productsToAdd);
-    } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException('Failed to add purchase products');
+    await this.purchaseProductRepository.createPurchaseProduct(productsToAdd);
+
+    for (const purchaseProduct of purchaseProducts) {
+      currentProduct = products.find(
+        (product) => product.id === purchaseProduct.productId,
+      );
+
+      await this.productRepository.updateProduct(purchaseProduct.productId, {
+        stock: currentProduct.stock - purchaseProduct.amount,
+      });
     }
 
     return await this.purchaseRepository.findOne(purchaseId);

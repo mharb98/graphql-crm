@@ -1,5 +1,5 @@
 import { Type } from '@nestjs/common';
-import { Info, Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
 
 const formatDate = (date: Date): string => {
   const options: Intl.DateTimeFormatOptions = {

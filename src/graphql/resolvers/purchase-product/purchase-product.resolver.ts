@@ -2,19 +2,35 @@ import { Args, Int, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
 import { PurchaseProductEntity } from '../../../data-access/entities/purchase-product.entity';
 import { BaseResolver } from '../base.resolver';
 import { UpdatePurchaseProductDTO } from './types/update-purchase-product.dto';
+import { PurchaseProductsService } from '../../../services/purchase-products/purchase-products.service';
+import { CreatePurchaseProductDTO } from './types/create-purchase-product.dto';
 
 @Resolver(() => PurchaseProductEntity)
 export class PurchaseProductResolver extends BaseResolver(
   PurchaseProductEntity,
 ) {
-  constructor() {
+  constructor(
+    private readonly purchaseProductService: PurchaseProductsService,
+  ) {
     super();
+  }
+
+  @Mutation(() => PurchaseProductEntity, {
+    description: 'Adds a new product to a specific purchase',
+  })
+  async createPurchaseProduct(
+    @Args('createPurchaseProductDto')
+    createPurchaseProductDto: CreatePurchaseProductDTO,
+  ): Promise<PurchaseProductEntity> {
+    return await this.purchaseProductService.createPurchaseProduct(
+      createPurchaseProductDto,
+    );
   }
 
   @Mutation(() => PurchaseProductEntity, {
     description: 'Update a purchase product entity by id',
   })
-  async updatePurchaseEntity(
+  async updatePurchaseProduct(
     @Args('id', {
       type: () => Int,
       description: 'ID of the purchase product to be updated',
@@ -23,7 +39,10 @@ export class PurchaseProductResolver extends BaseResolver(
     @Args('UpdatePurchaseProductDTO')
     updatePurchaseProductDto: UpdatePurchaseProductDTO,
   ): Promise<PurchaseProductEntity> {
-    return null;
+    return await this.purchaseProductService.updatePurchaseProduct(
+      id,
+      updatePurchaseProductDto,
+    );
   }
 
   @ResolveField()

@@ -1,12 +1,15 @@
-import { DataSource, EntityTarget } from 'typeorm';
+import { Injectable, Type } from '@nestjs/common';
+import { DataSource, Repository } from 'typeorm';
 
-export class GenericRepository<T> {
-  constructor(
-    private dataSource: DataSource,
-    private entity: EntityTarget<T>,
-  ) {}
+export function BaseRepository<T extends Type>(classRef: T): any {
+  @Injectable()
+  class BaseRepository {
+    constructor(private readonly dataSource: DataSource) {}
 
-  public getRepository() {
-    return this.dataSource.getRepository(this.entity);
+    public getRepository(): Repository<typeof classRef> {
+      return this.dataSource.getRepository(classRef);
+    }
   }
+
+  return BaseRepository;
 }

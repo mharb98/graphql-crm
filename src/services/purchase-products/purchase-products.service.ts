@@ -75,9 +75,17 @@ export class PurchaseProductsService {
     );
 
     if (amount) {
-      stock = product.stock - (amount ? amount : 0);
+      const newAmount = amount - purchaseProduct.amount;
+
+      if (newAmount > product.stock) {
+        throw new BadRequestException(
+          'Amount entered is more that what is available in stock',
+        );
+      }
+
+      stock = product.stock - newAmount;
       const oldPrice = purchaseProduct.amount * product.price;
-      const newPrice = purchaseProduct.amount * product.price;
+      const newPrice = amount * product.price;
       totalPrice = purchase.totalPrice - oldPrice + newPrice;
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, FindManyOptions, In, InsertResult } from 'typeorm';
+import { DataSource, In, InsertResult } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { ProductEntity } from '../entities/product.entity';
 
