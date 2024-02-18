@@ -8,6 +8,8 @@ import { CustomerEntity } from '../../data-access/entities/customer.entity';
 import { CustomersRepository } from '../../data-access/repositories/customer.repository';
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
 import { PurchaseRepository } from '../../data-access/repositories/purchase.repository';
+import { CommentEntity } from '../../data-access/entities/comments.entity';
+import { CommentsRepository } from '../../data-access/repositories/comment.repository';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +17,7 @@ export class UsersService {
     private readonly usersRepository: UserRepository,
     private readonly customerRepository: CustomersRepository,
     private readonly purchaseRepository: PurchaseRepository,
+    private readonly commentsRepository: CommentsRepository,
   ) {}
 
   async createUser(createUserDto: CreateUserDTO) {
@@ -74,6 +77,19 @@ export class UsersService {
       (id) =>
         purchases.find((purchase) => purchase.id === id).salesAgent || null,
     );
+  }
+
+  async getCommentsUsers(commentIds: number[]): Promise<any> {
+    const comments: CommentEntity[] = await this.commentsRepository.listAll(
+      {
+        ids: commentIds,
+      },
+      { user: true },
+    );
+
+    return commentIds.map((id) => {
+      return comments.find((comment) => comment.id === id).user || null;
+    });
   }
 
   private mapUsersToCustomerIds = (

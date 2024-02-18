@@ -8,6 +8,7 @@ import { ContactInfoEntity } from '../../data-access/entities/contact-info.entit
 import { ContactInfoRepository } from '../../data-access/repositories/contact-info.repository';
 import { PurchaseRepository } from '../../data-access/repositories/purchase.repository';
 import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
+import { CommentsRepository } from '../../data-access/repositories/comment.repository';
 
 @Injectable()
 export class CustomersService {
@@ -15,6 +16,7 @@ export class CustomersService {
     private readonly customersRepository: CustomersRepository,
     private readonly contactInfoRepository: ContactInfoRepository,
     private readonly purchaseRepository: PurchaseRepository,
+    private readonly commentsRepository: CommentsRepository,
   ) {}
 
   async queryCustomers(): Promise<CustomerEntity[]> {
@@ -88,6 +90,17 @@ export class CustomersService {
         purchases.find((purchase) => purchase.id === purchaseId).customer ||
         null
       );
+    });
+  }
+
+  async getCommentsCustomers(commentIds: number[]): Promise<any> {
+    const comments = await this.commentsRepository.listAll(
+      { ids: commentIds },
+      { customer: true },
+    );
+
+    return commentIds.map((id) => {
+      return comments.find((comment) => comment.id === id).customer || null;
     });
   }
 }

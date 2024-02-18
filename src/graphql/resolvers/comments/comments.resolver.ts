@@ -1,7 +1,9 @@
 import {
   Args,
+  Context,
   Int,
   Mutation,
+  Parent,
   Query,
   ResolveField,
   Resolver,
@@ -10,6 +12,7 @@ import { CommentEntity } from '../../../data-access/entities/comments.entity';
 import { CreateCommentDTO } from './types/create-comment.dto';
 import { BaseResolver } from '../base.resolver';
 import { CommentsService } from '../../../services/comments/comments.service';
+import { CommentDataLoader } from '../../../dataloader/comment-data-loader/types/comment.data-loader';
 
 @Resolver(() => CommentEntity)
 export class CommentsResolver extends BaseResolver(CommentEntity) {
@@ -66,28 +69,26 @@ export class CommentsResolver extends BaseResolver(CommentEntity) {
   }
 
   @ResolveField()
-  async user() {
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Harb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  async user(
+    @Parent() comment: CommentEntity,
+    @Context()
+    { commentDataLoaders }: { commentDataLoaders: CommentDataLoader },
+  ) {
+    const { id } = comment;
+    const { userDataLoader } = commentDataLoaders;
+
+    return await userDataLoader.load(id);
   }
 
   @ResolveField()
-  async customer() {
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      lastName: 'Salah',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+  async customer(
+    @Parent() comment: CommentEntity,
+    @Context()
+    { commentDataLoaders }: { commentDataLoaders: CommentDataLoader },
+  ) {
+    const { id } = comment;
+    const { customerDataLoader } = commentDataLoaders;
+
+    return await customerDataLoader.load(id);
   }
 }

@@ -25,7 +25,10 @@ export class CommentsService {
 
   public async getCustomersComments(customerIds: number[]): Promise<any> {
     const comments: CommentEntity[] = await this.commentsRepository.listAll(
-      customerIds,
+      {
+        customerIds,
+      },
+      {},
     );
 
     return customerIds.map((id) => {

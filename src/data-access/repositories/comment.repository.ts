@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, In, InsertResult } from 'typeorm';
+import { DataSource, FindOptionsRelations, In, InsertResult } from 'typeorm';
 import { CommentEntity } from '../entities/comments.entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { ListAllComments } from './query-input-types/list-all-comments.type';
 
 @Injectable()
 export class CommentsRepository {
@@ -21,11 +22,18 @@ export class CommentsRepository {
       .insert(createCommentDto);
   }
 
-  async listAll(customerIds: number[]): Promise<CommentEntity[]> {
+  async listAll(
+    query: ListAllComments,
+    relations: FindOptionsRelations<CommentEntity>,
+  ): Promise<CommentEntity[]> {
+    const { userIds, customerIds } = query;
+
     return await this.dataSource.getRepository(CommentEntity).find({
       where: {
-        customerId: In(customerIds),
+        customerId: customerIds ? In(customerIds) : undefined,
+        userId: userIds ? In(userIds) : undefined,
       },
+      relations,
     });
   }
 }
