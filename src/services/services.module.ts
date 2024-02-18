@@ -9,7 +9,7 @@ import { StatusService } from './status/status.service';
 import { PurchaseService } from './purchase/purchase.service';
 import { PurchaseProductsService } from './purchase-products/purchase-products.service';
 import { InstallmentsService } from './installments/installments.service';
-import { InstallmentDataLoaderService } from './installment-data-loader/installment-data-loader.service';
+
 @Module({
   imports: [DataAccessModule],
   providers: [
@@ -22,7 +22,6 @@ import { InstallmentDataLoaderService } from './installment-data-loader/installm
     PurchaseService,
     PurchaseProductsService,
     InstallmentsService,
-    InstallmentDataLoaderService,
   ],
   exports: [
     UsersService,

@@ -1,4 +1,4 @@
-import { InstallmentDataLoaders } from '../services/installment-data-loader/types/installment.data-loader';
+import { InstallmentDataLoaders } from './installment-data-loader/types/installment.data-loader';
 import { CommentDataLoader } from './comment-data-loader/types/comment.data-loader';
 import { ContactInfoDataLoader } from './contact-info-data-loader/types/contact-info.data-loader';
 import { CustomerDataLoader } from './customer-data-loader/types/customer.data-loader';

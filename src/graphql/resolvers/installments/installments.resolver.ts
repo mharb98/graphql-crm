@@ -13,7 +13,7 @@ import { BaseResolver } from '../base.resolver';
 import { InstallmentsService } from '../../../services/installments/installments.service';
 import { CreateInstallmentDTO } from './types/create-installment.dto';
 import { UpdateInstallmentDTO } from './types/update-installment.dto';
-import { InstallmentDataLoaders } from '../../../services/installment-data-loader/types/installment.data-loader';
+import { InstallmentDataLoaders } from '../../../dataloader/installment-data-loader/types/installment.data-loader';
 
 @Resolver(() => InstallmentEntity)
 export class InstallmentsResolver extends BaseResolver(InstallmentEntity) {
