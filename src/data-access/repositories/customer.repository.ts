@@ -58,6 +58,6 @@ export class CustomersRepository {
     const { ids } = query;
     return await this.dataSource
       .getRepository(CustomerEntity)
-      .find({ where: { id: In(ids) }, relations: { salesAgent: true } });
+      .find({ where: { id: In(ids) }, relations: relations });
   }
 }

@@ -109,19 +109,15 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
   }
 
   @ResolveField()
-  async purchases() {
-    return [
-      {
-        totalPrice: 100.5,
-        taxes: 23.4,
-        totalDiscount: 10.2,
-      },
-      {
-        totalPrice: 230.2,
-        taxes: 50.0,
-        totalDiscount: 19.2,
-      },
-    ];
+  async purchases(
+    @Parent() customer: CustomerEntity,
+    @Context()
+    { customerDataLoaders }: { customerDataLoaders: CustomerDataLoader },
+  ) {
+    const { id } = customer;
+    const { purchasesLoader } = customerDataLoaders;
+
+    return await purchasesLoader.load(id);
   }
 
   @ResolveField()

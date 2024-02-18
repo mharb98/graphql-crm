@@ -54,7 +54,9 @@ export class UsersService {
       {
         ids: customerIds,
       },
-      {},
+      {
+        salesAgent: true,
+      },
     );
 
     const mappedResults = this.mapUsersToCustomerIds(customerIds, customers);

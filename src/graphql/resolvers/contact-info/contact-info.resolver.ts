@@ -101,12 +101,5 @@ export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
     const { id } = contactInfo;
     const { customersDataLoader } = contactInfoDataLoaders;
     return await customersDataLoader.load(id);
-    // return {
-    //   id: 1,
-    //   firstName: 'Marwan',
-    //   lastName: 'Salah',
-    //   createdAt: new Date(),
-    //   updatedAt: new Date(),
-    // };
   }
 }

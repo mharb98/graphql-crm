@@ -7,6 +7,8 @@ import { CommentEntity } from '../../data-access/entities/comments.entity';
 import { ContactInfoEntity } from '../../data-access/entities/contact-info.entity';
 import { CommentsService } from '../../services/comments/comments.service';
 import { ContactInfoService } from '../../services/contact-info/contact-info.service';
+import { PurchaseEntity } from '../../data-access/entities/purchase.entity';
+import { PurchaseService } from '../../services/purchase/purchase.service';
 
 @Injectable()
 export class CustomerDataLoaderService {
@@ -14,17 +16,20 @@ export class CustomerDataLoaderService {
     private readonly usersService: UsersService,
     private readonly commentsService: CommentsService,
     private readonly contactInfoService: ContactInfoService,
+    private readonly purchaseService: PurchaseService,
   ) {}
 
   getLoaders(): CustomerDataLoader {
     const salesAgentsLoader = this.createSalesAgentsLoader();
     const commentsLoader = this.createCommentsLoader();
     const contactInfoLoader = this.createContactInfoLoader();
+    const purchasesLoader = this.createPurchasesLoader();
 
     return {
       salesAgentsLoader,
       commentsLoader,
       contactInfoLoader,
+      purchasesLoader,
     };
   }
 
@@ -46,6 +51,13 @@ export class CustomerDataLoaderService {
     return new DataLoader<number, ContactInfoEntity[]>(
       async (keys: readonly number[]) =>
         await this.contactInfoService.getCustomersContactInfo(keys as number[]),
+    );
+  }
+
+  private createPurchasesLoader() {
+    return new DataLoader<number, PurchaseEntity[]>(
+      async (keys: readonly number[]) =>
+        await this.purchaseService.getCustomerPurchases(keys as number[]),
     );
   }
 }

@@ -125,4 +125,16 @@ export class PurchaseService {
       );
     });
   }
+
+  async getCustomerPurchases(customerIds: number[]): Promise<any> {
+    const customers = await this.customerRepository.listAll(
+      { ids: customerIds },
+      { purchases: true },
+    );
+    return customerIds.map((customerId) => {
+      return (
+        customers.find((customer) => customer.id === customerId).purchases || []
+      );
+    });
+  }
 }
