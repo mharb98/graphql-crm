@@ -9,6 +9,7 @@ import { StatusService } from './status/status.service';
 import { PurchaseService } from './purchase/purchase.service';
 import { PurchaseProductsService } from './purchase-products/purchase-products.service';
 import { InstallmentsService } from './installments/installments.service';
+import { StatusUpdateService } from './status-update/status-update.service';
 
 @Module({
   imports: [DataAccessModule],
@@ -22,6 +23,7 @@ import { InstallmentsService } from './installments/installments.service';
     PurchaseService,
     PurchaseProductsService,
     InstallmentsService,
+    StatusUpdateService,
   ],
   exports: [
     UsersService,
@@ -33,6 +35,7 @@ import { InstallmentsService } from './installments/installments.service';
     PurchaseService,
     PurchaseProductsService,
     InstallmentsService,
+    StatusUpdateService,
   ],
 })
 export class ServicesModule {}

@@ -103,4 +103,10 @@ export class CustomersService {
       return comments.find((comment) => comment.id === id).customer || null;
     });
   }
+
+  async getStatusUpdatesCustomers(
+    statusUpdatesIds: number[],
+  ): Promise<CustomerEntity[][]> {
+    return [];
+  }
 }

@@ -7,6 +7,7 @@ import { ProductDataLoaderService } from './product-data-loader/product-data-loa
 import { PurchaseProductDataLoaderService } from './purchase-product-data-loader/purchase-product-data-loader.service';
 import { InstallmentDataLoaderService } from './installment-data-loader/installment-data-loader.service';
 import { CommentDataLoaderService } from './comment-data-loader/comment-data-loader.service';
+import { StatusUpdateDataLoaderService } from './status-update-data-loader/status-update-data-loader.service';
 
 @Injectable()
 export class DataloaderService {
@@ -18,6 +19,7 @@ export class DataloaderService {
     private readonly purchaseProductDataLoaderService: PurchaseProductDataLoaderService,
     private readonly installmentDataLoaderService: InstallmentDataLoaderService,
     private readonly commentDataLoaderService: CommentDataLoaderService,
+    private readonly statusUpdateDataLoaderService: StatusUpdateDataLoaderService,
   ) {}
 
   getLoaders(): IDataloaders {
@@ -31,6 +33,8 @@ export class DataloaderService {
       installmentDataLoaders:
         this.installmentDataLoaderService.getDataLoaders(),
       commentDataLoaders: this.commentDataLoaderService.getDataLoaders(),
+      statusUpdateDataLoaders:
+        this.statusUpdateDataLoaderService.getDataLoaders(),
     };
   }
 }

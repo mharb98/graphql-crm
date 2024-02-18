@@ -8,6 +8,7 @@ import { ProductDataLoaderService } from './product-data-loader/product-data-loa
 import { PurchaseProductDataLoaderService } from './purchase-product-data-loader/purchase-product-data-loader.service';
 import { InstallmentDataLoaderService } from './installment-data-loader/installment-data-loader.service';
 import { CommentDataLoaderService } from './comment-data-loader/comment-data-loader.service';
+import { StatusUpdateDataLoaderService } from './status-update-data-loader/status-update-data-loader.service';
 
 @Module({
   imports: [ServicesModule],
@@ -20,6 +21,7 @@ import { CommentDataLoaderService } from './comment-data-loader/comment-data-loa
     PurchaseProductDataLoaderService,
     InstallmentDataLoaderService,
     CommentDataLoaderService,
+    StatusUpdateDataLoaderService,
   ],
   exports: [
     DataloaderService,

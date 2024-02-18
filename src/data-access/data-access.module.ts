@@ -8,6 +8,7 @@ import { StatusRepository } from './repositories/status.repository';
 import { PurchaseRepository } from './repositories/purchase.repository';
 import { PurchaseProductRepository } from './repositories/purchase-product.repository';
 import { InstallmentsRepository } from './repositories/installments.repository';
+import { StatusUpdateRepository } from './repositories/status-update.repository';
 
 @Module({
   imports: [],
@@ -21,6 +22,7 @@ import { InstallmentsRepository } from './repositories/installments.repository';
     PurchaseRepository,
     PurchaseProductRepository,
     InstallmentsRepository,
+    StatusUpdateRepository,
   ],
   exports: [
     CustomersRepository,
@@ -32,6 +34,7 @@ import { InstallmentsRepository } from './repositories/installments.repository';
     PurchaseRepository,
     PurchaseProductRepository,
     InstallmentsRepository,
+    StatusUpdateRepository,
   ],
 })
 export class DataAccessModule {}

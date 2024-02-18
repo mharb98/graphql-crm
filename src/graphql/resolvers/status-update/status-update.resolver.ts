@@ -1,11 +1,24 @@
-import { ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
 import { StatusUpdateEntity } from '../../../data-access/entities/status-update.entity';
 import { BaseResolver } from '../base.resolver';
+import { CreateStatusUpdateDTO } from './types/create-status-update.dto';
+import { StatusUpdateService } from '../../../services/status-update/status-update.service';
 
 @Resolver(() => StatusUpdateEntity)
 export class StatusUpdateResolver extends BaseResolver(StatusUpdateEntity) {
-  constructor() {
+  constructor(private readonly statusUpdateService: StatusUpdateService) {
     super();
+  }
+
+  @Mutation(() => StatusUpdateEntity, {
+    description: 'Update the status of a customer with a comment attached',
+  })
+  async createStatusUpdate(
+    @Args('CreateStatusUpdateDTO') createStatusUpdateDto: CreateStatusUpdateDTO,
+  ): Promise<StatusUpdateEntity> {
+    return await this.statusUpdateService.createStatusUpdate(
+      createStatusUpdateDto,
+    );
   }
 
   @ResolveField()

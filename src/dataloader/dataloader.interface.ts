@@ -5,6 +5,7 @@ import { CustomerDataLoader } from './customer-data-loader/types/customer.data-l
 import { ProductDataLoader } from './product-data-loader/types/product.data-loader';
 import { PurchaseDataLoader } from './purchase-data-loader/types/purchase.data-loader';
 import { PurchaseProductDataLoader } from './purchase-product-data-loader/types/purchase-product.data-loader';
+import { StatusUpdateDataLoader } from './status-update-data-loader/types/status-update.data-loader';
 
 export interface IDataloaders {
   customerDataLoaders: CustomerDataLoader;
@@ -14,4 +15,5 @@ export interface IDataloaders {
   purchaseProductDataLoaders: PurchaseProductDataLoader;
   installmentDataLoaders: InstallmentDataLoaders;
   commentDataLoaders: CommentDataLoader;
+  statusUpdateDataLoaders: StatusUpdateDataLoader;
 }
