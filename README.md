@@ -33,9 +33,12 @@ Welcome to the CRM (Customer Relationship Management) system designed to streaml
 4. Passport for Authentication and Authorization  
 3. Docker 
 
-## Architecture & ERD
+## Docs
 
 #### ERD
 
 ![ERD](/docs/GraphQL%20CRM%20ERD.png "ERD")
 
+## Setup
+
+#### docker-compose to be added
