@@ -82,8 +82,12 @@ export class InstallmentsService {
     return await this.installmentsRepository.findOne(id);
   }
 
-  async deleteInstallment(id: number): Promise<void> {
+  async deleteInstallment(id: number): Promise<InstallmentEntity> {
+    const installment = await this.installmentsRepository.findOne(id);
+
     await this.installmentsRepository.deleteInstallment(id);
+
+    return installment;
   }
 
   async markPaid(id: number): Promise<InstallmentEntity> {

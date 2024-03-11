@@ -63,6 +63,19 @@ export class InstallmentsResolver extends BaseResolver(InstallmentEntity) {
   }
 
   @Mutation(() => InstallmentEntity, {
+    description: 'Deletes an installment',
+  })
+  async deleteInstallment(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the installment to be updated',
+    })
+    id: number,
+  ) {
+    return await this.installmentService.deleteInstallment(id);
+  }
+
+  @Mutation(() => InstallmentEntity, {
     description: 'Marks an installment as paid',
   })
   async markPaid(

@@ -89,6 +89,20 @@ export class ProductResolver extends BaseResolver(ProductEntity) {
     return await this.productService.updateProduct(id, updateProductDto);
   }
 
+  @Mutation(() => ProductEntity, {
+    name: 'deleteProduct',
+    description: 'Deletes and returns a product',
+  })
+  async deleteProduct(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the product to be deleted',
+    })
+    id: number,
+  ) {
+    return await this.productService.deleteProduct(id);
+  }
+
   @ResolveField()
   async purchases(
     @Parent() product: ProductEntity,
