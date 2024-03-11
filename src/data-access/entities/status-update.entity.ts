@@ -50,6 +50,7 @@ export class StatusUpdateEntity extends BaseEntity {
 
   @ManyToOne(() => CustomerEntity, (customer) => customer.statusUpdates, {
     nullable: false,
+    onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'customer_id' })
   @Field(() => CustomerEntity, {

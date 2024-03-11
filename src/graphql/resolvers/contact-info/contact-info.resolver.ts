@@ -58,7 +58,7 @@ export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
   async updateContactInfo(
     @Args('id', {
       type: () => Int,
-      description: 'ID of contact info to be deleted',
+      description: 'ID of contact info to be updated',
     })
     id: number,
     @Args('updateContactInfoDto') updateContactInfoDto: UpdateContactInfoDTO,
@@ -79,15 +79,7 @@ export class ContactInfoResolver extends BaseResolver(ContactInfoEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      id,
-      type: 'email',
-      value: 'example@exampledomain.com',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.contactInfoService.deleteContactInfo(id);
   }
 
   @ResolveField()

@@ -29,10 +29,14 @@ export class ContactInfoRepository {
       .update({ id }, updateContactInfoDto);
   }
 
-  async findOne(customerId: number): Promise<ContactInfoEntity> {
+  async findOne(id: number): Promise<ContactInfoEntity> {
     return await this.dataSource
       .getRepository(ContactInfoEntity)
-      .findOneByOrFail({ id: customerId });
+      .findOneByOrFail({ id });
+  }
+
+  async deleteOne(id: number): Promise<void> {
+    await this.dataSource.getTreeRepository(ContactInfoEntity).delete(id);
   }
 
   async listAll(

@@ -15,9 +15,10 @@ export class ContactInfoEntity extends BaseEntity {
 
   @ManyToOne(() => CustomerEntity, (customer) => customer.contactInfo, {
     nullable: true,
+    onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'customer_id' })
-  @Field((type) => CustomerEntity, {
+  @Field(() => CustomerEntity, {
     description: 'The customer that owns the contact info',
   })
   customer: CustomerEntity;

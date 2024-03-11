@@ -54,11 +54,11 @@ export class CustomersService {
   }
 
   async deleteCustomer(customerId: number) {
-    try {
-      await this.customersRepository.delete(customerId);
-    } catch (error) {
-      throw new InternalServerErrorException('Failed to delete customer');
-    }
+    const customer = await this.customersRepository.findOne(customerId);
+
+    await this.customersRepository.delete(customerId);
+
+    return customer;
   }
 
   async getContactInfoCustomers(contactInfoIds: number[]): Promise<any> {

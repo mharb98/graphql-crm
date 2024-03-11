@@ -37,6 +37,14 @@ export class ContactInfoService {
     return await this.contactInfoRepository.findOne(contactInfoId);
   }
 
+  async deleteContactInfo(contactInfoId: number): Promise<ContactInfoEntity> {
+    const contactInfo = await this.contactInfoRepository.findOne(contactInfoId);
+
+    await this.contactInfoRepository.deleteOne(contactInfoId);
+
+    return contactInfo;
+  }
+
   async getCustomersContactInfo(customerIds: number[]): Promise<any> {
     const contactInfo: ContactInfoEntity[] =
       await this.contactInfoRepository.listAll(

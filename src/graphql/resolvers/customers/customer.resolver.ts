@@ -83,7 +83,7 @@ export class CustomerResolver extends BaseResolver(CustomerEntity) {
     })
     id: number,
   ) {
-    await this.customersService.deleteCustomer(id);
+    return await this.customersService.deleteCustomer(id);
   }
 
   @ResolveField()
