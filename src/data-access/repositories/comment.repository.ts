@@ -22,6 +22,10 @@ export class CommentsRepository {
       .insert(createCommentDto);
   }
 
+  async delete(id: number): Promise<void> {
+    await this.dataSource.getRepository(CommentEntity).delete(id);
+  }
+
   async listAll(
     query: ListAllComments,
     relations: FindOptionsRelations<CommentEntity>,

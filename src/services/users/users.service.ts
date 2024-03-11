@@ -48,6 +48,14 @@ export class UsersService {
     return await this.usersRepository.findOne(userId);
   }
 
+  async deleteUser(id: number): Promise<UserEntity> {
+    const user = await this.usersRepository.findOne(id);
+
+    await this.usersRepository.deleteUser(id);
+
+    return user;
+  }
+
   async findOne(userId: number): Promise<UserEntity> {
     return await this.usersRepository.findOne(userId);
   }

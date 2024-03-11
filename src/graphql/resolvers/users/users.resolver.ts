@@ -113,19 +113,7 @@ export class UserResolver extends BaseResolver(UserEntity) {
     @Args('id', { type: () => Int, description: 'ID of user being deleted' })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      id: 1,
-      firstName: 'Marwan',
-      middleName: 'Salah',
-      lastName: 'Harb',
-      email: 'marwanharb65@outlook.com',
-      phoneNumber: '+201013747167',
-      banned: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return await this.userService.deleteUser(id);
   }
 
   @ResolveField()
@@ -145,36 +133,6 @@ export class UserResolver extends BaseResolver(UserEntity) {
         id: 3,
         firstName: 'Zeyad',
         lastName: 'Salah',
-      },
-    ];
-  }
-
-  @ResolveField()
-  async comments() {
-    return [
-      {
-        comment: 'Comment 1',
-      },
-      {
-        comment: 'Comment 2',
-      },
-    ];
-  }
-
-  @ResolveField()
-  async statusUpdates() {
-    return [
-      {
-        comment: 'Status Update 1',
-        status: {
-          name: 'Status 1',
-        },
-      },
-      {
-        comment: 'Status Update 2',
-        status: {
-          name: 'Status 2',
-        },
       },
     ];
   }

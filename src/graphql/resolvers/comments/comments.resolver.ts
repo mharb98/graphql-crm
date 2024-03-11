@@ -61,11 +61,7 @@ export class CommentsResolver extends BaseResolver(CommentEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-    return {
-      id: 1,
-      comment: 'Comment 1',
-    };
+    return await this.commentsService.deleteComment(id);
   }
 
   @ResolveField()

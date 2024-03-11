@@ -23,6 +23,14 @@ export class CommentsService {
     return await this.commentsRepository.findOne(result.identifiers[0].id);
   }
 
+  public async deleteComment(id: number): Promise<CommentEntity> {
+    const comment = await this.commentsRepository.findOne(id);
+
+    await this.commentsRepository.delete(id);
+
+    return comment;
+  }
+
   public async getCustomersComments(customerIds: number[]): Promise<any> {
     const comments: CommentEntity[] = await this.commentsRepository.listAll(
       {

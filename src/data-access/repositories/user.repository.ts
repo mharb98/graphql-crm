@@ -58,4 +58,8 @@ export class UserRepository {
       },
     });
   }
+
+  async deleteUser(id: number): Promise<void> {
+    await this.dataSource.getRepository(UserEntity).delete({ id });
+  }
 }

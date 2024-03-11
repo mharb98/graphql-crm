@@ -69,15 +69,9 @@ export class UserEntity extends BaseEntity {
   customers: CustomerEntity[];
 
   @OneToMany(() => CommentEntity, (comment) => comment.user)
-  @Field(() => [CommentEntity], {
-    description: 'The comments that are added to a specific customer by a user',
-  })
   comments: CommentEntity[];
 
   @OneToMany(() => StatusUpdateEntity, (statusUpdate) => statusUpdate.user)
-  @Field(() => [StatusUpdateEntity], {
-    description: 'The status updates that are applied on a customer by a user',
-  })
   statusUpdates: StatusUpdateEntity[];
 
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.salesAgent)
