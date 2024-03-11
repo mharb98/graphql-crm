@@ -43,4 +43,15 @@ export class StatusResolver extends BaseResolver(StatusEntity) {
   ) {
     return await this.statusService.updateStatus(id, updateStatusDto);
   }
+
+  @Mutation(() => StatusEntity, { description: 'Updates a new status' })
+  async deleteStatus(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the status to be returned',
+    })
+    id: number,
+  ) {
+    return await this.statusService.deleteStatus(id);
+  }
 }

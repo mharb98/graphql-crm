@@ -1,4 +1,4 @@
-import { Args, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
 import { StatusUpdateEntity } from '../../../data-access/entities/status-update.entity';
 import { BaseResolver } from '../base.resolver';
 import { CreateStatusUpdateDTO } from './types/create-status-update.dto';
@@ -19,6 +19,19 @@ export class StatusUpdateResolver extends BaseResolver(StatusUpdateEntity) {
     return await this.statusUpdateService.createStatusUpdate(
       createStatusUpdateDto,
     );
+  }
+
+  @Mutation(() => StatusUpdateEntity, {
+    description: 'Deletes an existing status update',
+  })
+  async deleteStatusUpdate(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the status update to be deleted',
+    })
+    id: number,
+  ): Promise<StatusUpdateEntity> {
+    return await this.statusUpdateService.deleteStatusUpdate(id);
   }
 
   @ResolveField()

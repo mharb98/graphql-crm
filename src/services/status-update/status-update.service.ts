@@ -20,7 +20,11 @@ export class StatusUpdateService {
     return await this.statusUpdateRepository.findOne(result.identifiers[0].id);
   }
 
-  async deleteStatusUpdate(id: number): Promise<void> {
+  async deleteStatusUpdate(id: number): Promise<StatusUpdateEntity> {
+    const statusUpdate = await this.statusUpdateRepository.findOne(id);
+
     await this.statusUpdateRepository.deleteStatusUpdate(id);
+
+    return statusUpdate;
   }
 }
