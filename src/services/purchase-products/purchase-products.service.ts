@@ -116,6 +116,14 @@ export class PurchaseProductsService {
     return await this.purchaseProductRepository.findOne(id);
   }
 
+  async deletePurchaseProduct(id: number): Promise<PurchaseProductEntity> {
+    const purchaseProduct = await this.purchaseProductRepository.findOne(id);
+
+    await this.purchaseProductRepository.deletePurchaseProduct(id);
+
+    return purchaseProduct;
+  }
+
   async getPurchaseProducts(purchaseIds: number[]): Promise<any> {
     const purchaseProducts = await this.purchaseProductRepository.listAll(
       {

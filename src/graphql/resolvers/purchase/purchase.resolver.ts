@@ -57,13 +57,7 @@ export class PurchaseResolver extends BaseResolver(PurchaseEntity) {
     })
     id: number,
   ) {
-    console.log(id);
-
-    return {
-      totalPrice: 340,
-      taxes: 23.5,
-      totalDiscount: 19.5,
-    };
+    return await this.purchaseService.deletePurchase(id);
   }
 
   @ResolveField()

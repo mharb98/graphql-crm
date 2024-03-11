@@ -54,6 +54,19 @@ export class PurchaseProductResolver extends BaseResolver(
     );
   }
 
+  @Mutation(() => PurchaseProductEntity, {
+    description: 'Delete a purchase product by id',
+  })
+  async deletePurchaseProduct(
+    @Args('id', {
+      type: () => Int,
+      description: 'ID of the purchase product to be deleted',
+    })
+    id: number,
+  ): Promise<PurchaseProductEntity> {
+    return await this.purchaseProductService.deletePurchaseProduct(id);
+  }
+
   @ResolveField()
   async product(
     @Parent() purchaseProduct: PurchaseProductEntity,
@@ -64,6 +77,7 @@ export class PurchaseProductResolver extends BaseResolver(
   ) {
     const { id } = purchaseProduct;
     const { productDataLoader } = purchaseProductDataLoaders;
+
     return await productDataLoader.load(id);
   }
 

@@ -7,6 +7,7 @@ export class UpdatePurchaseProductDTO {
 
   @Field(() => Float, {
     description: 'Discount applied for a specific purchase product',
+    nullable: true,
   })
   discount?: number;
 }
