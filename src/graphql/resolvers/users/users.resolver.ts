@@ -32,37 +32,7 @@ export class UserResolver extends BaseResolver(UserEntity) {
     return await this.userService.findOne(id);
   }
 
-  @Query(() => [UserEntity], {
-    name: 'QueryUsers',
-    description: 'Query users model and returns a paginated users result',
-  })
-  async queryUsers() {
-    return [
-      {
-        id: 1,
-        firstName: 'Marwan',
-        middleName: 'Salah',
-        lastName: 'Harb',
-        email: 'marwanharb65@outlook.com',
-        phoneNumber: '+201013747167',
-        banned: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: 2,
-        firstName: 'Mohamed',
-        middleName: 'Ahmed',
-        lastName: 'Mahmoud',
-        email: 'mohamed.ahmed@outlook.com',
-        phoneNumber: '+201004611977',
-        banned: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
-  }
-
+  
   @Mutation(() => UserEntity, { description: 'Creates a user record' })
   async createUser(@Args('createUserDTO') createUserDto: CreateUserDTO) {
     return await this.userService.createUser(createUserDto);

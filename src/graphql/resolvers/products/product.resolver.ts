@@ -35,35 +35,6 @@ export class ProductResolver extends BaseResolver(ProductEntity) {
     return await this.productService.findOne(id);
   }
 
-  @Query(() => [ProductEntity], {
-    name: 'QueryProducts',
-    description: 'Returns a list of paginated products',
-  })
-  async queryProducts() {
-    return [
-      {
-        id: 1,
-        name: 'Flash Light',
-        description: 'Light your way in the darkness',
-        price: 100,
-        stock: 3,
-        rating: 4.5,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: 2,
-        name: 'Night Lamp',
-        description: 'Light your way in the bedroom',
-        price: 150,
-        stock: 7,
-        rating: 4.2,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
-  }
-
   @Mutation(() => ProductEntity, {
     name: 'createProduct',
     description: 'Creates and returns a product',
