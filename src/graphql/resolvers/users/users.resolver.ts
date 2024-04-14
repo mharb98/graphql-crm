@@ -86,24 +86,5 @@ export class UserResolver extends BaseResolver(UserEntity) {
     return await this.userService.deleteUser(id);
   }
 
-  @ResolveField()
-  async customers() {
-    return [
-      {
-        id: 1,
-        firstName: 'Marwan',
-        lastName: 'Salah',
-      },
-      {
-        id: 2,
-        firstName: 'Yasseen',
-        lastName: 'Salah',
-      },
-      {
-        id: 3,
-        firstName: 'Zeyad',
-        lastName: 'Salah',
-      },
-    ];
-  }
+  
 }
