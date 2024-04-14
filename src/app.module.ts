@@ -10,6 +10,7 @@ import { ServicesModule } from './services/services.module';
 import { DataloaderModule } from './dataloader/dataloader.module';
 import { DataloaderService } from './dataloader/dataloader.service';
 import { IDataloaders } from './dataloader/dataloader.interface';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { IDataloaders } from './dataloader/dataloader.interface';
       },
       inject: [DataloaderService],
     }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot(dataSourceOptions),
     GraphqlModule,
     DataAccessModule,
