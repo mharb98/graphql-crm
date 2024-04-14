@@ -4,7 +4,7 @@
 
 Welcome to the CRM (Customer Relationship Management) system designed to streamline customer management, sales tracking, and financial monitoring for your business. This comprehensive CRM solution is tailored to efficiently handle various aspects of customer interactions and sales operations.
 
-#### Key Features
+### Key Features
 
 - *Customer Management*
     - Organize and maintain customer profiles with detailed information.
@@ -30,15 +30,21 @@ Welcome to the CRM (Customer Relationship Management) system designed to streaml
 1. Apollo Server
 2. TypeORM with PostgresQL
 3. Dataloader
-4. Passport for Authentication and Authorization  
 3. Docker 
 
 ## Docs
 
-#### ERD
+### ERD
 
 ![ERD](/docs/GraphQL%20CRM%20ERD.png "ERD")
 
+### Demo
+
+> To be Added
+
 ## Setup
 
-#### docker-compose to be added
+`docker compose up -d --build`
+
+> This command will build the image as specified in the Dockerfile, spin up a graphql-crm container, pull the postgres image from docker hub if it doesn't exist on your machine, and spin up a postgresdb container
+
