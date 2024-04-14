@@ -44,7 +44,25 @@ Welcome to the CRM (Customer Relationship Management) system designed to streaml
 
 ## Setup
 
+### Docker
+
+To setup the project using docker, just open a terminal and run the following command
+
 `docker compose up -d --build`
 
 > This command will build the image as specified in the Dockerfile, spin up a graphql-crm container, pull the postgres image from docker hub if it doesn't exist on your machine, and spin up a postgresdb container
 
+### Manual Setup
+
+To setup the project manually, follow these steps
+
+- Create a new postgres database with the name graphql_crm
+- Open a new terminal in the project root director
+- Run npm install
+- Run `export DATABASE_URL=**Your Postgres Database url**` , this is the only env variable required
+- Run `npm run migration:run` to run the migration scripts
+- Run `npm run start:dev` to start the server
+
+## Usage
+
+> To start using the graphql CRM go to http://localhost:3000/graphql to start experimenting in the Apollo Client

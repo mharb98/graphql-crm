@@ -7,9 +7,9 @@ services:
     image: graphql-crm
     container_name: graphql-crm
     environment:
-      - DATABASE_URL=postgres://username:password@postgresdb:5432/graphql_crm
+      - DATABASE_URL=postgres://username:password@postgresdb:5432/graphql_crm 
     ports:
-      - "3001:3000"
+      - "3000:3000"
     volumes:
       - .:/app
     depends_on:
