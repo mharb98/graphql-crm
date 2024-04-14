@@ -4,11 +4,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 export const dataSourceOptions: DataSourceOptions = {
   migrationsTableName: 'migrations',
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: '11071964',
-  database: 'graphql_crm',
+  url: 'postgres://username:password@postgresdb:5432/graphql_crm',
   logging: false,
   synchronize: false,
   name: 'default',

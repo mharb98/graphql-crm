@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  graphql-crm:
+    build: 
+      context: .
+      target: production
+    image: graphql-crm
+    container_name: graphql-crm
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgresdb
+    extra_hosts:
+      - "host.docker.internal:192.168.1.9"
+  postgresdb:
+    image: postgres
+    container_name: postgresdb
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: username
+      POSTGRES_DB: graphql_crm
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
